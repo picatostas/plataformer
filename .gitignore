@@ -1,0 +1,8 @@
+/Debug
+*.vcx*
+/Release
+/.vscode
+*.code*
+*.sdf
+*.sln
+*.suo
