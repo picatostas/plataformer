@@ -1,8 +1,5 @@
 /Debug
-*.vcx*
 /Release
+/Build
 /.vscode
 *.code*
-*.sdf
-*.sln
-*.suo
