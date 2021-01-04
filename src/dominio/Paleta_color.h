@@ -4,8 +4,9 @@ class Paleta_color
 public:
 	Paleta_color(void);
 	~Paleta_color(void);
-//private:
-	unsigned char r,g,b;
+	//private:
+	unsigned char r, g, b;
+
 public:
 	void SetColor();
 	void Pink();
@@ -26,4 +27,3 @@ public:
 	void Gray();
 	void Dark_Gray();
 };
-

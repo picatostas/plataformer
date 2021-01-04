@@ -5,10 +5,18 @@ class CoordinadorJuego
 {
 protected:
 	Mundo mundo;
-	enum Estado{INICIO, JUEGO,GAMEOVER,FIN,PAUSA,CONTROLES};
+	enum Estado
+	{
+		INICIO,
+		JUEGO,
+		GAMEOVER,
+		FIN,
+		PAUSA,
+		CONTROLES
+	};
 	Estado estado;
+
 public:
-	
 	CoordinadorJuego(void);
 	virtual ~CoordinadorJuego(void);
 	void TeclaEspecial(unsigned char key);
@@ -18,6 +26,4 @@ public:
 	void Move();
 	void Draw();
 	friend class Interact;
-
 };
-

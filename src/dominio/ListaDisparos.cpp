@@ -94,7 +94,7 @@ for(int i=0;i<numero;i++)
 		cout<<"disparo para eliminar"<<endl;
 		Eliminar(i);
 		return;
-		
+
 	}
 
 
@@ -106,7 +106,7 @@ Disparo * ListaDisparos::operator[](int i)
 		i=numero-1;
 
 	if (i<0)  // si doy un indice negativo, devuelvo la primera esfera
-		i=0; // de la lista 
+		i=0; // de la lista
 
 return lista[i];
 

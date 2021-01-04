@@ -26,7 +26,6 @@ public:
 private:
 	vector<Esfera*> lista;
 	//Esfera * lista[MAX_ESFERAS];
-	
+
 	//int numero;
 };
-

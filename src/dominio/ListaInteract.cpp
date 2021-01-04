@@ -21,12 +21,12 @@ void ListaInteract::Interact(ListaEsferas &esferas,ListaDisparos &disparos)
 			if(Interact::Colision(*esferas[i],*disparos[j]))
 			{
 				Esfera* e=esferas[i]->Dividir();
-				if(e==0) //no division 
-					esferas.Eliminar(esferas[i]); 
-				else 
+				if(e==0) //no division
+					esferas.Eliminar(esferas[i]);
+				else
 					esferas.Agregar(e);
 					disparos.Eliminar(j);
-			} 
+			}
 		}
 
 }

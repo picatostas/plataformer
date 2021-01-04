@@ -5,15 +5,15 @@
 class Hombre : public ObjetoMovil
 {
 private:
-	float altura,anchura;
+	float altura, anchura;
 	int vidas;
 	bool salto;
-	
+
 public:
 	Paleta_color color;
 	void Draw();
 	void SetG(float g);
-		Hombre(void);
+	Hombre(void);
 	virtual ~Hombre(void);
 	friend class Interact;
 	float GetAltura();
@@ -22,4 +22,3 @@ public:
 	bool GetSalto();
 	void SetSalto(bool sal);
 };
-

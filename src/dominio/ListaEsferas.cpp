@@ -18,13 +18,13 @@ bool ListaEsferas::Agregar ( Esfera *e)
 {
 	lista.push_back(e);
 	return true;
-	
+
 	/*if (lista.size()<MAX_ESFERAS)
 	{
-		
+
 
 				lista[lista.size()++]=e;
-		
+
 	}
 	else
 		return false;
@@ -58,17 +58,17 @@ void ListaEsferas::Rebote(Pared plataforma)
 }
 void ListaEsferas::Rebote()
 {
-	
+
 	for(int i=0;i<lista.size();i++)
 		for (int j=i+1;j<lista.size();j++)
 			Interact::Rebote(*(lista[i]),*(lista[j]));
 
-			
+
 }
 
 void ListaEsferas::DestruirContenido()
 {
-	
+
 	for(int i=0;i<lista.size();i++)
 	{
 		ListaEsferas::Eliminar(i);
@@ -100,7 +100,7 @@ for(int i=0;i<lista.size();i++)
 		cout<<"esfera para eliminar"<<endl;
 		Eliminar(i);
 		return;
-		
+
 	}
 
 
@@ -111,7 +111,7 @@ Esfera * ListaEsferas::Colision(Hombre &h)
 	{
 		if (Interact::Colision(*(lista[i]),h))
 			return lista[i];
-		
+
 	}
 	return 0;
 }
@@ -121,7 +121,7 @@ Esfera * ListaEsferas::operator[](int i)
 		i=lista.size()-1;
 
 	if (i<0)  // si doy un indice negativo, devuelvo la primera esfera
-		i=0; // de la lista 
+		i=0; // de la lista
 
 return lista[i];
 

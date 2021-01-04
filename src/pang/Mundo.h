@@ -1,9 +1,9 @@
-#include"dominio\Bonus.h"
-#include"dominio\Caja.h"
-#include"dominio\Disparo.h"
-#include"dominio\Esfera.h"
-#include"dominio\Hombre.h"
-#include"dominio\Pared.h"
+#include "dominio\Bonus.h"
+#include "dominio\Caja.h"
+#include "dominio\Disparo.h"
+#include "dominio\Esfera.h"
+#include "dominio\Hombre.h"
+#include "dominio\Pared.h"
 #include "dominio\ListaEsferas.h"
 #include "dominio\ListaDisparos.h"
 #include "dominio\ListaPlataformas.h"
@@ -17,7 +17,7 @@ private:
 	int nivel;
 	bool nivelterminado;
 	//bool salto;
-public: 
+public:
 	bool salto;
 	Mundo();
 	void Inicializa();
@@ -39,7 +39,7 @@ public:
 	Bonus bonus;
 	Caja caja;
 	puertaNivel puerta;
-//	EsferaPulsante esf_puls;
+	//	EsferaPulsante esf_puls;
 	DisparoEspecial dispowa;
 
 	void TeclaEspecial(unsigned char key);
@@ -47,6 +47,4 @@ public:
 	void TeclaUp(unsigned char key);
 	void Tecla(unsigned char key);
 	bool SetLevel();
-	
-
 };

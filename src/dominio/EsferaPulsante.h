@@ -3,14 +3,13 @@
 class EsferaPulsante : public Esfera
 {
 private:
-	float rad_min,rad_max,pulso;
+	float rad_min, rad_max, pulso;
+
 public:
-	EsferaPulsante(float px,float py);
+	EsferaPulsante(float px, float py);
 	void Move(float t);
-	Esfera * Dividir();
+	Esfera *Dividir();
 	EsferaPulsante();
 	~EsferaPulsante(void);
 	void SetPulso(float t);
-
 };
-

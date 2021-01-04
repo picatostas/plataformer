@@ -22,7 +22,7 @@ public:
 	static void Colision(Hombre &h, Pared p);
 	static bool Colision(Esfera e,Hombre h);
 	static bool Colision(Disparo d, Pared p);
-	static bool Colision(Disparo d,Caja c); 
+	static bool Colision(Disparo d,Caja c);
 	static bool Colision(Esfera e, Disparo d);
 	static bool Colision(Hombre &h, puertaNivel p);
 	static void Colision(Hombre &h, Bonus &b);
