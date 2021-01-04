@@ -1,5 +1,5 @@
 #pragma once
-#include "comun\Vector2D.h"
+#include "Vector2D.h"
 class ObjetoMovil
 {
 protected:

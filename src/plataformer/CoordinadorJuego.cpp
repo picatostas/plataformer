@@ -1,5 +1,5 @@
 #include "CoordinadorJuego.h"
-#include "dominio\OpenGL.h"
+#include "OpenGL.h"
 #include "glut.h"
 #include <Windows.h>
 CoordinadorJuego::CoordinadorJuego(void)
@@ -17,10 +17,10 @@ void CoordinadorJuego::Draw()
 {
 	if (estado == INICIO)
 	{
-		OpenGL::Print("PLATAFORMER", 300, 100, 255, 255, 255);
-		OpenGL::Print("Presione -E- para comenzar a jugar", 320, 300, 5, 255, 255);
-		OpenGL::Print("Presione -O- para ver las opciones", 320, 325, 130, 100, 255);
-		OpenGL::Print("Presione -S- para salir", 320, 350, 0, 100, 255);
+		OpenGL::Print((char *)"PLATAFORMER", 300, 100, 255, 255, 255);
+		OpenGL::Print((char *)"Presione -E- para comenzar a jugar", 320, 300, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -O- para ver las opciones", 320, 325, 130, 100, 255);
+		OpenGL::Print((char *)"Presione -S- para salir", 320, 350, 0, 100, 255);
 		//PlaySound(TEXT("OPEN.mp3"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC);
 	}
 	else if (estado == JUEGO)
@@ -31,10 +31,10 @@ void CoordinadorJuego::Draw()
 	else if (estado == GAMEOVER)
 	{
 		mundo.Draw();
-		OpenGL::Print("   HAS PERDIDO         ", 300, 200, 255, 0, 0);
-		OpenGL::Print("TE QUEDASTE SIN VIDAS", 300, 250, 255, 0, 255);
-		OpenGL::Print("Presione -C- para volver a jugar, si tienes agallas", 200, 300, 5, 255, 255);
-		OpenGL::Print("Presione -S- para salir, gallina", 270, 350, 0, 100, 255);
+		OpenGL::Print((char *)"   HAS PERDIDO         ", 300, 200, 255, 0, 0);
+		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 250, 255, 0, 255);
+		OpenGL::Print((char *)"Presione -C- para volver a jugar, si tienes agallas", 200, 300, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 350, 0, 100, 255);
 
 		glEnable(GL_LIGHTING);
 	}
@@ -42,26 +42,26 @@ void CoordinadorJuego::Draw()
 	{
 		mundo.Draw();
 
-		OpenGL::Print("ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
-		OpenGL::Print("Pulsa -C- para continuar", 300, 250, 255, 255, 255);
-		OpenGL::Print("Presione -S- para salir", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Pulsa -C- para continuar", 300, 250, 255, 255, 255);
+		OpenGL::Print((char *)"Presione -S- para salir", 300, 300, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
 	{
 		mundo.Draw();
-		OpenGL::Print("PAUSA", 370, 250, 255, 255, 0);
-		OpenGL::Print("Presione -C- para continuar", 300, 300, 255, 255, 0);
+		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
+		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == CONTROLES)
 	{
-		OpenGL::Print("CONROLES", 250, 200, 218, 165, 32);
-		OpenGL::Print("Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
-		OpenGL::Print("Salto -W-", 300, 300, 0, 100, 255);
-		OpenGL::Print("Disparo -Espacio-", 300, 350, 0, 100, 255);
-		OpenGL::Print("Presione -E- para volver al Men�", 300, 380, 255, 0, 255);
-		OpenGL::Print("Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
+		OpenGL::Print((char *)"CONROLES", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Presione -E- para volver al Men�", 300, 380, 255, 0, 255);
+		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
 	}
 }
 

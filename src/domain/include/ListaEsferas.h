@@ -15,16 +15,17 @@ public:
 	void Rebote();
 	void Rebote(Caja caja);
 	void Rebote(Pared plataforma);
-	bool Agregar (Esfera *e);
+	bool Agregar(Esfera *e);
 	void DestruirContenido();
 	void Eliminar(int index);
 	void Eliminar(Esfera *e);
 	int GetNum();
-	Esfera * Colision(Hombre &e);
-	Esfera * operator [](int i);
+	Esfera *Colision(Hombre &e);
+	Esfera *operator[](int i);
 	friend class ListaInteract;
+
 private:
-	vector<Esfera*> lista;
+	vector<Esfera *> lista;
 	//Esfera * lista[MAX_ESFERAS];
 
 	//int numero;

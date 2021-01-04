@@ -1,6 +1,6 @@
 #include "ListaPlataformas.h"
 #include <iostream>
-#include "pang\Mundo.h"
+#include "Mundo.h"
 
 ListaPlataformas::ListaPlataformas(void)
 {

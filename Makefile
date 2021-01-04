@@ -1,19 +1,20 @@
-CXX := -g++
-CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
-LDFLAGS := -L/usr/lib -lstdc++ -lm
-BUILD := ./Build
-OBJ_DIR := $(BUILD)/objects
-APP_DIR := $(BUILD)/apps
-TARGET := Plataformer
+CXX      := -g++
+#CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
+CXXFLAGS :=
+LDFLAGS  := -L/usr/lib -lstdc++ -lm
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/apps
+TARGET   := plataformer
 INCLUDE := \
-  -Ilib/glut.h \
-  -I$(wildcard src/comun/*.h) \
-  -I$(wildcard src/dominio/*.h) \
-  -I$(wildcard src/plataformer/*.h)
+  -Ilib \
+  -Isrc/common/include \
+  -Isrc/domain/include \
+  -Isrc/plataformer/include
 SRC := \
-  $(wildcard src/comun/*.cpp) \
-  $(wildcard src/dominio/*.cpp) \
-  $(wildcard src/plataformer/*.cpp)
+  $(wildcard src/common/*.cpp) \
+  $(wildcard src/domain/*.cpp) \
+  $(wildcard src/plataformer/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDENCIES := $(OBJECTS:.o=.d)
@@ -21,20 +22,20 @@ DEPENDENCIES := $(OBJECTS:.o=.d)
 all: build $(APP_DIR)/$(TARGET)
 
 $(OBJ_DIR)/%.o: %.cpp
-  @mkdir -p $(@D)
-  $(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -MMD -o $@
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -MMD -o $@
 
 $(APP_DIR)/$(TARGET): $(OBJECTS)
-  @mkdir -p $(@D)
-  $(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
 
 -include $(DEPENDENCIES)
 
 .PHONY: all build clean debug release info
 
 build:
-  @mkdir -p $(APP_DIR)
-  @mkdir -p $(OBJ_DIR)
+	@mkdir -p $(APP_DIR)
+	@mkdir -p $(OBJ_DIR)
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
@@ -43,12 +44,12 @@ release: CXXFLAGS += -O2
 release: all
 
 clean:
-  -@rm -rvf $(OBJ_DIR)/*
-  -@rm -rvf $(APP_DIR)/*
+	-@rm -rvf $(OBJ_DIR)/*
+	-@rm -rvf $(APP_DIR)/*
 
 info:
-  @echo "[*] Application dir: ${APP_DIR}     "
-  @echo "[*] Object dir:      ${OBJ_DIR}     "
-  @echo "[*] Sources:         ${SRC}         "
-  @echo "[*] Objects:         ${OBJECTS}     "
-  @echo "[*] Dependencies:    ${DEPENDENCIES}"
+	@echo "[*] Application dir: ${APP_DIR}     "
+	@echo "[*] Object dir:      ${OBJ_DIR}     "
+	@echo "[*] Sources:         ${SRC}         "
+	@echo "[*] Objects:         ${OBJECTS}     "
+	@echo "[*] Dependencies:    ${DEPENDENCIES}"

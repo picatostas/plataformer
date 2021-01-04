@@ -11,15 +11,6 @@ Vector2D::~Vector2D(void)
 {
 }
 
-Vector2D Vector2D::operator+(Vector2D op)
-{
-	Vector2D resultado;
-
-	resultado.x = x + op.x;
-	resultado.y = y + op.y;
-	return resultado;
-}
-
 Vector2D Vector2D::operator+(float real)
 {
 	Vector2D resultado;
@@ -53,7 +44,7 @@ Vector2D Vector2D::Unitario()
 	return retorno;
 }
 
-Vector2D Vector2D::operator-(Vector2D &v)
+Vector2D Vector2D::operator-(const Vector2D &v)
 {
 	Vector2D res;
 
@@ -62,7 +53,7 @@ Vector2D Vector2D::operator-(Vector2D &v)
 	return res;
 }
 
-Vector2D Vector2D::operator+(Vector2D &v)
+Vector2D Vector2D::operator+(const Vector2D &v)
 {
 	Vector2D res;
 
@@ -71,7 +62,7 @@ Vector2D Vector2D::operator+(Vector2D &v)
 	return res;
 }
 
-float Vector2D::operator*(Vector2D &v)
+float Vector2D::operator*(const Vector2D &v)
 {
 	float res;
 

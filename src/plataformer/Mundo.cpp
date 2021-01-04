@@ -1,9 +1,9 @@
 #include "glut.h"
 #include <math.h>
 #include "Mundo.h"
-#include "dominio\Interact.h"
+#include "ListaInteract.h"
 #include <iostream>
-#include "dominio\EsferaPulsante.h"
+#include "EsferaPulsante.h"
 
 using namespace std;
 

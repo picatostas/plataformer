@@ -1,7 +1,7 @@
 #pragma once
 #define MAX_PLATAFORMAS 30
-#include "dominio\Pared.h"
-//#include "dominio\Interact.h"
+#include "Pared.h"
+//#include "Interact.h"
 #include "Interact.h"
 #include <vector>
 using namespace std;

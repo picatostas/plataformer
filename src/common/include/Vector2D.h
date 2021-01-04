@@ -8,8 +8,6 @@ public:
 	float x;
 	float y;
 
-	Vector2D operator+(Vector2D op);
-
 	Vector2D operator+(float real);
 
 	float modulo();
@@ -18,11 +16,11 @@ public:
 
 	Vector2D Unitario();
 
-	Vector2D operator-(Vector2D &);
+	Vector2D operator-(const Vector2D &);
 
-	Vector2D operator+(Vector2D &);
+	Vector2D operator+(const Vector2D &);
 
-	float operator*(Vector2D &);
+	float operator*(const Vector2D &);
 
 	Vector2D operator*(float);
 };

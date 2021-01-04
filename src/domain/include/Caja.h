@@ -1,6 +1,6 @@
 #pragma once
-#include "comun/Vector2D.h"
-#include "dominio/Pared.h"
+#include "Vector2D.h"
+#include "Pared.h"
 class Caja
 {
 private:
