@@ -13,16 +13,14 @@ public:
 	virtual ~ListaPlataformas(void);
 	bool Agregar(Pared *P);
 	void DestruirContenido();
-	void Eliminar(int index);
+	void Eliminar(unsigned int index);
 	void Eliminar(Pared *p);
 	void Draw();
 	void Colision(Hombre &h);
 	void Colision(Esfera *e);
 	int GetNum();
-	Pared *operator[](int i);
+	Pared *operator[](unsigned int i);
 
 private:
 	vector<Pared *> lista;
-	//Disparo * lista[MAX_PLATAFORMAS];
-	//int numero;
 };

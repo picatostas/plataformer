@@ -5,9 +5,9 @@
 //los callback, funciones que seran llamadas automaticamente por la glut
 //cuando sucedan eventos
 //NO HACE FALTA LLAMARLAS EXPLICITAMENTE
-void OnDraw(void);				      //esta funcion sera llamada para Drawr
-void OnTimer(int value);			      //esta funcion sera llamada cuando transcurra una temporizacion
-void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla
+void OnDraw(void);	 //esta funcion sera llamada para Drawr
+void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
+void OnKeyboardDown(unsigned char key, int x, int y);
 void OnSpecialKeyboardDown(int key, int x, int y);
 void OnKeyboardUp(unsigned char key, int x, int y);
 void OnKeyboardDown(unsigned char key, int x, int y);
@@ -60,18 +60,22 @@ void OnDraw(void)
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
 }
-void OnKeyboardDown(unsigned char key, int x_t, int y_t)
+void OnKeyboardDown(unsigned char key, int x, int y)
 {
 	//poner aqui el c�digo de teclado
+	(void)x;
+	(void)y;
 	juego.TeclaDown(key);
 	//mundo.Tecla(key);
 	juego.Tecla(key);
 	glutPostRedisplay();
 }
 
-void OnKeyboardUp(unsigned char key, int x_t, int y_t)
+void OnKeyboardUp(unsigned char key, int x, int y)
 {
 	//Para la anulacion de velociadades cuando deje de pulsarse el teclado
+	(void)x;
+	(void)y;
 	juego.TeclaUp(key);
 
 	glutPostRedisplay();
@@ -81,6 +85,7 @@ void OnTimer(int value)
 {
 	//poner aqui el c�digo de animacion
 	//mundo.Move();
+	(void)value;
 	juego.Move();
 	//no borrar estas lineas
 	glutTimerFunc(25, OnTimer, 0);
@@ -89,6 +94,8 @@ void OnTimer(int value)
 
 void OnSpecialKeyboardDown(int key, int x, int y)
 {
+	(void)x;
+	(void)y;
 	//mundo.TeclaEspecial(key);
 	//juego.TeclaEspecial(key);
 	juego.TeclaEspecial(key);

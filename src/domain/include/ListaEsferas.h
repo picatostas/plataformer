@@ -17,16 +17,13 @@ public:
 	void Rebote(Pared plataforma);
 	bool Agregar(Esfera *e);
 	void DestruirContenido();
-	void Eliminar(int index);
+	void Eliminar(unsigned int index);
 	void Eliminar(Esfera *e);
 	int GetNum();
 	Esfera *Colision(Hombre &e);
-	Esfera *operator[](int i);
+	Esfera *operator[](unsigned int i);
 	friend class ListaInteract;
 
 private:
 	vector<Esfera *> lista;
-	//Esfera * lista[MAX_ESFERAS];
-
-	//int numero;
 };

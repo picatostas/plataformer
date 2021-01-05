@@ -50,9 +50,9 @@ void Pared::Draw()
 }
 
 //Calculo de distancia de una pared a un punto, adicionalmente
-//se modifica el valor de un vector direccion opcional que contendr�
+//se modifica el valor de un vector direccion opcional que contendra
 //el vector unitario saliente que indica la direccion de la
-//recta m�s corta entre el punto y la pared.
+//recta mas corta entre el punto y la pared.
 float Pared::Distancia(Vector2D punto, Vector2D *direccion)
 {
 	Vector2D u = (punto - limit1);

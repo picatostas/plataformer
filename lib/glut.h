@@ -490,7 +490,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI void APIENTRY __glutInitWithExit(int *argcp, char **argv, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
+	[[maybe_unused]] static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
 	{
 		__glutInitWithExit(argcp, argv, exit);
 	}
@@ -510,7 +510,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateWindowWithExit(const char *title, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
+	[[maybe_unused]] static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
 	{
 		return __glutCreateWindowWithExit(title, exit);
 	}
@@ -559,7 +559,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateMenuWithExit(void(GLUTCALLBACK *func)(int), void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
+	[[maybe_unused]] static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
 	{
 		return __glutCreateMenuWithExit(func, exit);
 	}
