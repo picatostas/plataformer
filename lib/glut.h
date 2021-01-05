@@ -9,6 +9,12 @@
 
 #if defined(_WIN32)
 
+/* Minor modification for MinGW.
+   (see http://www.transmissionzero.co.uk/computing/using-glut-with-mingw/ ) */
+#ifdef __MINGW32__
+#define _STDCALL_SUPPORTED
+#endif
+
 /* GLUT 3.7 now tries to avoid including <windows.h>
    to avoid name space pollution, but Win32's <GL/gl.h>
    needs APIENTRY and WINGDIAPI defined properly. */
@@ -144,8 +150,7 @@ extern "C"
 
 #if defined(_WIN32)
 #ifndef GLUT_BUILDING_LIB
-	//extern _CRTIMP void __cdecl exit(int); con esta da error
-	extern _CRTIMP __declspec(noreturn) void __cdecl exit(int);
+	extern _CRTIMP void __cdecl exit(int);
 #endif
 #else
 /* non-Win32 case. */

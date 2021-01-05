@@ -1,12 +1,12 @@
 #include "CoordinadorJuego.h"
+#include <Windows.h>
+#include <windows.h>
 #include "OpenGL.h"
 #include "glut.h"
-#include <Windows.h>
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	estado = INICIO;
-	PlaySound(TEXT("OPEN.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-	//mundo.Inicializa();
+	// PlaySound(TEXT("OPEN.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 CoordinadorJuego::~CoordinadorJuego(void)
@@ -21,11 +21,9 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"Presione -E- para comenzar a jugar", 320, 300, 5, 255, 255);
 		OpenGL::Print((char *)"Presione -O- para ver las opciones", 320, 325, 130, 100, 255);
 		OpenGL::Print((char *)"Presione -S- para salir", 320, 350, 0, 100, 255);
-		//PlaySound(TEXT("OPEN.mp3"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC);
 	}
 	else if (estado == JUEGO)
 	{
-		//PlaySound(TEXT("JUEGO.mp3"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC );
 		mundo.Draw();
 	}
 	else if (estado == GAMEOVER)
@@ -60,7 +58,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
-		OpenGL::Print((char *)"Presione -E- para volver al Men�", 300, 380, 255, 0, 255);
+		OpenGL::Print((char *)"Presione -E- para volver al Menu", 300, 380, 255, 0, 255);
 		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
 	}
 }
@@ -95,7 +93,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'e')
 		{
-			PlaySound(TEXT("JUEGO.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			// PlaySound(TEXT("./bin/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			mundo.Inicializa();
 			estado = JUEGO;
 		}
@@ -123,7 +121,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			PlaySound(TEXT("OPEN.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			// PlaySound(TEXT("./bin/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			mundo.Inicializa();
 			estado = INICIO;
 		}
@@ -137,7 +135,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			PlaySound(TEXT("OPEN.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			// PlaySound(TEXT("./bin/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		}
 
 		estado = INICIO;
@@ -166,14 +164,14 @@ void CoordinadorJuego::Move()
 {
 	if (estado == JUEGO)
 	{
-		//PlaySound(TEXT("JUEGO.mp3"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC);
+		//PlaySound(TEXT("./bin/JUEGO.wav"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC);
 		mundo.Move();
 		//if(mundo.GetNumEsferas()==0)
 		if (mundo.estadoNivel())
 		{
 			if (!mundo.SetLevel())
 			{
-				PlaySound(TEXT("WON.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+				// PlaySound(TEXT("./bin/WON.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 				estado = FIN;
 			}
 		}
@@ -181,7 +179,7 @@ void CoordinadorJuego::Move()
 		//if(mundo.Impacto())
 		if (mundo.GetVidasHombre() == 0)
 		{
-			PlaySound(TEXT("LOST.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			// PlaySound(TEXT("./bin/LOST.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			estado = GAMEOVER;
 		}
 	}
