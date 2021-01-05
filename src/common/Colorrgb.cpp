@@ -11,15 +11,6 @@ Colorrgb::~Colorrgb(void)
 {
 }
 
-void Colorrgb::Poncolor()
-{
-	rojo = 0;
-	verde = 0;
-	azul = 250;
-
-	glColor3ub(rojo, verde, azul);
-}
-
 void Colorrgb::Pink()
 {
 	glColor3ub(255, 20, 147);

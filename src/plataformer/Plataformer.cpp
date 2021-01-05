@@ -2,10 +2,10 @@
 #include "glut.h"
 #include "CoordinadorJuego.h"
 
-//los callback, funciones que seran llamadas automaticamente por la glut
+//los callback, funciones que seran llamadas automaticamente por glut
 //cuando sucedan eventos
 //NO HACE FALTA LLAMARLAS EXPLICITAMENTE
-void OnDraw(void);	 //esta funcion sera llamada para Drawr
+void OnDraw(void);	 //esta funcion sera llamada para Draw
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
 void OnKeyboardDown(unsigned char key, int x, int y);
 void OnSpecialKeyboardDown(int key, int x, int y);
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 	//	mundo.Inicializa();
 
-	//pasarle el control a GLUT,que llamara a los callbacks
+	//pasarle el control a GLUT, que llamara a los callbacks
 	glutMainLoop();
 
 	return 0;
@@ -55,7 +55,6 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	juego.Draw();
-	//mundo.Draw();
 
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -66,7 +65,6 @@ void OnKeyboardDown(unsigned char key, int x, int y)
 	(void)x;
 	(void)y;
 	juego.TeclaDown(key);
-	//mundo.Tecla(key);
 	juego.Tecla(key);
 	glutPostRedisplay();
 }
@@ -83,8 +81,7 @@ void OnKeyboardUp(unsigned char key, int x, int y)
 
 void OnTimer(int value)
 {
-	//poner aqui el c�digo de animacion
-	//mundo.Move();
+	//poner aqui el codigo de animacion
 	(void)value;
 	juego.Move();
 	//no borrar estas lineas
@@ -96,7 +93,5 @@ void OnSpecialKeyboardDown(int key, int x, int y)
 {
 	(void)x;
 	(void)y;
-	//mundo.TeclaEspecial(key);
-	//juego.TeclaEspecial(key);
 	juego.TeclaEspecial(key);
 }

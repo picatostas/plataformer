@@ -35,7 +35,7 @@ Vector2D Vector2D::Unitario()
 	Vector2D retorno(x, y);
 	float mod = modulo();
 
-	if (mod > 0.00001)
+	if (mod > 0.0f)
 	{
 		retorno.x /= mod;
 		retorno.y /= mod;

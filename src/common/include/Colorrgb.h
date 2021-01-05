@@ -11,8 +11,6 @@ private:
 	unsigned char azul;
 
 public:
-	void Poncolor();
-
 	void Pink();
 
 	void Violet();
