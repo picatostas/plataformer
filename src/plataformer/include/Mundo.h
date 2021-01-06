@@ -16,7 +16,7 @@ private:
 	bool impacto;
 	int nivel;
 	bool nivelterminado;
-	//bool salto;
+
 public:
 	bool salto;
 	Mundo();

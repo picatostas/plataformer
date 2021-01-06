@@ -38,11 +38,8 @@ void Mundo::Draw()
 	esferas.Draw();
 	plataformas.Draw();
 	disparos.Draw();
-	if (nivel <= 3)
-	{
-		puerta.Draw();
-		bonus.Draw();
-	}
+	puerta.Draw();
+
 	glDisable(GL_LIGHTING);
 
 	glBegin(GL_POLYGON);
@@ -105,7 +102,6 @@ void Mundo::Inicializa()
 {
 	hombre.SetVidas(3);
 	hombre.SetVel(0, 0);
-	puerta.color.Pink();
 	impacto = false;
 	x_ojo = 0;
 	y_ojo = 7.5;

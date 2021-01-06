@@ -14,7 +14,6 @@ void ListaInteract::Interact(ListaEsferas &esferas, ListaDisparos &disparos)
 {
 
 	for (int i = esferas.GetNum() - 1; i >= 0; i--)
-		//for(int j=disparos.GetNum()-1;j>=0;j--)
 		for (int j = 0; j < disparos.GetNum(); j++)
 		{
 			if (Interact::Colision(*esferas[i], *disparos[j]))

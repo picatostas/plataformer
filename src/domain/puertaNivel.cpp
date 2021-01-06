@@ -8,6 +8,7 @@ puertaNivel::puertaNivel(float x1, float y1, float x2, float y2, float z1)
 	limit2.x = x2;
 	limit2.y = y2;
 	z = z1;
+	color.Pink();
 }
 puertaNivel::puertaNivel(void)
 {

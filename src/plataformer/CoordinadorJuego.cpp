@@ -42,10 +42,10 @@ void CoordinadorJuego::Draw()
 	else if (estado == FIN)
 	{
 		mundo.Draw();
-
 		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Pulsa -C- para continuar", 300, 250, 255, 255, 255);
-		OpenGL::Print((char *)"Presione -S- para salir", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 300, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
@@ -142,22 +142,28 @@ void CoordinadorJuego::Tecla(unsigned char key)
 			mundo.Inicializa();
 			estado = JUEGO;
 		}
-
-		if (key == 's')
-		{
-			exit(0);
-		}
-
 		if (key == 'm')
 		{
 			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
 			estado = INICIO;
 		}
+
+		if (key == 's')
+		{
+			exit(0);
+		}
 	}
 	else if (estado == FIN)
 	{
 		if (key == 'c')
+		{
+			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
+			mundo.Inicializa();
+			estado = JUEGO;
+		}
+		if (key == 'm')
 		{
 			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
