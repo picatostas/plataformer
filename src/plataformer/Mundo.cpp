@@ -396,7 +396,10 @@ bool Mundo::SetLevel()
 	}
 	if (nivel <= 3)
 		return true;
-	return false;
+	else
+	{
+		return false;
+	}
 }
 bool Mundo::estadoNivel()
 {

@@ -45,7 +45,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
 		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Presione -S- para salir", 270, 300, 5, 255, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
