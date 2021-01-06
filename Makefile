@@ -1,5 +1,5 @@
 CXX      := -g++
-CXXFLAGS := -Wall -Wextra -pedantic-errors -Wno-unknown-pragmas -Werror
+CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror
 LDFLAGS  := -L"C:\VSARM\mingw\GLUT\lib" -lglut32 -lopengl32 -lwinmm -lglu32 -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
@@ -35,6 +35,8 @@ $(APP_DIR)/$(TARGET): $(OBJECTS)
 build:
 	@mkdir -p $(APP_DIR)
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(APP_DIR)/music/
+	@cp ./bin/* $(APP_DIR)/music/
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
@@ -43,8 +45,7 @@ release: CXXFLAGS += -O2
 release: all
 
 clean:
-	-@rm -rvf $(OBJ_DIR)/*
-	-@rm -rvf $(APP_DIR)/*
+	-@rm -rvf $(BUILD)/*
 
 info:
 	@echo "[*] Application dir: ${APP_DIR}     "

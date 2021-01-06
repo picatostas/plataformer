@@ -1,16 +1,16 @@
 #include "CoordinadorJuego.h"
 #include <Windows.h>
-#include <windows.h>
 #include "OpenGL.h"
 #include "glut.h"
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	estado = INICIO;
-	// PlaySound(TEXT("OPEN.mp3"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 CoordinadorJuego::~CoordinadorJuego(void)
 {
+	PlaySound(NULL, 0, 0);
 }
 
 void CoordinadorJuego::Draw()
@@ -29,12 +29,10 @@ void CoordinadorJuego::Draw()
 	else if (estado == GAMEOVER)
 	{
 		mundo.Draw();
-		OpenGL::Print((char *)"   HAS PERDIDO         ", 300, 200, 255, 0, 0);
+		OpenGL::Print((char *)"HAS PERDIDO         ", 300, 200, 255, 0, 0);
 		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 250, 255, 0, 255);
 		OpenGL::Print((char *)"Presione -C- para volver a jugar, si tienes agallas", 200, 300, 5, 255, 255);
 		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 350, 0, 100, 255);
-
-		glEnable(GL_LIGHTING);
 	}
 	else if (estado == FIN)
 	{
@@ -43,13 +41,13 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Pulsa -C- para continuar", 300, 250, 255, 255, 255);
 		OpenGL::Print((char *)"Presione -S- para salir", 300, 300, 0, 100, 255);
-		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
 	{
 		mundo.Draw();
 		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
+		OpenGL::Print((char *)"Presione -S- para salir", 300, 350, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == CONTROLES)
@@ -93,13 +91,15 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'e')
 		{
-			// PlaySound(TEXT("./bin/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			mundo.Inicializa();
 			estado = JUEGO;
 		}
 
 		if (key == 's')
 		{
+			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 
@@ -113,6 +113,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		mundo.Tecla(key);
 		if (key == 'p')
 		{
+			PlaySound(NULL, 0, 0);
 			estado = PAUSA;
 		}
 	}
@@ -121,13 +122,15 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			// PlaySound(TEXT("./bin/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			mundo.Inicializa();
 			estado = INICIO;
 		}
 
 		if (key == 's')
 		{
+			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 	}
@@ -135,12 +138,14 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			// PlaySound(TEXT("./bin/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		}
 
 		estado = INICIO;
 		if (key == 's')
 		{
+			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 	}
@@ -148,7 +153,14 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			estado = JUEGO;
+		}
+		if (key == 's')
+		{
+			PlaySound(NULL, 0, 0);
+			exit(0);
 		}
 	}
 	else if (estado == CONTROLES)
@@ -164,22 +176,21 @@ void CoordinadorJuego::Move()
 {
 	if (estado == JUEGO)
 	{
-		//PlaySound(TEXT("./bin/JUEGO.wav"),NULL, SND_FILENAME |SND_ASYNC |SND_ASYNC);
 		mundo.Move();
-		//if(mundo.GetNumEsferas()==0)
 		if (mundo.estadoNivel())
 		{
 			if (!mundo.SetLevel())
 			{
-				// PlaySound(TEXT("./bin/WON.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+				PlaySound(NULL, 0, 0);
+				PlaySound(TEXT("./music/WON.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 				estado = FIN;
 			}
 		}
 
-		//if(mundo.Impacto())
 		if (mundo.GetVidasHombre() == 0)
 		{
-			// PlaySound(TEXT("./bin/LOST.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("./music/LOST.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			estado = GAMEOVER;
 		}
 	}

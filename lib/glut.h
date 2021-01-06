@@ -52,7 +52,10 @@
 #endif
 #endif
 #endif
+// This is needed for the callbacks to work
 #define GLUT_DISABLE_ATEXIT_HACK
+// Avoids unknwon pragma error dropped by lines 65..73
+#define GLUT_NO_LIB_PRAGMA
 
 /* To disable automatic library usage for GLUT, define GLUT_NO_LIB_PRAGMA
    in your compile preprocessor options. */
@@ -74,10 +77,11 @@
 /* To disable supression of annoying warnings about floats being promoted
    to doubles, define GLUT_NO_WARNING_DISABLE in your compile preprocessor
    options. */
-#ifndef GLUT_NO_WARNING_DISABLE
-#pragma warning(disable : 4244) /* Disable bogus VC++ 4.2 conversion warnings. */
-#pragma warning(disable : 4305) /* VC++ 5.0 version of above warning. */
-#endif
+// Commented out for avoiding unknown pragma error
+// #ifndef GLUT_NO_WARNING_DISABLE
+// #pragma warning(disable : 4244) /* Disable bogus VC++ 4.2 conversion warnings. */
+// #pragma warning(disable : 4305) /* VC++ 5.0 version of above warning. */
+// #endif
 
 /* Win32 has an annoying issue where there are multiple C run-time
    libraries (CRTs).  If the executable is linked with a different CRT
@@ -486,7 +490,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI void APIENTRY __glutInitWithExit(int *argcp, char **argv, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
+	[[maybe_unused]] static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
 	{
 		__glutInitWithExit(argcp, argv, exit);
 	}
@@ -506,7 +510,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateWindowWithExit(const char *title, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
+	[[maybe_unused]] static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
 	{
 		return __glutCreateWindowWithExit(title, exit);
 	}
@@ -555,7 +559,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateMenuWithExit(void(GLUTCALLBACK *func)(int), void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
+	[[maybe_unused]] static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
 	{
 		return __glutCreateMenuWithExit(func, exit);
 	}

@@ -33,12 +33,9 @@ int main(int argc, char *argv[])
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0); //le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
-
 	glutKeyboardFunc(OnKeyboardDown);
 	glutKeyboardUpFunc(OnKeyboardUp);
 	glutSpecialFunc(OnSpecialKeyboardDown); //gestion de los cursores
-
-	//	mundo.Inicializa();
 
 	//pasarle el control a GLUT, que llamara a los callbacks
 	glutMainLoop();
@@ -61,7 +58,7 @@ void OnDraw(void)
 }
 void OnKeyboardDown(unsigned char key, int x, int y)
 {
-	//poner aqui el c�digo de teclado
+	//poner aqui el codigo de teclado
 	(void)x;
 	(void)y;
 	juego.TeclaDown(key);
