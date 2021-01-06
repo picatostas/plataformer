@@ -47,6 +47,7 @@ void CoordinadorJuego::Draw()
 		mundo.Draw();
 		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
+		OpenGL::Print((char *)"Presione -O- para ver las opciones", 300, 325, 130, 100, 255);
 		OpenGL::Print((char *)"Presione -S- para salir", 300, 350, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
@@ -57,6 +58,15 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
 		OpenGL::Print((char *)"Presione -E- para volver al Menu", 300, 380, 255, 0, 255);
+		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
+	}
+	else if (estado == CONTROLES_IN_GAME)
+	{
+		OpenGL::Print((char *)"CONROLES", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Presione -E- para volver al menu de pausa", 300, 380, 255, 0, 255);
 		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
 	}
 }
@@ -162,12 +172,23 @@ void CoordinadorJuego::Tecla(unsigned char key)
 			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
+		if (key == 'o')
+		{
+			estado = CONTROLES_IN_GAME;
+		}
 	}
 	else if (estado == CONTROLES)
 	{
 		if (key == 'e')
 		{
 			estado = INICIO;
+		}
+	}
+	else if (estado == CONTROLES_IN_GAME)
+	{
+		if (key == 'e')
+		{
+			estado = PAUSA;
 		}
 	}
 }

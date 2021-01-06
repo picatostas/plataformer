@@ -12,7 +12,8 @@ protected:
 		GAMEOVER,
 		FIN,
 		PAUSA,
-		CONTROLES
+		CONTROLES,
+		CONTROLES_IN_GAME
 	};
 	Estado estado;
 
