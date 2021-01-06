@@ -33,9 +33,10 @@ void CoordinadorJuego::Draw()
 	{
 		mundo.Draw();
 		OpenGL::Print((char *)"HAS PERDIDO         ", 300, 200, 255, 0, 0);
-		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 250, 255, 0, 255);
-		OpenGL::Print((char *)"Presione -C- para volver a jugar, si tienes agallas", 200, 300, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 350, 0, 100, 255);
+		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 225, 255, 0, 255);
+		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
+		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 300, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == FIN)
@@ -137,14 +138,21 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		if (key == 'c')
 		{
 			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			mundo.Inicializa();
-			estado = INICIO;
+			estado = JUEGO;
 		}
 
 		if (key == 's')
 		{
 			exit(0);
+		}
+
+		if (key == 'm')
+		{
+			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			estado = INICIO;
 		}
 	}
 	else if (estado == FIN)

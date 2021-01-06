@@ -39,7 +39,6 @@ public:
 	Bonus bonus;
 	Caja caja;
 	puertaNivel puerta;
-	//	EsferaPulsante esf_puls;
 	DisparoEspecial dispowa;
 
 	void TeclaEspecial(unsigned char key);

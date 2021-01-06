@@ -104,6 +104,7 @@ void Mundo::Move()
 void Mundo::Inicializa()
 {
 	hombre.SetVidas(3);
+	hombre.SetVel(0, 0);
 	puerta.color.Pink();
 	impacto = false;
 	x_ojo = 0;
