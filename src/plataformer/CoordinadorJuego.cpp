@@ -48,7 +48,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -O- para ver las opciones", 300, 325, 130, 100, 255);
-		OpenGL::Print((char *)"Presione -S- para salir", 300, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Presione -S- para volver al menu principal", 300, 350, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == CONTROLES)
@@ -170,7 +170,8 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		if (key == 's')
 		{
 			PlaySound(NULL, 0, 0);
-			exit(0);
+			PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			estado = INICIO;
 		}
 		if (key == 'o')
 		{
