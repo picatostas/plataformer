@@ -51,12 +51,8 @@
 #define WINGDIAPI __declspec(dllimport)
 #endif
 #endif
-/* XXX This is from Win32's <ctype.h> */
-#ifndef _WCHAR_T_DEFINED
-// typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
 #endif
-#endif
+#define GLUT_DISABLE_ATEXIT_HACK
 
 /* To disable automatic library usage for GLUT, define GLUT_NO_LIB_PRAGMA
    in your compile preprocessor options. */
@@ -490,7 +486,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI void APIENTRY __glutInitWithExit(int *argcp, char **argv, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	[[maybe_unused]] static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
+	static void APIENTRY glutInit_ATEXIT_HACK(int *argcp, char **argv)
 	{
 		__glutInitWithExit(argcp, argv, exit);
 	}
@@ -510,7 +506,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateWindowWithExit(const char *title, void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	[[maybe_unused]] static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
+	static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char *title)
 	{
 		return __glutCreateWindowWithExit(title, exit);
 	}
@@ -559,7 +555,7 @@ GLUTAPI void *glutBitmapHelvetica18;
 #if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK)
 	GLUTAPI int APIENTRY __glutCreateMenuWithExit(void(GLUTCALLBACK *func)(int), void(__cdecl *exitfunc)(int));
 #ifndef GLUT_BUILDING_LIB
-	[[maybe_unused]] static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
+	static int APIENTRY glutCreateMenu_ATEXIT_HACK(void(GLUTCALLBACK *func)(int))
 	{
 		return __glutCreateMenuWithExit(func, exit);
 	}
