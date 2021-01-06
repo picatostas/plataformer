@@ -1,5 +1,5 @@
 
-#include "glut.h"
+#include "freeglut.h"
 #include "CoordinadorJuego.h"
 
 //los callback, funciones que seran llamadas automaticamente por glut

@@ -1,6 +1,6 @@
 CXX      := -g++
 CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror
-LDFLAGS  := -L"C:\VSARM\mingw\GLUT\lib" -lglut32 -lopengl32 -lwinmm -lglu32 -Wl,--subsystem,windows
+LDFLAGS  := -L"C:\VSARM\mingw\freeglut\lib" -lfreeglut -lopengl32 -lwinmm -lglu32 -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
