@@ -1,116 +1,116 @@
-#include "Paleta_color.h"
+#include "ColorPalette.h"
 #include "glut.h"
 
-Paleta_color::Paleta_color(void)
+ColorPalette::ColorPalette(void)
 {
 	r = g = b = 255;
 }
 
-Paleta_color::~Paleta_color(void)
+ColorPalette::~ColorPalette(void)
 {
 }
-void Paleta_color::SetColor()
+void ColorPalette::SetColor()
 {
 	glColor3ub(r, g, b);
 }
-void Paleta_color::Pink()
+void ColorPalette::Pink()
 {
 	r = 255;
 	g = 20;
 	b = 147;
 }
 
-void Paleta_color::Yellow()
+void ColorPalette::Yellow()
 {
 	r = 255;
 	g = 255;
 	b = 0;
 }
-void Paleta_color::Orange()
+void ColorPalette::Orange()
 {
 	r = 255;
 	g = 140;
 	b = 0;
 }
-void Paleta_color::Red()
+void ColorPalette::Red()
 {
 	r = 255;
 	g = 0;
 	b = 0;
 }
-void Paleta_color::Blue()
+void ColorPalette::Blue()
 {
 	r = 0;
 	g = 0;
 	b = 255;
 }
-void Paleta_color::Green()
+void ColorPalette::Green()
 {
 	r = 0;
 	g = 255;
 	b = 0;
 }
-void Paleta_color::Forest_Green()
+void ColorPalette::Forest_Green()
 {
 	r = 0;
 	g = 150;
 	b = 0;
 }
-void Paleta_color::Deep_Green()
+void ColorPalette::Deep_Green()
 {
 	r = 0;
 	g = 100;
 	b = 0;
 }
-void Paleta_color::Lime()
+void ColorPalette::Lime()
 {
 	r = 124;
 	g = 252;
 	b = 0;
 }
-void Paleta_color::Purple()
+void ColorPalette::Purple()
 {
 	r = 128;
 	g = 0;
 	b = 128;
 }
-void Paleta_color::Deep_purple()
+void ColorPalette::Deep_purple()
 {
 	r = 255;
 	g = 0;
 	b = 255;
 }
-void Paleta_color::Brown()
+void ColorPalette::Brown()
 {
 	r = 140;
 	g = 70;
 	b = 20;
 }
-void Paleta_color::Steel()
+void ColorPalette::Steel()
 {
 	r = 170;
 	g = 170;
 	b = 170;
 }
-void Paleta_color::Gold()
+void ColorPalette::Gold()
 {
 	r = 218;
 	g = 165;
 	b = 32;
 }
-void Paleta_color::White()
+void ColorPalette::White()
 {
 	r = 255;
 	g = 255;
 	b = 255;
 }
-void Paleta_color::Dark_Gray()
+void ColorPalette::Dark_Gray()
 {
 	r = 51;
 	g = 51;
 	b = 51;
 }
-void Paleta_color::Gray()
+void ColorPalette::Gray()
 {
 	r = 120;
 	g = 120;

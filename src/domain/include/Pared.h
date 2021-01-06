@@ -1,13 +1,13 @@
 #pragma once
 #include "Vector2D.h"
-#include "Paleta_color.h"
+#include "ColorPalette.h"
 
 class Pared
 {
 public:
 	Pared(void);
 	virtual ~Pared(void);
-	Paleta_color color;
+	ColorPalette color;
 
 protected:
 	unsigned char red;

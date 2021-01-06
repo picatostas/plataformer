@@ -1,6 +1,6 @@
 #pragma once
 #include "Vector2D.h"
-#include "Paleta_color.h"
+#include "ColorPalette.h"
 #include "ObjetoMovil.h"
 class Esfera : public ObjetoMovil
 {
@@ -9,7 +9,7 @@ protected:
 	float rad;
 
 public:
-	Paleta_color color;
+	ColorPalette color;
 	Esfera(float r, float x = 0.0f, float y = 0.0f,
 	       float vx = 0.0f, float vy = 0.0f);
 	Esfera(void);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "ObjetoMovil.h"
-#include "Paleta_color.h"
+#include "ColorPalette.h"
 class Disparo : public ObjetoMovil
 {
 public:
@@ -16,7 +16,7 @@ protected:
 public:
 	void estela(float p);
 
-	Paleta_color color;
+	ColorPalette color;
 	void SetPos(int mx, int my);
 
 	virtual void Draw(void);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "ObjetoMovil.h"
-#include "Paleta_color.h"
+#include "ColorPalette.h"
 class Hombre : public ObjetoMovil
 {
 private:
@@ -10,7 +10,7 @@ private:
 	bool salto;
 
 public:
-	Paleta_color color;
+	ColorPalette color;
 	void Draw();
 	void SetG(float g);
 	Hombre(void);

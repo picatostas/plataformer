@@ -1,10 +1,9 @@
 #pragma once
-class Paleta_color
+class ColorPalette
 {
 public:
-	Paleta_color(void);
-	~Paleta_color(void);
-	//private:
+	ColorPalette(void);
+	~ColorPalette(void);
 	unsigned char r, g, b;
 
 public:
