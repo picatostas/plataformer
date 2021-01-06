@@ -5,12 +5,15 @@
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	estado = INICIO;
-	PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	mciSendString(TEXT("open \"./music/OPEN.mp3\" type mpegvideo alias open_sound"), NULL, 0, NULL);
+	mciSendString(TEXT("open \"./music/JUEGO.mp3\" type mpegvideo alias game_sound"), NULL, 0, NULL);
+	mciSendString(TEXT("open \"./music/WON.mp3\" type mpegvideo alias won_sound"), NULL, 0, NULL);
+	mciSendString(TEXT("open \"./music/LOST.mp3\" type mpegvideo alias lost_sound"), NULL, 0, NULL);
+	mciSendString(TEXT("Play open_sound"), NULL, 0, NULL);
 }
 
 CoordinadorJuego::~CoordinadorJuego(void)
 {
-	PlaySound(NULL, 0, 0);
 }
 
 void CoordinadorJuego::Draw()
@@ -33,6 +36,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 250, 255, 0, 255);
 		OpenGL::Print((char *)"Presione -C- para volver a jugar, si tienes agallas", 200, 300, 5, 255, 255);
 		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 350, 0, 100, 255);
+		glEnable(GL_LIGHTING);
 	}
 	else if (estado == FIN)
 	{
@@ -41,6 +45,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Pulsa -C- para continuar", 300, 250, 255, 255, 255);
 		OpenGL::Print((char *)"Presione -S- para salir", 300, 300, 0, 100, 255);
+		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
 	{
@@ -53,7 +58,7 @@ void CoordinadorJuego::Draw()
 	}
 	else if (estado == CONTROLES)
 	{
-		OpenGL::Print((char *)"CONROLES", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
@@ -62,7 +67,7 @@ void CoordinadorJuego::Draw()
 	}
 	else if (estado == CONTROLES_IN_GAME)
 	{
-		OpenGL::Print((char *)"CONROLES", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
@@ -101,15 +106,14 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'e')
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("stop open_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			mundo.Inicializa();
 			estado = JUEGO;
 		}
 
 		if (key == 's')
 		{
-			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 
@@ -123,7 +127,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		mundo.Tecla(key);
 		if (key == 'p')
 		{
-			PlaySound(NULL, 0, 0);
+			mciSendString(TEXT("pause game_sound"), NULL, 0, NULL);
 			estado = PAUSA;
 		}
 	}
@@ -132,15 +136,14 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
 			mundo.Inicializa();
 			estado = INICIO;
 		}
 
 		if (key == 's')
 		{
-			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 	}
@@ -148,14 +151,13 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			estado = INICIO;
 		}
 
-		estado = INICIO;
 		if (key == 's')
 		{
-			PlaySound(NULL, 0, 0);
 			exit(0);
 		}
 	}
@@ -163,14 +165,13 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/JUEGO.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("resume game_sound"), NULL, 0, NULL);
 			estado = JUEGO;
 		}
 		if (key == 's')
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/OPEN.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
 			estado = INICIO;
 		}
 		if (key == 'o')
@@ -203,16 +204,16 @@ void CoordinadorJuego::Move()
 		{
 			if (!mundo.SetLevel())
 			{
-				PlaySound(NULL, 0, 0);
-				PlaySound(TEXT("./music/WON.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+				mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
+				mciSendString(TEXT("play won_sound"), NULL, 0, NULL);
 				estado = FIN;
 			}
 		}
 
 		if (mundo.GetVidasHombre() == 0)
 		{
-			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("./music/LOST.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
+			mciSendString(TEXT("play lost_sound"), NULL, 0, NULL);
 			estado = GAMEOVER;
 		}
 	}
