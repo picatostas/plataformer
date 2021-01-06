@@ -69,7 +69,7 @@ float Pared::Distancia(Vector2D punto, Vector2D *direccion)
 	else
 		dir = u - v * valor;
 	distancia = dir.modulo();
-	if (direccion != 0) //si nos dan un vector�
+	if (direccion != 0) //si nos dan un vector
 		*direccion = dir.Unitario();
 	return distancia;
 }

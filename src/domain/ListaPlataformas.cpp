@@ -4,9 +4,6 @@
 
 ListaPlataformas::ListaPlataformas(void)
 {
-	/*lista.size()=0;
-	for( unsigned int i=0;i<MAX_PLATAFORMAS;i++)
-		lista[i]=0;*/
 }
 ListaPlataformas::~ListaPlataformas(void)
 {
@@ -16,11 +13,6 @@ bool ListaPlataformas::Agregar(Pared *p)
 {
 	lista.push_back(p);
 	return true;
-	/*if (lista.size()<MAX_PLATAFORMAS)
-		lista[lista.size()++]=p;
-	else
-		return false;
-	return true;*/
 }
 void ListaPlataformas::Draw()
 {
@@ -40,9 +32,6 @@ void ListaPlataformas::Eliminar(unsigned int index)
 	delete lista[index];
 	lista.erase(lista.begin() + index);
 	cout << "plataforma eliminada" << endl;
-	/*lista.size()--;
-	for(unsigned int i=index;i<lista.size();i++)
-	lista[i]=lista[i+1];*/
 }
 void ListaPlataformas::Eliminar(Pared *p)
 {
@@ -73,9 +62,6 @@ Pared *ListaPlataformas::operator[](unsigned int i)
 	{
 		i = lista.size() - 1;
 	}
-
-	// if (i < 0)     // si doy un indice negativo, devuelvo la primera esfera
-	// 	i = 0; // de la lista
 
 	return lista[i];
 }

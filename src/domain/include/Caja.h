@@ -3,7 +3,7 @@
 #include "Pared.h"
 class Caja
 {
-private:
+protected:
 	Pared techo;
 	Pared suelo;
 	Pared pared_izq;
