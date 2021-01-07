@@ -41,15 +41,15 @@ void Mundo::Draw()
 	puerta.Draw();
 
 	glDisable(GL_LIGHTING);
-
+	// Back screen
 	glBegin(GL_POLYGON);
-	glColor3ub(139, 69, 18); // marron
+	glColor3ub(0, 165, 255); // marron
 	glVertex3d(-10.0f, 0, -10);
 	glColor3ub(0, 165, 255);
 	glVertex3d(-10.0f, 15.0f, -10);
 	glColor3ub(0, 165, 255); // azul cielo
 	glVertex3d(10.0f, 15.0f, -10);
-	glColor3ub(139, 69, 18);
+	glColor3ub(0, 165, 255);
 	glVertex3d(10.0f, 0, -10);
 	glEnd();
 	glEnable(GL_LIGHTING);
@@ -221,44 +221,45 @@ bool Mundo::SetLevel()
 	esferas.DestruirContenido();
 	disparos.DestruirContenido();
 	plataformas.DestruirContenido();
+	float platform_depth = 1.0f;
 
 	if (nivel == 1)
 	{
 		puerta.SetPos(8, 12, 9, 14, 5);
-		Pared *p1 = new Pared(-7.0f, 4.0f, -3.0f, 4.0f, 3);
-		p1->color.Purple();
+		Pared *p1 = new Pared(-7.0f, 4.0f, -3.0f, 4.0f, platform_depth);
+		p1->color.Brown();
 		plataformas.Agregar(p1);
-		Pared *p2 = new Pared(-2.0f, 5.0f, 2.0f, 5.0f, 3);
-		p2->color.Purple();
+		Pared *p2 = new Pared(-2.0f, 5.0f, 2.0f, 5.0f, platform_depth);
+		p2->color.Brown();
 		plataformas.Agregar(p2);
-		Pared *p3 = new Pared(4.0f, 7.0f, 8.0f, 7.0f, 3);
-		p3->color.Purple();
+		Pared *p3 = new Pared(4.0f, 7.0f, 8.0f, 7.0f, platform_depth);
+		p3->color.Brown();
 		plataformas.Agregar(p3);
-		Pared *p5 = new Pared(-7.0f, 8.0f, -3.0f, 8.0f, 3);
-		p5->color.Purple();
+		Pared *p5 = new Pared(-7.0f, 8.0f, -3.0f, 8.0f, platform_depth);
+		p5->color.Brown();
 		plataformas.Agregar(p5);
-		Pared *p6 = new Pared(8.0, 12, 10, 12, 3);
+		Pared *p6 = new Pared(8.0, 12, 10, 12, platform_depth);
 		p6->color.Brown();
 		plataformas.Agregar(p6);
 
-		Pared *p7 = new Pared(-5.0, 11, -2.0, 11, 3);
+		Pared *p7 = new Pared(-5.0, 11, -2.0, 11, platform_depth);
 		p7->color.Brown();
 		plataformas.Agregar(p7);
 
-		Pared *p8 = new Pared(0.0, 10, 3, 10, 3);
+		Pared *p8 = new Pared(0.0, 10, 3, 10, platform_depth);
 		p8->color.Brown();
 		plataformas.Agregar(p8);
 
-		Pared *p9 = new Pared(-2.0, 2, 1, 2, 3);
-		p9->color.Green();
+		Pared *p9 = new Pared(-2.0, 2, 1, 2, platform_depth);
+		p9->color.Brown();
 		plataformas.Agregar(p9);
 
-		Pared *p10 = new Pared(1.0, 12, 3, 12, 3);
-		p10->color.Green();
+		Pared *p10 = new Pared(1.0, 12, 3, 12, platform_depth);
+		p10->color.Brown();
 		plataformas.Agregar(p10);
 
-		Pared *p11 = new Pared(-10, 13, -8, 13, 3);
-		p11->color.Blue();
+		Pared *p11 = new Pared(-10, 13, -8, 13, platform_depth);
+		p11->color.Brown();
 		plataformas.Agregar(p11);
 		bonus.SetPos(-9, 13);
 
@@ -273,47 +274,47 @@ bool Mundo::SetLevel()
 	if (nivel == 2)
 	{
 		puerta.SetPos(8, 12, 9, 14, 5);
-		Pared *p6 = new Pared(8.0, 12, 10, 12, 3);
+		Pared *p6 = new Pared(8.0, 12, 10, 12, platform_depth);
 		p6->color.Brown();
 		plataformas.Agregar(p6);
 
-		Pared *p1 = new Pared(-8.0f, 2.0f, -6.0f, 2.0f, 3);
-		p1->color.Purple();
+		Pared *p1 = new Pared(-8.0f, 2.0f, -6.0f, 2.0f, platform_depth);
+		p1->color.Brown();
 		plataformas.Agregar(p1);
-		Pared *p2 = new Pared(-6.0f, 4.0f, -4.0f, 4.0f, 3);
-		p2->color.Purple();
+		Pared *p2 = new Pared(-6.0f, 4.0f, -4.0f, 4.0f, platform_depth);
+		p2->color.Brown();
 		plataformas.Agregar(p2);
-		Pared *p3 = new Pared(-1.0f, 4.0f, 1.0f, 4.0f, 3);
-		p3->color.Purple();
+		Pared *p3 = new Pared(-1.0f, 4.0f, 1.0f, 4.0f, platform_depth);
+		p3->color.Brown();
 		plataformas.Agregar(p3);
-		Pared *p5 = new Pared(4.0f, 4.0f, 6.0f, 4.0f, 3);
-		p5->color.Purple();
+		Pared *p5 = new Pared(4.0f, 4.0f, 6.0f, 4.0f, platform_depth);
+		p5->color.Brown();
 		plataformas.Agregar(p5);
-		Pared *p61 = new Pared(8.0, 6, 10, 6, 3);
+		Pared *p61 = new Pared(8.0, 6, 10, 6, platform_depth);
 		p61->color.Brown();
 		plataformas.Agregar(p61);
 
-		Pared *p7 = new Pared(5.0, 7, 6.0, 7, 3);
+		Pared *p7 = new Pared(5.0, 7, 6.0, 7, platform_depth);
 		p7->color.Brown();
 		plataformas.Agregar(p7);
 
-		Pared *p8 = new Pared(2.0, 8, 4, 8, 3);
+		Pared *p8 = new Pared(2.0, 8, 4, 8, platform_depth);
 		p8->color.Brown();
 		plataformas.Agregar(p8);
 
-		Pared *p9 = new Pared(-1.0, 9, 0, 9, 3);
-		p9->color.Green();
+		Pared *p9 = new Pared(-1.0, 9, 0, 9, platform_depth);
+		p9->color.Brown();
 		plataformas.Agregar(p9);
 
-		Pared *p10 = new Pared(-4.0, 10, -2, 10, 3);
-		p10->color.Green();
+		Pared *p10 = new Pared(-4.0, 10, -2, 10, platform_depth);
+		p10->color.Brown();
 		plataformas.Agregar(p10);
 
-		Pared *p11 = new Pared(1, 11, 3, 11, 3);
-		p11->color.Blue();
+		Pared *p11 = new Pared(1, 11, 3, 11, platform_depth);
+		p11->color.Brown();
 		plataformas.Agregar(p11);
-		Pared *p12 = new Pared(5, 12, 6, 12, 3);
-		p12->color.Blue();
+		Pared *p12 = new Pared(5, 12, 6, 12, platform_depth);
+		p12->color.Brown();
 		plataformas.Agregar(p12);
 
 		EsferaPulsante *e3 = new EsferaPulsante(5, 5);
@@ -341,35 +342,35 @@ bool Mundo::SetLevel()
 		p6->color.Brown();
 		plataformas.Agregar(p6);
 
-		Pared *p1 = new Pared(1.0f, 3.0f, 3.0f, 3.0f, 2);
+		Pared *p1 = new Pared(1.0f, 3.0f, 3.0f, 3.0f, platform_depth);
 		p1->color.Purple();
 		plataformas.Agregar(p1);
-		Pared *p2 = new Pared(4.0f, 4.0f, 6.0f, 4.0f, 2);
+		Pared *p2 = new Pared(4.0f, 4.0f, 6.0f, 4.0f, platform_depth);
 		p2->color.Purple();
 		plataformas.Agregar(p2);
-		Pared *p3 = new Pared(6.0f, 6.0f, 8.0f, 6.0f, 2);
+		Pared *p3 = new Pared(6.0f, 6.0f, 8.0f, 6.0f, platform_depth);
 		p3->color.Purple();
 		plataformas.Agregar(p3);
-		Pared *p5 = new Pared(-1.0f, 6.0f, 1.0f, 6.0f, 2);
+		Pared *p5 = new Pared(-1.0f, 6.0f, 1.0f, 6.0f, platform_depth);
 		p5->color.Purple();
 		plataformas.Agregar(p5);
-		Pared *p61 = new Pared(-4.0, 9, -2, 9, 2);
+		Pared *p61 = new Pared(-4.0, 9, -2, 9, platform_depth);
 		p61->color.Purple();
 		plataformas.Agregar(p61);
 
-		Pared *p7 = new Pared(-8.0, 2, -6.0, 2, 2);
+		Pared *p7 = new Pared(-8.0, 2, -6.0, 2, platform_depth);
 		p7->color.Purple();
 		plataformas.Agregar(p7);
 
-		Pared *p8 = new Pared(-9.0, 5, 4 - 7, 5, 2);
+		Pared *p8 = new Pared(-9.0, 5, 4 - 7, 5, platform_depth);
 		p8->color.Purple();
 		plataformas.Agregar(p8);
 
-		Pared *p9 = new Pared(-8.0, 7, -6, 7, 3);
+		Pared *p9 = new Pared(-8.0, 7, -6, 7, platform_depth);
 		p9->color.Green();
 		plataformas.Agregar(p9);
 
-		Pared *p10 = new Pared(2.0, 8, 4, 8, 2);
+		Pared *p10 = new Pared(2.0, 8, 4, 8, platform_depth);
 		p10->color.Green();
 		plataformas.Agregar(p10);
 
