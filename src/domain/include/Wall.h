@@ -17,10 +17,9 @@ public:
 	float z;
 
 public:
-	Wall(float x1, float y1, float x2, float y2, float z1, bool is_front);
+	Wall(float x1, float y1, float x2, float y2, float z1, bool is_front, ColorPalette color);
 	void SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front);
 	void Draw(void);
-	void SetColor(unsigned char r, unsigned char v, unsigned char a);
 	float Distancia(Vector2D punto, Vector2D *direccion = 0);
 
 	friend class Interact;

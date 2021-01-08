@@ -11,11 +11,8 @@ public:
 protected:
 	float rad;
 	Vector2D posinicial;
-	int estelas;
 
 public:
-	void estela(float p);
-
 	ColorPalette color;
 	void SetPos(int mx, int my);
 

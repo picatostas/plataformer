@@ -1,28 +1,29 @@
 #pragma once
+
 class ColorPalette
 {
 public:
-	ColorPalette(void);
+	ColorPalette();
+	ColorPalette(unsigned char r, unsigned char g, unsigned char b);
 	~ColorPalette(void);
 	unsigned char r, g, b;
 
 public:
-	void SetColor();
-	void Pink();
-	void Yellow();
-	void Orange();
-	void Red();
-	void Blue();
-	void Green();
-	void Forest_Green();
-	void Deep_Green();
-	void Lime();
-	void Purple();
-	void Deep_purple();
-	void Brown();
-	void Steel();
-	void Gold();
-	void White();
-	void Gray();
-	void Dark_Gray();
+	static ColorPalette Pink();
+	static ColorPalette Yellow();
+	static ColorPalette Orange();
+	static ColorPalette Red();
+	static ColorPalette Blue();
+	static ColorPalette Green();
+	static ColorPalette Forest_Green();
+	static ColorPalette Deep_Green();
+	static ColorPalette Lime();
+	static ColorPalette Purple();
+	static ColorPalette Deep_purple();
+	static ColorPalette Brown();
+	static ColorPalette Steel();
+	static ColorPalette Gold();
+	static ColorPalette White();
+	static ColorPalette Gray();
+	static ColorPalette Dark_Gray();
 };

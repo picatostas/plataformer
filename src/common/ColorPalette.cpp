@@ -1,112 +1,80 @@
 #include "ColorPalette.h"
-#include "glut.h"
-
 ColorPalette::ColorPalette(void)
 {
-	r = g = b = 255;
+}
+ColorPalette::ColorPalette(unsigned char r, unsigned char g, unsigned char b)
+{
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 ColorPalette::~ColorPalette(void)
 {
 }
-void ColorPalette::SetColor()
+ColorPalette ColorPalette::Pink()
 {
-	glColor3ub(r, g, b);
-}
-void ColorPalette::Pink()
-{
-	r = 255;
-	g = 20;
-	b = 147;
+	return ColorPalette(255, 20, 147);
 }
 
-void ColorPalette::Yellow()
+ColorPalette ColorPalette::Yellow()
 {
-	r = 255;
-	g = 255;
-	b = 0;
+	return ColorPalette(255, 255, 0);
 }
-void ColorPalette::Orange()
+ColorPalette ColorPalette::Orange()
 {
-	r = 255;
-	g = 140;
-	b = 0;
+	return ColorPalette(255, 140, 0);
 }
-void ColorPalette::Red()
+ColorPalette ColorPalette::Red()
 {
-	r = 255;
-	g = 0;
-	b = 0;
+	return ColorPalette(255, 0, 0);
 }
-void ColorPalette::Blue()
+
+ColorPalette ColorPalette::Blue()
 {
-	r = 0;
-	g = 0;
-	b = 255;
+	return ColorPalette(0, 0, 255);
 }
-void ColorPalette::Green()
+ColorPalette ColorPalette::Green()
 {
-	r = 0;
-	g = 255;
-	b = 0;
+	return ColorPalette(0, 255, 0);
 }
-void ColorPalette::Forest_Green()
+ColorPalette ColorPalette::Forest_Green()
 {
-	r = 0;
-	g = 150;
-	b = 0;
+	return ColorPalette(0, 150, 0);
 }
-void ColorPalette::Deep_Green()
+ColorPalette ColorPalette::Deep_Green()
 {
-	r = 0;
-	g = 100;
-	b = 0;
+	return ColorPalette(0, 100, 0);
 }
-void ColorPalette::Lime()
+ColorPalette ColorPalette::Lime()
 {
-	r = 124;
-	g = 252;
-	b = 0;
+	return ColorPalette(124, 252, 0);
 }
-void ColorPalette::Purple()
+ColorPalette ColorPalette::Purple()
 {
-	r = 128;
-	g = 0;
-	b = 128;
+	return ColorPalette(128, 0, 128);
 }
-void ColorPalette::Brown()
+ColorPalette ColorPalette::Brown()
 {
-	r = 140;
-	g = 70;
-	b = 20;
+	return ColorPalette(140, 70, 20);
 }
-void ColorPalette::Steel()
+ColorPalette ColorPalette::Steel()
 {
-	r = 170;
-	g = 170;
-	b = 170;
+	return ColorPalette(170, 170, 170);
 }
-void ColorPalette::Gold()
+ColorPalette ColorPalette::Gold()
 {
-	r = 218;
-	g = 165;
-	b = 32;
+	return ColorPalette(218, 165, 32);
 }
-void ColorPalette::White()
+ColorPalette ColorPalette::White()
 {
-	r = 255;
-	g = 255;
-	b = 255;
+	return ColorPalette(255, 255, 255);
 }
-void ColorPalette::Dark_Gray()
+ColorPalette ColorPalette::Dark_Gray()
 {
-	r = 51;
-	g = 51;
-	b = 51;
+	return ColorPalette(51, 51, 51);
 }
-void ColorPalette::Gray()
+ColorPalette ColorPalette::Gray()
 {
-	r = 120;
-	g = 120;
-	b = 120;
+	return ColorPalette(120, 120, 120);
 }

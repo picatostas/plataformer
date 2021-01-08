@@ -16,16 +16,18 @@ void Hombre::Draw()
 {
 
 	if (vidas >= 3)
-		color.Lime();
+		color = ColorPalette::Lime();
 	else if (vidas == 2)
-		color.Orange();
+		color = ColorPalette::Orange();
 	else if (vidas == 1)
-		color.Red();
+		color = ColorPalette::Red();
 	else if (vidas == 0)
-		color.Brown();
+		color = ColorPalette::Brown();
+
 	glPushMatrix();
 
-	color.SetColor();
+	glColor3ub(color.r, color.g, color.b);
+
 	float cumulative_hieght = 0.0f;
 	glTranslatef(pos.x, pos.y, 0);
 	static GLUquadric *gluQuadric = NULL;

@@ -20,11 +20,11 @@ Esfera::Esfera(float r, float x, float y, float vx, float vy)
 	vel.y = vy;
 	acelr.y = -9.8f;
 	if (rad > 0.0f && rad <= 0.75f)
-		color.Orange();
+		color = ColorPalette::Orange();
 	if (rad > 0.75f && rad <= 1.5f)
-		color.Pink();
+		color = ColorPalette::Pink();
 	if (rad > 1.5f)
-		color.Lime();
+		color = ColorPalette::Lime();
 }
 Esfera::~Esfera(void)
 {
@@ -32,19 +32,12 @@ Esfera::~Esfera(void)
 
 void Esfera::Draw()
 {
-
-	color.SetColor();
+	glColor3ub(color.r, color.g, color.b);
 	glTranslatef(pos.x, pos.y, 0);
 	glutSolidSphere(rad, 100, 100);
 	glTranslatef(-pos.x, -pos.y, 0);
 }
-/*
-void Esfera::Move(float t)
-{
-	pos=pos+vel*t+acelr*(0.5f*t*t);
-	vel=vel+acelr*t;
-}
-*/
+
 void Esfera::SetColor(unsigned char r, unsigned char v, unsigned char a)
 {
 	color.r = r;

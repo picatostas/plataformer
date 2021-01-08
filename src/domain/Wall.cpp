@@ -5,21 +5,13 @@
 
 Wall::Wall(void)
 {
-	color.Brown();
 }
 
 Wall::~Wall(void)
 {
 }
 
-void Wall::SetColor(unsigned char r, unsigned char v, unsigned char a)
-{
-	color.r = r;
-	color.g = v;
-	color.b = a;
-}
-
-Wall::Wall(float x1, float y1, float x2, float y2, float z1, bool is_front)
+Wall::Wall(float x1, float y1, float x2, float y2, float z1, bool is_front, ColorPalette color)
 {
 	limit1.x = x1;
 	limit1.y = y1;
@@ -27,6 +19,7 @@ Wall::Wall(float x1, float y1, float x2, float y2, float z1, bool is_front)
 	limit2.y = y2;
 	z = z1;
 	this->is_front = is_front;
+	this->color = color;
 }
 
 void Wall::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front)
@@ -42,7 +35,7 @@ void Wall::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_fron
 void Wall::Draw()
 {
 	glDisable(GL_LIGHTING);
-	color.SetColor();
+	glColor3ub(color.r, color.g, color.b);
 	glBegin(GL_POLYGON);
 
 	// To draw a front planel

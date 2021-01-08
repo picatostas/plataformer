@@ -224,40 +224,30 @@ bool Mundo::SetLevel()
 	if (nivel == 1)
 	{
 		puerta.SetPos(8, 12, 9, 14, 5, true);
-		Wall *p1 = new Wall(-7.0f, 4.0f, -3.0f, 4.0f, platform_depth, false);
-		p1->color.Brown();
+		Wall *p1 = new Wall(-7.0f, 4.0f, -3.0f, 4.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p1);
-		Wall *p2 = new Wall(-2.0f, 5.0f, 2.0f, 5.0f, platform_depth, false);
-		p2->color.Brown();
+		Wall *p2 = new Wall(-2.0f, 5.0f, 2.0f, 5.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p2);
-		Wall *p3 = new Wall(4.0f, 7.0f, 8.0f, 7.0f, platform_depth, false);
-		p3->color.Brown();
+		Wall *p3 = new Wall(4.0f, 7.0f, 8.0f, 7.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p3);
-		Wall *p5 = new Wall(-7.0f, 8.0f, -3.0f, 8.0f, platform_depth, false);
-		p5->color.Brown();
+		Wall *p5 = new Wall(-7.0f, 8.0f, -3.0f, 8.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p5);
-		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false);
-		p6->color.Brown();
+		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p6);
 
-		Wall *p7 = new Wall(-5.0, 11, -2.0, 11, platform_depth, false);
-		p7->color.Brown();
+		Wall *p7 = new Wall(-5.0, 11, -2.0, 11, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p7);
 
-		Wall *p8 = new Wall(0.0, 10, 3, 10, platform_depth, false);
-		p8->color.Brown();
+		Wall *p8 = new Wall(0.0, 10, 3, 10, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p8);
 
-		Wall *p9 = new Wall(-2.0, 2, 1, 2, platform_depth, false);
-		p9->color.Brown();
+		Wall *p9 = new Wall(-2.0, 2, 1, 2, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p9);
 
-		Wall *p10 = new Wall(1.0, 12, 3, 12, platform_depth, false);
-		p10->color.Brown();
+		Wall *p10 = new Wall(1.0, 12, 3, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p10);
 
-		Wall *p11 = new Wall(-10, 13, -8, 13, platform_depth, false);
-		p11->color.Brown();
+		Wall *p11 = new Wall(-10, 13, -8, 13, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p11);
 		bonus.SetPos(-9, 13);
 
@@ -272,47 +262,35 @@ bool Mundo::SetLevel()
 	if (nivel == 2)
 	{
 		puerta.SetPos(8, 12, 9, 14, 5, false);
-		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false);
-		p6->color.Brown();
+		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p6);
 
-		Wall *p1 = new Wall(-8.0f, 2.0f, -6.0f, 2.0f, platform_depth, false);
-		p1->color.Brown();
+		Wall *p1 = new Wall(-8.0f, 2.0f, -6.0f, 2.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p1);
-		Wall *p2 = new Wall(-6.0f, 4.0f, -4.0f, 4.0f, platform_depth, false);
-		p2->color.Brown();
+		Wall *p2 = new Wall(-6.0f, 4.0f, -4.0f, 4.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p2);
-		Wall *p3 = new Wall(-1.0f, 4.0f, 1.0f, 4.0f, platform_depth, false);
-		p3->color.Brown();
+		Wall *p3 = new Wall(-1.0f, 4.0f, 1.0f, 4.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p3);
-		Wall *p5 = new Wall(4.0f, 4.0f, 6.0f, 4.0f, platform_depth, false);
-		p5->color.Brown();
+		Wall *p5 = new Wall(4.0f, 4.0f, 6.0f, 4.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p5);
-		Wall *p61 = new Wall(8.0, 6, 10, 6, platform_depth, false);
-		p61->color.Brown();
+		Wall *p61 = new Wall(8.0, 6, 10, 6, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p61);
 
-		Wall *p7 = new Wall(5.0, 7, 6.0, 7, platform_depth, false);
-		p7->color.Brown();
+		Wall *p7 = new Wall(5.0, 7, 6.0, 7, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p7);
 
-		Wall *p8 = new Wall(2.0, 8, 4, 8, platform_depth, false);
-		p8->color.Brown();
+		Wall *p8 = new Wall(2.0, 8, 4, 8, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p8);
 
-		Wall *p9 = new Wall(-1.0, 9, 0, 9, platform_depth, false);
-		p9->color.Brown();
+		Wall *p9 = new Wall(-1.0, 9, 0, 9, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p9);
 
-		Wall *p10 = new Wall(-4.0, 10, -2, 10, platform_depth, false);
-		p10->color.Brown();
+		Wall *p10 = new Wall(-4.0, 10, -2, 10, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p10);
 
-		Wall *p11 = new Wall(1, 11, 3, 11, platform_depth, false);
-		p11->color.Brown();
+		Wall *p11 = new Wall(1, 11, 3, 11, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p11);
-		Wall *p12 = new Wall(5, 12, 6, 12, platform_depth, false);
-		p12->color.Brown();
+		Wall *p12 = new Wall(5, 12, 6, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p12);
 
 		EsferaPulsante *e3 = new EsferaPulsante(5, 5);
@@ -336,51 +314,38 @@ bool Mundo::SetLevel()
 	if (nivel == 3)
 	{
 		puerta.SetPos(8, 12, 9, 14, 5, true);
-		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false);
-		p6->color.Brown();
+		Wall *p6 = new Wall(8.0, 12, 10, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p6);
 
-		Wall *p1 = new Wall(1.0f, 3.0f, 3.0f, 3.0f, platform_depth, false);
-		p1->color.Brown();
+		Wall *p1 = new Wall(1.0f, 3.0f, 3.0f, 3.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p1);
-		Wall *p2 = new Wall(4.0f, 4.0f, 6.0f, 4.0f, platform_depth, false);
-		p2->color.Brown();
+		Wall *p2 = new Wall(4.0f, 4.0f, 6.0f, 4.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p2);
-		Wall *p3 = new Wall(6.0f, 6.0f, 8.0f, 6.0f, platform_depth, false);
-		p3->color.Brown();
+		Wall *p3 = new Wall(6.0f, 6.0f, 8.0f, 6.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p3);
-		Wall *p5 = new Wall(-1.0f, 6.0f, 1.0f, 6.0f, platform_depth, false);
-		p5->color.Brown();
+		Wall *p5 = new Wall(-1.0f, 6.0f, 1.0f, 6.0f, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p5);
-		Wall *p61 = new Wall(-4.0, 9, -2, 9, platform_depth, false);
-		p61->color.Brown();
+		Wall *p61 = new Wall(-4.0, 9, -2, 9, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p61);
 
-		Wall *p7 = new Wall(-8.0, 2, -6.0, 2, platform_depth, false);
-		p7->color.Brown();
+		Wall *p7 = new Wall(-8.0, 2, -6.0, 2, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p7);
 
-		Wall *p8 = new Wall(-9.0, 5, 4 - 7, 5, platform_depth, false);
-		p8->color.Brown();
+		Wall *p8 = new Wall(-9.0, 5, 4 - 7, 5, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p8);
 
-		Wall *p9 = new Wall(-8.0, 7, -6, 7, platform_depth, false);
-		p9->color.Brown();
+		Wall *p9 = new Wall(-8.0, 7, -6, 7, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p9);
 
-		Wall *p10 = new Wall(2.0, 8, 4, 8, platform_depth, false);
-		p10->color.Brown();
+		Wall *p10 = new Wall(2.0, 8, 4, 8, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p10);
 
-		Wall *p11 = new Wall(5, 9, 6, 9, platform_depth, false);
+		Wall *p11 = new Wall(5, 9, 6, 9, platform_depth, false, ColorPalette::Brown());
 		;
-		p11->color.Brown();
 		plataformas.Agregar(p11);
-		Wall *p12 = new Wall(0, 12, 1, 12, platform_depth, false);
-		p12->color.Brown();
+		Wall *p12 = new Wall(0, 12, 1, 12, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p12);
-		Wall *p13 = new Wall(3, 10, 4, 10, platform_depth, false);
-		p13->color.Brown();
+		Wall *p13 = new Wall(3, 10, 4, 10, platform_depth, false, ColorPalette::Brown());
 		plataformas.Agregar(p13);
 		bonus.SetPos(-2, 12);
 		for (int i = 0; i < 3; i++)

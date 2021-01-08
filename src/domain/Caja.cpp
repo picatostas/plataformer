@@ -5,16 +5,16 @@
 
 Caja::Caja(void)
 {
-	suelo.color.Gray();
+	suelo.color = ColorPalette::Gray();
 	suelo.SetPos(-10.0f, 0, 10.0f, 0, 10, false);
 
-	techo.color.Gray();
+	techo.color = ColorPalette::Gray();
 	techo.SetPos(-10.0f, 15.0f, 10.0f, 15.0f, 10, false);
 
-	pared_der.color.Dark_Gray();
+	pared_der.color = ColorPalette::Dark_Gray();
 	pared_der.SetPos(-10.0f, 0, -10.0f, 15.0f, 10, false);
 
-	pared_izq.color.Dark_Gray();
+	pared_izq.color = ColorPalette::Dark_Gray();
 	pared_izq.SetPos(10.0f, 0, 10.0f, 15.0f, 10, false);
 }
 
