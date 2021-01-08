@@ -6,7 +6,6 @@ DisparoEspecial::DisparoEspecial(void)
 	vel.y = 10;
 	color.Gold();
 	rad *= 2;
-	estelas = 2;
 }
 
 DisparoEspecial::~DisparoEspecial(void)

@@ -6,7 +6,7 @@
 #include "Wall.h"
 #include "ListaEsferas.h"
 #include "ListaDisparos.h"
-#include "ListaPlataformas.h"
+#include "PlatformContainer.h"
 #include "EsferaPulsante.h"
 #include "DisparoEspecial.h"
 #include "puertaNivel.h"
@@ -34,7 +34,7 @@ public:
 	float z_ojo;
 	ListaEsferas esferas;
 	ListaDisparos disparos;
-	ListaPlataformas plataformas;
+	PlatformContainer platforms;
 	Hombre hombre;
 	Bonus bonus;
 	Caja caja;

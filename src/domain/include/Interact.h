@@ -6,7 +6,7 @@
 #include "Disparo.h"
 #include "puertaNivel.h"
 #include "Bonus.h"
-//#include "Mundo.h"
+#include "Platform.h"
 
 class Interact
 {
@@ -26,4 +26,5 @@ public:
 	static bool Colision(Esfera e, Disparo d);
 	static bool Colision(Hombre &h, puertaNivel p);
 	static void Colision(Hombre &h, Bonus &b);
+	static void Colision(Hombre &h, Platform &p);
 };

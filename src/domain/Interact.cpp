@@ -235,3 +235,16 @@ void Interact::Colision(Hombre &h, Bonus &b)
 		b.SetPos(20, 20);
 	}
 }
+
+void Interact::Colision(Hombre &h, Platform &p)
+{
+	float xmin = p.x - h.anchura / 2;
+	float xmax = (p.x + p.width) + h.altura / 2;
+	float y = p.y + p.height;
+
+	if (h.pos.x > xmin && h.pos.x < xmax && h.pos.y < y && h.pos.y > y - 0.5f)
+	{
+		h.pos.y = y;
+		h.SetVel(h.GetVel().x, 0);
+	}
+}

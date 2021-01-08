@@ -1,7 +1,7 @@
 #include "ListaInteract.h"
 #include "ListaEsferas.h"
 #include "ListaDisparos.h"
-#include "ListaPlataformas.h"
+#include "PlatformContainer.h"
 
 ListaInteract::ListaInteract(void)
 {
@@ -31,9 +31,9 @@ void ListaInteract::Interact(ListaEsferas &esferas, ListaDisparos &disparos)
 			}
 		}
 }
-void ListaInteract::Interact(ListaEsferas &esferas, ListaPlataformas &plataformas)
+void ListaInteract::Interact(ListaEsferas &esferas, PlatformContainer &platforms)
 {
 	for (int i = 0; i < esferas.GetNum(); i++)
-		for (int j = 0; j < plataformas.GetNum(); j++)
-			Interact::Rebote(*esferas[i], *plataformas[j]);
+		for (int j = 0; j < platforms.GetNum(); j++)
+			Interact::Rebote(*esferas[i], *platforms[j]);
 }

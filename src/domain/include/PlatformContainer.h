@@ -4,11 +4,11 @@
 #include <vector>
 using namespace std;
 
-class ListaPlataformas
+class PlatformContainer
 {
 public:
-	ListaPlataformas(void);
-	virtual ~ListaPlataformas(void);
+	PlatformContainer(void);
+	virtual ~PlatformContainer(void);
 	bool Agregar(Wall *P);
 	void DestruirContenido();
 	void Eliminar(unsigned int index);
@@ -20,5 +20,5 @@ public:
 	Wall *operator[](unsigned int i);
 
 private:
-	vector<Wall *> lista;
+	vector<Wall *> container;
 };
