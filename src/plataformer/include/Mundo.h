@@ -3,7 +3,7 @@
 #include "Disparo.h"
 #include "Esfera.h"
 #include "Hombre.h"
-#include "Pared.h"
+#include "Wall.h"
 #include "ListaEsferas.h"
 #include "ListaDisparos.h"
 #include "ListaPlataformas.h"

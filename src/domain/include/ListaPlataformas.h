@@ -1,5 +1,5 @@
 #pragma once
-#include "Pared.h"
+#include "Wall.h"
 #include "Interact.h"
 #include <vector>
 using namespace std;
@@ -9,16 +9,16 @@ class ListaPlataformas
 public:
 	ListaPlataformas(void);
 	virtual ~ListaPlataformas(void);
-	bool Agregar(Pared *P);
+	bool Agregar(Wall *P);
 	void DestruirContenido();
 	void Eliminar(unsigned int index);
-	void Eliminar(Pared *p);
+	void Eliminar(Wall *p);
 	void Draw();
 	void Colision(Hombre &h);
 	void Colision(Esfera *e);
 	int GetNum();
-	Pared *operator[](unsigned int i);
+	Wall *operator[](unsigned int i);
 
 private:
-	vector<Pared *> lista;
+	vector<Wall *> lista;
 };

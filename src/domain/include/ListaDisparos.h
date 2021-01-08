@@ -26,7 +26,7 @@ public:
 	void Eliminar(int index);
 	void Eliminar(Disparo *d);
 
-	void Colision(Pared p);
+	void Colision(Wall p);
 	void Colision(Caja c);
 	void Colision(Esfera *e);
 	Disparo *operator[](int i);

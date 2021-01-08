@@ -44,7 +44,7 @@ void ListaEsferas::Rebote(Caja caja)
 	for (unsigned int i = 0; i < lista.size(); i++)
 		Interact::Rebote(*(lista[i]), caja);
 }
-void ListaEsferas::Rebote(Pared plataforma)
+void ListaEsferas::Rebote(Wall plataforma)
 {
 	for (unsigned int i = 0; i < lista.size(); i++)
 		Interact::Rebote(*(lista[i]), plataforma);

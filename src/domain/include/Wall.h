@@ -3,11 +3,11 @@
 #include "ColorPalette.h"
 #include "stdbool.h"
 
-class Pared
+class Wall
 {
 public:
-	Pared(void);
-	virtual ~Pared(void);
+	Wall(void);
+	virtual ~Wall(void);
 	ColorPalette color;
 
 public:
@@ -17,7 +17,7 @@ public:
 	float z;
 
 public:
-	Pared(float x1, float y1, float x2, float y2, float z1, bool is_front);
+	Wall(float x1, float y1, float x2, float y2, float z1, bool is_front);
 	void SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front);
 	void Draw(void);
 	void SetColor(unsigned char r, unsigned char v, unsigned char a);

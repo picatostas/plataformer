@@ -1,25 +1,25 @@
-#include "Pared.h"
+#include "Wall.h"
 #include "glut.h"
 #include "stdio.h"
 #include <unordered_map>
 
-Pared::Pared(void)
+Wall::Wall(void)
 {
 	color.Brown();
 }
 
-Pared::~Pared(void)
+Wall::~Wall(void)
 {
 }
 
-void Pared::SetColor(unsigned char r, unsigned char v, unsigned char a)
+void Wall::SetColor(unsigned char r, unsigned char v, unsigned char a)
 {
 	color.r = r;
 	color.g = v;
 	color.b = a;
 }
 
-Pared::Pared(float x1, float y1, float x2, float y2, float z1, bool is_front)
+Wall::Wall(float x1, float y1, float x2, float y2, float z1, bool is_front)
 {
 	limit1.x = x1;
 	limit1.y = y1;
@@ -29,7 +29,7 @@ Pared::Pared(float x1, float y1, float x2, float y2, float z1, bool is_front)
 	this->is_front = is_front;
 }
 
-void Pared::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front)
+void Wall::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front)
 {
 	limit1.x = x1;
 	limit1.y = y1;
@@ -39,7 +39,7 @@ void Pared::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_fro
 	this->is_front = is_front;
 }
 
-void Pared::Draw()
+void Wall::Draw()
 {
 	glDisable(GL_LIGHTING);
 	color.SetColor();
@@ -70,7 +70,7 @@ void Pared::Draw()
 //se modifica el valor de un vector direccion opcional que contendra
 //el vector unitario saliente que indica la direccion de la
 //recta mas corta entre el punto y la pared.
-float Pared::Distancia(Vector2D punto, Vector2D *direccion)
+float Wall::Distancia(Vector2D punto, Vector2D *direccion)
 {
 	Vector2D u = (punto - limit1);
 	Vector2D v = (limit2 - limit1).Unitario();

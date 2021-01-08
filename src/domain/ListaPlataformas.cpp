@@ -9,7 +9,7 @@ ListaPlataformas::~ListaPlataformas(void)
 {
 }
 
-bool ListaPlataformas::Agregar(Pared *p)
+bool ListaPlataformas::Agregar(Wall *p)
 {
 	lista.push_back(p);
 	return true;
@@ -33,7 +33,7 @@ void ListaPlataformas::Eliminar(unsigned int index)
 	lista.erase(lista.begin() + index);
 	cout << "plataforma eliminada" << endl;
 }
-void ListaPlataformas::Eliminar(Pared *p)
+void ListaPlataformas::Eliminar(Wall *p)
 {
 	for (unsigned int i = 0; i < lista.size(); i++)
 		if (lista[i] == p)
@@ -56,7 +56,7 @@ int ListaPlataformas::GetNum()
 
 	return lista.size();
 }
-Pared *ListaPlataformas::operator[](unsigned int i)
+Wall *ListaPlataformas::operator[](unsigned int i)
 {
 	if (i > lista.size()) // si me paso de indice, paso la ultima esfera
 	{

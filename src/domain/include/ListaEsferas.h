@@ -14,7 +14,7 @@ public:
 	void Mueve(float t);
 	void Rebote();
 	void Rebote(Caja caja);
-	void Rebote(Pared plataforma);
+	void Rebote(Wall plataforma);
 	bool Agregar(Esfera *e);
 	void DestruirContenido();
 	void Eliminar(unsigned int index);

@@ -39,7 +39,7 @@ void Interact::Rebote(Hombre &h, Caja c)
 	}
 }
 
-bool Interact::Rebote(Esfera &e, Pared p)
+bool Interact::Rebote(Esfera &e, Wall p)
 {
 	Vector2D dir;
 	float dif = p.Distancia(e.pos, &dir) - e.rad;
@@ -179,7 +179,7 @@ bool Interact::Colision(Esfera e, Hombre h)
 	return false;
 }
 
-void Interact::Colision(Hombre &h, Pared p)
+void Interact::Colision(Hombre &h, Wall p)
 {
 	float xmin = p.limit1.x - h.anchura / 2;
 	float xmax = p.limit2.x + h.altura / 2;
@@ -194,7 +194,7 @@ void Interact::Colision(Hombre &h, Pared p)
 	//h.salto=false;
 	//cout<<"estado del salto"<<"\t"<<h.salto<<endl;
 }
-bool Interact::Colision(Disparo d, Pared p)
+bool Interact::Colision(Disparo d, Wall p)
 {
 
 	Vector2D dir;
@@ -212,7 +212,7 @@ bool Interact::Colision(Esfera e, Disparo d)
 {
 	Vector2D aux = e.pos - d.pos;
 	float dist = aux.modulo();
-	//Pared aux; // creamos una pared auxiliar
+	//Wall aux; // creamos una pared auxiliar
 	//Vector2D p1=d.pos;
 	//Vector2D p2=d.posinicial;
 	//aux.SetPos(p1.x,p1.y,p2.x,p2.y,0); // que coincida con el disparo

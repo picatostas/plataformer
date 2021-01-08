@@ -1,6 +1,6 @@
 #pragma once
-#include "Pared.h"
-class puertaNivel : public Pared
+#include "Wall.h"
+class puertaNivel : public Wall
 {
 public:
 	puertaNivel();

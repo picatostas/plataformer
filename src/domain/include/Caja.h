@@ -1,13 +1,13 @@
 #pragma once
 #include "Vector2D.h"
-#include "Pared.h"
+#include "Wall.h"
 class Caja
 {
 protected:
-	Pared techo;
-	Pared suelo;
-	Pared pared_izq;
-	Pared pared_der;
+	Wall techo;
+	Wall suelo;
+	Wall pared_izq;
+	Wall pared_der;
 
 public:
 	Caja(void);
