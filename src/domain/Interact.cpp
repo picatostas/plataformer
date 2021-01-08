@@ -233,11 +233,6 @@ bool Interact::Colision(Esfera e, Disparo d)
 {
 	Vector2D aux = e.pos - d.pos;
 	float dist = aux.modulo();
-	//Wall aux; // creamos una pared auxiliar
-	//Vector2D p1=d.pos;
-	//Vector2D p2=d.posinicial;
-	//aux.SetPos(p1.x,p1.y,p2.x,p2.y,0); // que coincida con el disparo
-	// para calcular su distancia
 	if (dist < e.rad)
 		return true;
 	return false;
@@ -245,7 +240,10 @@ bool Interact::Colision(Esfera e, Disparo d)
 bool Interact::Colision(Hombre &h, LevelDoor p)
 {
 	if (h.pos.x > p.limit1.x && h.pos.x < p.limit2.x && h.pos.y >= p.limit1.y)
+	{
+		cout << "Man Hit door" << endl;
 		return true;
+	}
 	return false;
 }
 void Interact::Colision(Hombre &h, Bonus &b)
