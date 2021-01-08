@@ -22,10 +22,10 @@ void puertaNivel::Draw()
 	glDisable(GL_LIGHTING);
 	color.SetColor();
 	glBegin(GL_POLYGON);
-	glVertex3d(8.0f, 12, 0);
-	glVertex3d(8.0f, 14, 0);
-	glVertex3d(9.5f, 14.0f, 0);
-	glVertex3d(9.5f, 12, 0);
+	glVertex3d(8.0f, 12.0f, 0.0f);
+	glVertex3d(9.5f, 12.0f, 0.0f);
+	glVertex3d(9.5f, 14.0f, 0.0f);
+	glVertex3d(8.0f, 14.0f, 0.0f);
 	glEnd();
 	glEnable(GL_LIGHTING);
 }

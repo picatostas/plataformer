@@ -1,6 +1,5 @@
 #include "Hombre.h"
 #include "glut.h"
-#include "stdio.h"
 
 Hombre::Hombre(void)
 {
@@ -8,7 +7,6 @@ Hombre::Hombre(void)
 	anchura = 0.75f;
 	acelr.y = -20.8f;
 	vidas = 3;
-	//salto=true;
 }
 
 Hombre::~Hombre(void)
@@ -50,6 +48,7 @@ void Hombre::Draw()
 	// Head
 	glutSolidSphere(altura / 4, 100, 100);
 
+	// Original character
 	// glTranslatef(0, altura / 2, 0);
 	// glutSolidCube(anchura);
 	// glTranslatef(0.0f, altura / 2 + 0.5f, 0);

@@ -74,12 +74,6 @@ void ColorPalette::Purple()
 	g = 0;
 	b = 128;
 }
-void ColorPalette::Deep_purple()
-{
-	r = 255;
-	g = 0;
-	b = 255;
-}
 void ColorPalette::Brown()
 {
 	r = 140;

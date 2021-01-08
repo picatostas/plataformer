@@ -1,10 +1,11 @@
 #include "Pared.h"
 #include "glut.h"
 #include "stdio.h"
+#include <unordered_map>
 
 Pared::Pared(void)
 {
-	color.White();
+	color.Brown();
 }
 
 Pared::~Pared(void)
@@ -18,22 +19,24 @@ void Pared::SetColor(unsigned char r, unsigned char v, unsigned char a)
 	color.b = a;
 }
 
-Pared::Pared(float x1, float y1, float x2, float y2, float z1)
+Pared::Pared(float x1, float y1, float x2, float y2, float z1, bool is_front)
 {
 	limit1.x = x1;
 	limit1.y = y1;
 	limit2.x = x2;
 	limit2.y = y2;
 	z = z1;
+	this->is_front = is_front;
 }
 
-void Pared::SetPos(float x1, float y1, float x2, float y2, float z1)
+void Pared::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front)
 {
 	limit1.x = x1;
 	limit1.y = y1;
 	limit2.x = x2;
 	limit2.y = y2;
 	z = z1;
+	this->is_front = is_front;
 }
 
 void Pared::Draw()
@@ -41,10 +44,24 @@ void Pared::Draw()
 	glDisable(GL_LIGHTING);
 	color.SetColor();
 	glBegin(GL_POLYGON);
-	glVertex3d(limit1.x, limit1.y, z);
-	glVertex3d(limit2.x, limit2.y, z);
-	glVertex3d(limit2.x, limit2.y, -z);
-	glVertex3d(limit1.x, limit1.y, -z);
+
+	// To draw a front planel
+	if (is_front)
+	{
+		glVertex3d(limit1.x, limit1.y, z);
+		glVertex3d(limit2.x, limit1.y, z);
+		glVertex3d(limit2.x, limit2.y, z);
+		glVertex3d(limit1.x, limit2.y, z);
+	}
+	// To draw a normal plane to the front panel
+	else
+	{
+		glVertex3d(limit1.x, limit1.y, z);
+		glVertex3d(limit2.x, limit2.y, z);
+		glVertex3d(limit2.x, limit2.y, -z);
+		glVertex3d(limit1.x, limit1.y, -z);
+	}
+
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
