@@ -1,6 +1,6 @@
 #include "PlatformContainer.h"
 #include <iostream>
-#include "Mundo.h"
+#include "World.h"
 
 PlatformContainer::PlatformContainer(void)
 {
@@ -9,7 +9,7 @@ PlatformContainer::~PlatformContainer(void)
 {
 }
 
-bool PlatformContainer::Agregar(Wall *p)
+bool PlatformContainer::Add(Platform *p)
 {
 	container.push_back(p);
 	return true;
@@ -33,7 +33,7 @@ void PlatformContainer::Eliminar(unsigned int index)
 	container.erase(container.begin() + index);
 	cout << "plataforma eliminada" << endl;
 }
-void PlatformContainer::Eliminar(Wall *p)
+void PlatformContainer::Eliminar(Platform *p)
 {
 	for (unsigned int i = 0; i < container.size(); i++)
 		if (container[i] == p)
@@ -56,7 +56,7 @@ int PlatformContainer::GetNum()
 
 	return container.size();
 }
-Wall *PlatformContainer::operator[](unsigned int i)
+Platform *PlatformContainer::operator[](unsigned int i)
 {
 	if (i > container.size()) // si me paso de indice, paso la ultima esfera
 	{

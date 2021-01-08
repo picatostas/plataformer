@@ -5,17 +5,20 @@
 
 Caja::Caja(void)
 {
-	suelo.color = ColorPalette::Gray();
-	suelo.SetPos(-10.0f, 0, 10.0f, 0, 10, false);
+	floor.color = ColorPalette::Gray();
+	floor.SetPos(-10.0f, 0, 10.0f, 0, 10, false);
 
-	techo.color = ColorPalette::Gray();
-	techo.SetPos(-10.0f, 15.0f, 10.0f, 15.0f, 10, false);
+	roof.color = ColorPalette::Gray();
+	roof.SetPos(-10.0f, 15.0f, 10.0f, 15.0f, 10, false);
 
-	pared_der.color = ColorPalette::Dark_Gray();
-	pared_der.SetPos(-10.0f, 0, -10.0f, 15.0f, 10, false);
+	right_side.color = ColorPalette::Dark_Gray();
+	right_side.SetPos(-10.0f, 0, -10.0f, 15.0f, 10, false);
 
-	pared_izq.color = ColorPalette::Dark_Gray();
-	pared_izq.SetPos(10.0f, 0, 10.0f, 15.0f, 10, false);
+	left_side.color = ColorPalette::Dark_Gray();
+	left_side.SetPos(10.0f, 0, 10.0f, 15.0f, 10, false);
+
+	back.color = ColorPalette::SkyBlue();
+	back.SetPos(-10.0f, 0.0f, 10.0f, 15.0f, -10.0f, true);
 }
 
 Caja::~Caja(void)
@@ -24,8 +27,9 @@ Caja::~Caja(void)
 
 void Caja::Draw()
 {
-	suelo.Draw();
-	techo.Draw();
-	pared_izq.Draw();
-	pared_der.Draw();
+	floor.Draw();
+	roof.Draw();
+	left_side.Draw();
+	right_side.Draw();
+	back.Draw();
 }

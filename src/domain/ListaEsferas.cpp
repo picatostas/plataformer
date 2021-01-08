@@ -13,21 +13,10 @@ ListaEsferas::~ListaEsferas(void)
 {
 }
 
-bool ListaEsferas::Agregar(Esfera *e)
+bool ListaEsferas::Add(Esfera *e)
 {
 	lista.push_back(e);
 	return true;
-
-	/*if (lista.size()<MAX_ESFERAS)
-	{
-
-
-				lista[lista.size()++]=e;
-
-	}
-	else
-		return false;
-	return true;*/
 }
 void ListaEsferas::Draw()
 {

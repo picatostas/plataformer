@@ -70,9 +70,9 @@ float Wall::Distancia(Vector2D punto, Vector2D *direccion)
 	float longitud = (limit1 - limit2).modulo();
 	Vector2D dir;
 	float valor = u * v;
-	float distancia = 0;
+	float distancia = 0.0f;
 
-	if (valor < 0)
+	if (valor < 0.0f)
 		dir = u;
 	else if (valor > longitud)
 		dir = (punto - limit2);

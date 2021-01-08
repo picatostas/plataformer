@@ -27,11 +27,11 @@ void CoordinadorJuego::Draw()
 	}
 	else if (estado == JUEGO)
 	{
-		mundo.Draw();
+		world.Draw();
 	}
 	else if (estado == GAMEOVER)
 	{
-		mundo.Draw();
+		world.Draw();
 		OpenGL::Print((char *)"HAS PERDIDO         ", 300, 200, 255, 0, 0);
 		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 225, 255, 0, 255);
 		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
@@ -41,7 +41,7 @@ void CoordinadorJuego::Draw()
 	}
 	else if (estado == FIN)
 	{
-		mundo.Draw();
+		world.Draw();
 		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
 		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
 		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
@@ -50,7 +50,7 @@ void CoordinadorJuego::Draw()
 	}
 	else if (estado == PAUSA)
 	{
-		mundo.Draw();
+		world.Draw();
 		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
 		OpenGL::Print((char *)"Presione -O- para ver las opciones", 300, 325, 130, 100, 255);
@@ -60,7 +60,7 @@ void CoordinadorJuego::Draw()
 	else if (estado == CONTROLES)
 	{
 		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Movimiento lateral  keys -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
 		OpenGL::Print((char *)"Presione -E- para volver al Menu", 300, 380, 255, 0, 255);
@@ -69,7 +69,7 @@ void CoordinadorJuego::Draw()
 	else if (estado == CONTROLES_IN_GAME)
 	{
 		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Movimiento lateral  teclas -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Movimiento lateral  keys -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
 		OpenGL::Print((char *)"Presione -E- para volver al menu de pausa", 300, 380, 255, 0, 255);
@@ -77,31 +77,31 @@ void CoordinadorJuego::Draw()
 	}
 }
 
-void CoordinadorJuego::TeclaEspecial(unsigned char key)
+void CoordinadorJuego::KeyEspecial(unsigned char key)
 {
 	if (estado == JUEGO)
 	{
-		mundo.TeclaEspecial(key);
+		world.KeyEspecial(key);
 	}
 }
 
-void CoordinadorJuego::TeclaUp(unsigned char key)
+void CoordinadorJuego::KeyUp(unsigned char key)
 {
 	if (estado == JUEGO)
 	{
-		mundo.TeclaUp(key);
+		world.KeyUp(key);
 	}
 }
 
-void CoordinadorJuego::TeclaDown(unsigned char key)
+void CoordinadorJuego::KeyDown(unsigned char key)
 {
 	if (estado == JUEGO)
 	{
-		mundo.TeclaDown(key);
+		world.KeyDown(key);
 	}
 }
 
-void CoordinadorJuego::Tecla(unsigned char key)
+void CoordinadorJuego::Key(unsigned char key)
 {
 	if (estado == INICIO)
 	{
@@ -109,7 +109,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		{
 			mciSendString(TEXT("stop open_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
-			mundo.Inicializa();
+			world.Inicializa();
 			estado = JUEGO;
 		}
 
@@ -125,7 +125,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 	}
 	else if (estado == JUEGO)
 	{
-		mundo.Tecla(key);
+		world.Key(key);
 		if (key == 'p')
 		{
 			mciSendString(TEXT("pause game_sound"), NULL, 0, NULL);
@@ -139,7 +139,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		{
 			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
-			mundo.Inicializa();
+			world.Inicializa();
 			estado = JUEGO;
 		}
 		if (key == 'm')
@@ -160,7 +160,7 @@ void CoordinadorJuego::Tecla(unsigned char key)
 		{
 			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
-			mundo.Inicializa();
+			world.Inicializa();
 			estado = JUEGO;
 		}
 		if (key == 'm')
@@ -213,10 +213,10 @@ void CoordinadorJuego::Move()
 {
 	if (estado == JUEGO)
 	{
-		mundo.Move();
-		if (mundo.estadoNivel())
+		world.Move();
+		if (world.estadoNivel())
 		{
-			if (!mundo.SetLevel())
+			if (!world.SetLevel())
 			{
 				mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
 				mciSendString(TEXT("play won_sound"), NULL, 0, NULL);
@@ -224,7 +224,7 @@ void CoordinadorJuego::Move()
 			}
 		}
 
-		if (mundo.GetVidasHombre() == 0)
+		if (world.GetVidasHombre() == 0)
 		{
 			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play lost_sound"), NULL, 0, NULL);

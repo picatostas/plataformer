@@ -15,7 +15,7 @@ public:
 	void Rebote();
 	void Rebote(Caja caja);
 	void Rebote(Wall plataforma);
-	bool Agregar(Esfera *e);
+	bool Add(Esfera *e);
 	void DestruirContenido();
 	void Eliminar(unsigned int index);
 	void Eliminar(Esfera *e);

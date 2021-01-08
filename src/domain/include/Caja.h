@@ -4,10 +4,7 @@
 class Caja
 {
 protected:
-	Wall techo;
-	Wall suelo;
-	Wall pared_izq;
-	Wall pared_der;
+	Wall roof, floor, left_side, right_side, back;
 
 public:
 	Caja(void);

@@ -29,10 +29,13 @@ ColorPalette ColorPalette::Red()
 {
 	return ColorPalette(255, 0, 0);
 }
-
 ColorPalette ColorPalette::Blue()
 {
 	return ColorPalette(0, 0, 255);
+}
+ColorPalette ColorPalette::SkyBlue()
+{
+	return ColorPalette(0, 165, 255);
 }
 ColorPalette ColorPalette::Green()
 {

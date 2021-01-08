@@ -13,7 +13,7 @@ ListaDisparos::~ListaDisparos(void)
 {
 }
 
-bool ListaDisparos::Agregar(Disparo *d)
+bool ListaDisparos::Add(Disparo *d)
 {
 	/*lista.push_back(d);
 	return true;*/
@@ -49,10 +49,10 @@ void ListaDisparos::Colision(Wall p)
 }
 void ListaDisparos::Colision(Caja c)
 {
-	ListaDisparos::Colision(c.techo);
-	ListaDisparos::Colision(c.suelo);
-	ListaDisparos::Colision(c.pared_izq);
-	ListaDisparos::Colision(c.pared_der);
+	ListaDisparos::Colision(c.roof);
+	ListaDisparos::Colision(c.floor);
+	ListaDisparos::Colision(c.left_side);
+	ListaDisparos::Colision(c.right_side);
 }
 int ListaDisparos::GetNum()
 {

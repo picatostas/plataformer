@@ -4,7 +4,7 @@
 #include "Caja.h"
 #include "Esfera.h"
 #include "Disparo.h"
-#include "puertaNivel.h"
+#include "LevelDoor.h"
 #include "Bonus.h"
 #include "Platform.h"
 
@@ -16,6 +16,7 @@ public:
 
 	static void Rebote(Hombre &h, Caja c);
 	static bool Rebote(Esfera &e, Wall p);
+	static bool Rebote(Esfera &e, Platform p);
 	static void Rebote(Esfera &e, Caja c);
 	static void Rebote(Esfera &e1, Esfera &e2);
 	static void Rebote(Esfera &e, Hombre &h);
@@ -24,7 +25,7 @@ public:
 	static bool Colision(Disparo d, Wall p);
 	static bool Colision(Disparo d, Caja c);
 	static bool Colision(Esfera e, Disparo d);
-	static bool Colision(Hombre &h, puertaNivel p);
+	static bool Colision(Hombre &h, LevelDoor p);
 	static void Colision(Hombre &h, Bonus &b);
 	static void Colision(Hombre &h, Platform &p);
 };

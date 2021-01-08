@@ -1,10 +1,10 @@
 #pragma once
 #include "Wall.h"
-class puertaNivel : public Wall
+class LevelDoor : public Wall
 {
 public:
-	puertaNivel();
-	~puertaNivel(void);
+	LevelDoor();
+	~LevelDoor(void);
 	void Draw();
 	friend class Interact;
 };

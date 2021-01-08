@@ -5,7 +5,7 @@
 #include "Hombre.h"
 #include "Caja.h"
 #include <math.h>
-//#include "Mundo.h"
+//#include "World.h"
 #include "CoordinadorJuego.h"
 #include <iostream>
 using namespace std;
@@ -22,10 +22,10 @@ Interact::~Interact(void)
 
 void Interact::Rebote(Hombre &h, Caja c)
 {
-	float xmax = c.suelo.limit2.x - h.anchura / 2;
-	float xmin = c.suelo.limit1.x + h.anchura / 2;
-	float ymin = c.suelo.limit1.y;
-	float ymax = c.techo.limit2.y - 1 - h.anchura;
+	float xmax = c.floor.limit2.x - h.anchura / 2;
+	float xmin = c.floor.limit1.x + h.anchura / 2;
+	float ymin = c.floor.limit1.y;
+	float ymax = c.roof.limit2.y - 1 - h.anchura;
 	if (h.pos.x > xmax)
 		h.pos.x = xmax;
 	if (h.pos.x < xmin)
@@ -48,6 +48,27 @@ bool Interact::Rebote(Esfera &e, Wall p)
 		Vector2D v_inicial = e.vel;
 		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
 		e.pos = e.pos - dir * dif;
+		return true;
+	}
+	return false;
+}
+bool Interact::Rebote(Esfera &e, Platform p)
+{
+	Vector2D dir;
+	float diff1 = p.roof.Distancia(e.pos, &dir) - e.rad;
+	float diff2 = p.floor.Distancia(e.pos, &dir) - e.rad;
+	if (diff1 <= 0.0f)
+	{
+		Vector2D v_inicial = e.vel;
+		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
+		e.pos = e.pos - dir * diff1;
+		return true;
+	}
+	if (diff2 <= 0.0f)
+	{
+		Vector2D v_inicial = e.vel;
+		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
+		e.pos = e.pos - dir * diff2;
 		return true;
 	}
 	return false;
@@ -89,15 +110,15 @@ void Interact::Rebote(Esfera &e1, Esfera &e2)
 void Interact::Rebote(Esfera &e, Caja c)
 {
 	bool flag_suelo, flag_techo, flag_pared_izq, flag_pared_der;
-	flag_suelo = Rebote(e, c.suelo);
-	flag_techo = Rebote(e, c.techo);
-	flag_pared_izq = Rebote(e, c.pared_izq);
-	flag_pared_der = Rebote(e, c.pared_der);
+	flag_suelo = Rebote(e, c.floor);
+	flag_techo = Rebote(e, c.roof);
+	flag_pared_izq = Rebote(e, c.left_side);
+	flag_pared_der = Rebote(e, c.right_side);
 
 	if (flag_suelo == true)
 	{
-		float xmax = c.suelo.limit2.x;
-		float xmin = c.suelo.limit1.x;
+		float xmax = c.floor.limit2.x;
+		float xmin = c.floor.limit1.x;
 		if (e.pos.x > xmax)
 			e.pos.x = xmax;
 		if (e.pos.x < xmin)
@@ -106,8 +127,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_techo == true)
 	{
-		float xmax = c.techo.limit2.x;
-		float xmin = c.techo.limit1.x;
+		float xmax = c.roof.limit2.x;
+		float xmin = c.roof.limit1.x;
 		if (e.pos.x > xmax)
 			e.pos.x = xmax;
 		if (e.pos.x < xmin)
@@ -116,8 +137,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_pared_izq == true)
 	{
-		float ymax = c.pared_izq.limit2.y;
-		float ymin = c.pared_izq.limit1.y;
+		float ymax = c.left_side.limit2.y;
+		float ymin = c.left_side.limit1.y;
 		if (e.pos.y > ymax)
 			e.pos.y = ymax;
 		if (e.pos.y < ymin)
@@ -126,8 +147,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_pared_der == true)
 	{
-		float ymax = c.pared_der.limit2.y;
-		float ymin = c.pared_der.limit1.y;
+		float ymax = c.right_side.limit2.y;
+		float ymin = c.right_side.limit1.y;
 		if (e.pos.y > ymax)
 			e.pos.y = ymax;
 		if (e.pos.y < ymin)
@@ -221,7 +242,7 @@ bool Interact::Colision(Esfera e, Disparo d)
 		return true;
 	return false;
 }
-bool Interact::Colision(Hombre &h, puertaNivel p)
+bool Interact::Colision(Hombre &h, LevelDoor p)
 {
 	if (h.pos.x > p.limit1.x && h.pos.x < p.limit2.x && h.pos.y >= p.limit1.y)
 		return true;

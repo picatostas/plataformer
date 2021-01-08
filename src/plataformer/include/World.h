@@ -9,8 +9,8 @@
 #include "PlatformContainer.h"
 #include "EsferaPulsante.h"
 #include "DisparoEspecial.h"
-#include "puertaNivel.h"
-class Mundo
+#include "LevelDoor.h"
+class World
 {
 private:
 	bool impacto;
@@ -19,12 +19,12 @@ private:
 
 public:
 	bool salto;
-	Mundo();
+	World();
 	void Inicializa();
 	void Rotared();
 	void Move();
 	void Draw();
-	virtual ~Mundo();
+	virtual ~World();
 	int GetNumEsferas();
 	bool estadoNivel();
 	int GetVidasHombre();
@@ -38,12 +38,12 @@ public:
 	Hombre hombre;
 	Bonus bonus;
 	Caja caja;
-	puertaNivel puerta;
+	LevelDoor puerta;
 	DisparoEspecial dispowa;
 
-	void TeclaEspecial(unsigned char key);
-	void TeclaDown(unsigned char key);
-	void TeclaUp(unsigned char key);
-	void Tecla(unsigned char key);
+	void KeyEspecial(unsigned char key);
+	void KeyDown(unsigned char key);
+	void KeyUp(unsigned char key);
+	void Key(unsigned char key);
 	bool SetLevel();
 };

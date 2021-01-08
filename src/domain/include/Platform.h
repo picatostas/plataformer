@@ -4,7 +4,7 @@
 class Platform : public Caja
 {
 private:
-	Wall front, back;
+	Wall front;
 	float height, width, depth;
 	float x, y;
 

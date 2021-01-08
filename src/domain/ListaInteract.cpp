@@ -25,7 +25,7 @@ void ListaInteract::Interact(ListaEsferas &esferas, ListaDisparos &disparos)
 				}
 				else
 				{
-					esferas.Agregar(e);
+					esferas.Add(e);
 					disparos.Eliminar(j);
 				}
 			}

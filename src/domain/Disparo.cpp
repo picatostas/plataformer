@@ -13,7 +13,7 @@ Disparo::~Disparo(void)
 
 void Disparo::Draw()
 {
-	color = ColorPalette::Red();
+	color = ColorPalette::Orange();
 	glColor3ub(color.r, color.g, color.b);
 	glPushMatrix();
 	glTranslatef(pos.x, pos.y, 0);

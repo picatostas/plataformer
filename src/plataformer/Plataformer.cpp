@@ -58,20 +58,20 @@ void OnDraw(void)
 }
 void OnKeyboardDown(unsigned char key, int x, int y)
 {
-	//poner aqui el codigo de teclado
+	//poner aqui el codigo de keydo
 	(void)x;
 	(void)y;
-	juego.TeclaDown(key);
-	juego.Tecla(key);
+	juego.KeyDown(key);
+	juego.Key(key);
 	glutPostRedisplay();
 }
 
 void OnKeyboardUp(unsigned char key, int x, int y)
 {
-	//Para la anulacion de velociadades cuando deje de pulsarse el teclado
+	//Para la anulacion de velociadades cuando deje de pulsarse el keydo
 	(void)x;
 	(void)y;
-	juego.TeclaUp(key);
+	juego.KeyUp(key);
 
 	glutPostRedisplay();
 }
@@ -90,5 +90,5 @@ void OnSpecialKeyboardDown(int key, int x, int y)
 {
 	(void)x;
 	(void)y;
-	juego.TeclaEspecial(key);
+	juego.KeyEspecial(key);
 }

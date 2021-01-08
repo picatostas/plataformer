@@ -14,6 +14,7 @@ public:
 	static ColorPalette Orange();
 	static ColorPalette Red();
 	static ColorPalette Blue();
+	static ColorPalette SkyBlue();
 	static ColorPalette Green();
 	static ColorPalette Forest_Green();
 	static ColorPalette Deep_Green();

@@ -1,10 +1,10 @@
 #pragma once
-#include "Mundo.h"
+#include "World.h"
 
 class CoordinadorJuego
 {
 protected:
-	Mundo mundo;
+	World world;
 	enum Estado
 	{
 		INICIO,
@@ -20,10 +20,10 @@ protected:
 public:
 	CoordinadorJuego(void);
 	virtual ~CoordinadorJuego(void);
-	void TeclaEspecial(unsigned char key);
-	void Tecla(unsigned char key);
-	void TeclaDown(unsigned char key);
-	void TeclaUp(unsigned char key);
+	void KeyEspecial(unsigned char key);
+	void Key(unsigned char key);
+	void KeyDown(unsigned char key);
+	void KeyUp(unsigned char key);
 	void Move();
 	void Draw();
 	friend class Interact;

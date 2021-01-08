@@ -18,7 +18,7 @@ public:
 	ListaDisparos(void);
 	virtual ~ListaDisparos(void);
 
-	bool Agregar(Disparo *d);
+	bool Add(Disparo *d);
 	void DestruirContenido();
 	void Move(float t);
 	void Draw();
