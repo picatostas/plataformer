@@ -2,43 +2,43 @@
 #include "glut.h"
 #include <stdio.h>
 
-Bitmap::Bitmap(char *file_name)
+Bitmap::Bitmap(char *nombre_archivo)
 {
 	int bytes_pixel;
-	long int width, height, offset;
+	long int ancho, alto, offset;
 	char buffer[3] = "\0";
-	FILE *file;
-	//Carga el file de imagen que se utilizara como textura
+	FILE *archivo;
+	//Carga el archivo de imagen que se utilizara como textura
 	//Solo soporta BMP de 24 y 32 bits (RGB y RGBA)
-	file = fopen(file_name, "rb");
-	if (file == NULL)
+	archivo = fopen(nombre_archivo, "rb");
+	if (archivo == NULL)
 	{
-		fclose(file);
-		state = false;
+		fclose(archivo);
+		estado = false;
 		return;
 	}
-	fread(buffer, sizeof(char), 2, file);
+	fread(buffer, sizeof(char), 2, archivo);
 	if ((buffer[0] == 'B') && (buffer[1] == 'M'))
 	{
-		fseek(file, 0x1C, SEEK_SET);
-		fread(&bytes_pixel, sizeof(int), 1, file);
+		fseek(archivo, 0x1C, SEEK_SET);
+		fread(&bytes_pixel, sizeof(int), 1, archivo);
 		bytes_pixel /= 8;
 		if ((bytes_pixel != 3) && (bytes_pixel != 4))
 		{
-			fclose(file);
-			state = false;
+			fclose(archivo);
+			estado = false;
 			return;
 		}
-		fseek(file, 0x12, SEEK_SET);
-		fread(&width, sizeof(long int), 1, file);
-		fread(&height, sizeof(long int), 1, file);
-		fseek(file, 0x0A, SEEK_SET);
-		fread(&offset, sizeof(long int), 1, file);
-		imagen = new unsigned char[width * height * bytes_pixel];
-		fseek(file, offset, SEEK_SET);
-		fread(imagen, sizeof(unsigned char), width * height * bytes_pixel, file);
-		this->width = width;
-		this->height = height;
+		fseek(archivo, 0x12, SEEK_SET);
+		fread(&ancho, sizeof(long int), 1, archivo);
+		fread(&alto, sizeof(long int), 1, archivo);
+		fseek(archivo, 0x0A, SEEK_SET);
+		fread(&offset, sizeof(long int), 1, archivo);
+		imagen = new unsigned char[ancho * alto * bytes_pixel];
+		fseek(archivo, offset, SEEK_SET);
+		fread(imagen, sizeof(unsigned char), ancho * alto * bytes_pixel, archivo);
+		this->ancho = ancho;
+		this->alto = alto;
 		this->bytes_pixel = bytes_pixel;
 		//Crea la textura, propiamente dicha, en openGL
 		glGenTextures(1, &texture);
@@ -47,23 +47,23 @@ Bitmap::Bitmap(char *file_name)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		if (bytes_pixel == 3)
-			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, width, height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imagen);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 		else
-			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, width, height, GL_BGRA_EXT, GL_UNSIGNED_BYTE, imagen);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGBA, GL_UNSIGNED_BYTE, imagen);
 
-		state = true;
+		estado = true;
 	}
 	else
-		state = false;
-	fclose(file);
+		estado = false;
+	fclose(archivo);
 }
 
 bool Bitmap::verEstado()
 {
-	return state;
+	return estado;
 }
 
-void Bitmap::UseTexture()
+void Bitmap::usarTextura()
 {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -77,6 +77,6 @@ void Bitmap::UseTexture()
 
 Bitmap::~Bitmap()
 {
-	if (state)
+	if (estado)
 		delete[] imagen;
 }

@@ -3,9 +3,9 @@
 
 class Bitmap
 {
-	bool estado;
-	unsigned int width;
-	unsigned int height;
+	bool estado; //exito=1 fallo=0
+	unsigned int ancho;
+	unsigned int alto;
 	unsigned int bytes_pixel;
 	unsigned char *imagen;
 	GLuint texture;
@@ -13,6 +13,6 @@ class Bitmap
 public:
 	Bitmap(char *nombre_archivo);
 	bool verEstado();
-	void useTexture();
+	void usarTextura();
 	~Bitmap();
 };

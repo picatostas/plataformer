@@ -205,11 +205,26 @@ bool World::Impacto()
 bool World::SetLevel()
 
 {
-	nivel++;
+	// nivel++;
+	nivel = 0;
 	hombre.SetPos(-8, 0);
 	esferas.DestruirContenido();
 	disparos.DestruirContenido();
 	platforms.DestruirContenido();
+	// Test_level
+	if (nivel == 0)
+	{
+		puerta.SetPos(-2.0f, 1.25f, 2.0f, 6.27f, 0, true);
+
+		Platform *level_platforms[] = {
+		    new Platform(-4.0f, 1.0f, 8.0f)};
+
+		for (unsigned int i = 0; i < sizeof(level_platforms) / sizeof(level_platforms[0]); i++)
+		{
+			platforms.Add(level_platforms[i]);
+		}
+		bonus.SetPos(-20, 13);
+	}
 
 	if (nivel == 1)
 	{

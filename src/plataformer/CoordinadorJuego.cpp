@@ -1,7 +1,8 @@
 #include "CoordinadorJuego.h"
-#include <Windows.h>
 #include "OpenGL.h"
 #include "glut.h"
+#include "mmsystem.h"
+
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	estado = INICIO;

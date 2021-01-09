@@ -1,5 +1,8 @@
 #include "LevelDoor.h"
 #include "glut.h"
+#include "TextureLoader.h"
+#include "GL/gl.h"
+#include "Bitmap.h"
 
 LevelDoor::LevelDoor(void)
 {
@@ -9,14 +12,21 @@ LevelDoor::~LevelDoor(void)
 }
 void LevelDoor::Draw()
 {
+	static Bitmap texture((char *)"textures/old_door.bmp");
+	glPushMatrix();
 	glDisable(GL_LIGHTING);
-	color = ColorPalette::Pink();
-	glColor3ub(color.r, color.g, color.b);
-	glBegin(GL_POLYGON);
-	glVertex3d(8.0f, 11.25f, 0.0f);
-	glVertex3d(9.5f, 11.25f, 0.0f);
-	glVertex3d(9.5f, 13.0f, 0.0f);
-	glVertex3d(8.0f, 13.0f, 0.0f);
+	texture.usarTextura();
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(limit1.x, limit1.y, z);
+	glTexCoord2f(0.0, 1.0);
+	glVertex3f(limit1.x, limit2.y, z);
+	glTexCoord2f(1.0, 1.0);
+	glVertex3f(limit2.x, limit2.y, z);
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(limit2.x, limit1.y, z);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
+	glPopMatrix();
 }

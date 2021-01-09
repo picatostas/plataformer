@@ -1,5 +1,5 @@
 CXX      := -g++
-CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror
+CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror -Wno-unused-but-set-variable
 LDFLAGS  := -L"C:\VSARM\mingw\freeglut\lib" -lfreeglut -lopengl32 -lwinmm -lglu32 -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
@@ -36,7 +36,9 @@ build:
 	@mkdir -p $(APP_DIR)
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(APP_DIR)/music/
-	@cp ./bin/* $(APP_DIR)/music/
+	@mkdir -p $(APP_DIR)/textures/
+	@cp ./bin/*.mp3 $(APP_DIR)/music/
+	@cp ./textures/*.bmp $(APP_DIR)/textures/
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all

@@ -1,7 +1,5 @@
 #include "Wall.h"
 #include "glut.h"
-#include "stdio.h"
-#include <unordered_map>
 
 Wall::Wall(void)
 {
