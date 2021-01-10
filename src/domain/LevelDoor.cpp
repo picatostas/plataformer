@@ -6,7 +6,7 @@
 
 LevelDoor::LevelDoor(void)
 {
-	color = ColorPalette::Pink();
+	color = ColorPalette::Brown();
 }
 
 LevelDoor::~LevelDoor(void)

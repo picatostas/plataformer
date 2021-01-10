@@ -14,15 +14,15 @@ Caja::Caja(void)
 	roof.SetPos(-10.0f, 15.0f, 10.0f, 15.0f, 10, false);
 
 	right_side.LoadTexture((char *)"dungeon_wall");
-	right_side.color = ColorPalette::Dark_Gray();
+	right_side.color = ColorPalette::Gray();
 	right_side.SetPos(-10.0f, 0, -10.0f, 15.0f, 10, false);
 
 	left_side.LoadTexture((char *)"dungeon_wall");
-	left_side.color = ColorPalette::Dark_Gray();
+	left_side.color = ColorPalette::Gray();
 	left_side.SetPos(10.0f, 0, 10.0f, 15.0f, 10, false);
 
 	back.LoadTexture((char *)"dungeon_wall");
-	back.color = ColorPalette::SkyBlue();
+	back.color = ColorPalette::Gray();
 	back.SetPos(-10.0f, 0.0f, 10.0f, 15.0f, -10.0f, true);
 }
 

@@ -35,7 +35,7 @@ void World::Draw()
 		  0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)
 
 	hombre.Draw();
-	// bonus.Draw();
+	bonus.Draw();
 	caja.Draw();
 	esferas.Draw();
 	platforms.Draw();
@@ -56,7 +56,7 @@ void World::Move()
 	esferas.Rebote();
 	disparos.Colision(caja);
 	platforms.Colision(hombre);
-	// Interact::Colision(hombre, bonus);
+	Interact::Colision(hombre, bonus);
 
 	if (hombre.GetVel().y == 0)
 		hombre.SetSalto(true);
@@ -206,8 +206,8 @@ bool World::Impacto()
 bool World::SetLevel()
 
 {
-	// nivel++;
-	nivel = 0;
+	nivel++;
+	// nivel = 0;
 	hombre.SetPos(-8, 0);
 	esferas.DestruirContenido();
 	disparos.DestruirContenido();
@@ -247,7 +247,7 @@ bool World::SetLevel()
 		{
 			platforms.Add(level_platforms[i]);
 		}
-		// bonus.SetPos(-9, 13);
+		bonus.SetPos(-9, 13);
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -295,7 +295,7 @@ bool World::SetLevel()
 			aux->SetColor(i * 40, 0, 255 - i * 40);
 			esferas.Add(aux);
 		}
-		// bonus.SetPos(-7, 8);
+		bonus.SetPos(-7, 8);
 	}
 	if (nivel == 3)
 	{
@@ -320,7 +320,7 @@ bool World::SetLevel()
 			platforms.Add(level_platforms[i]);
 		}
 
-		// bonus.SetPos(-2, 12);
+		bonus.SetPos(-2, 12);
 		for (int i = 0; i < 3; i++)
 		{
 			Esfera *aux = new Esfera(1.1, -9 + 2 * i, 13, i, 5);
