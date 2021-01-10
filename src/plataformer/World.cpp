@@ -109,9 +109,11 @@ void World::KeyDown(unsigned char key)
 		break;
 	case 'a':
 		hombre.SetVel(-10.0f, hombre.GetVel().y);
+		hombre.SetRot(-1);
 		break;
 	case 'd':
 		hombre.SetVel(10.0f, hombre.GetVel().y);
+		hombre.SetRot(1);
 		break;
 	}
 }
@@ -125,9 +127,11 @@ void World::KeyUp(unsigned char key)
 		break;
 	case 'a':
 		hombre.SetVel(0.0f, hombre.GetVel().y);
+		hombre.SetRot(0);
 		break;
 	case 'd':
 		hombre.SetVel(0.0f, hombre.GetVel().y);
+		hombre.SetRot(0);
 		break;
 	}
 }
@@ -163,9 +167,13 @@ void World::Key(unsigned char key)
 		Disparo *d = new Disparo();
 		Vector2D pos = hombre.GetPos();
 		if (hombre.GetVel().x >= 0)
-			d->SetVel(10, 0);
+		{
+			d->SetVel(20, 0);
+		}
 		else
-			d->SetVel(-10, 0);
+		{
+			d->SetVel(-15, 0);
+		}
 		d->SetPos(pos.x, pos.y + 1);
 		d->color.Steel();
 		disparos.Add(d);
@@ -215,16 +223,16 @@ bool World::SetLevel()
 	// Test_level
 	if (nivel == 0)
 	{
-		puerta.SetPos(-2.0f, 1.25f, 2.0f, 6.27f, 0, true);
+		puerta.SetPos(2.0f, 1.25f, 5.0f, 6.27f, 0, true);
 
 		Platform *level_platforms[] = {
-		    new Platform(-4.0f, 1.0f, 8.0f)};
+		    new Platform(0.0f, 1.0f, 8.0f)};
 
 		for (unsigned int i = 0; i < sizeof(level_platforms) / sizeof(level_platforms[0]); i++)
 		{
 			platforms.Add(level_platforms[i]);
 		}
-		// bonus.SetPos(-20, 13);
+		bonus.SetPos(-20, 13);
 	}
 
 	if (nivel == 1)

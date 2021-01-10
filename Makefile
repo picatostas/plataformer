@@ -37,8 +37,10 @@ build:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(APP_DIR)/music/
 	@mkdir -p $(APP_DIR)/textures/
+	@mkdir -p $(APP_DIR)/models/
 	@cp ./bin/*.mp3 $(APP_DIR)/music/
 	@cp ./textures/*.bmp $(APP_DIR)/textures/
+	@cp ./models/*.obj $(APP_DIR)/models/
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
