@@ -1,42 +1,49 @@
 #include "Bitmap.h"
 #include "glut.h"
 #include <stdio.h>
+#include <iostream>
 
+Bitmap::Bitmap()
+{
+}
 Bitmap::Bitmap(char *nombre_archivo)
 {
+	texture_path = nombre_archivo;
 	int bytes_pixel;
 	long int ancho, alto, offset;
 	char buffer[3] = "\0";
-	FILE *archivo;
-	//Carga el archivo de imagen que se utilizara como textura
+	FILE *file;
+	//Carga el file de imagen que se utilizara como textura
 	//Solo soporta BMP de 24 y 32 bits (RGB y RGBA)
-	archivo = fopen(nombre_archivo, "rb");
-	if (archivo == NULL)
+	file = fopen(texture_path, "rb");
+	if (file == NULL)
 	{
-		fclose(archivo);
+		std::cout << " file " << texture_path << " doesnt exist" << std::endl;
+		fclose(file);
 		estado = false;
 		return;
 	}
-	fread(buffer, sizeof(char), 2, archivo);
+	fread(buffer, sizeof(char), 2, file);
 	if ((buffer[0] == 'B') && (buffer[1] == 'M'))
 	{
-		fseek(archivo, 0x1C, SEEK_SET);
-		fread(&bytes_pixel, sizeof(int), 1, archivo);
+		fseek(file, 0x1C, SEEK_SET);
+		fread(&bytes_pixel, sizeof(int), 1, file);
 		bytes_pixel /= 8;
 		if ((bytes_pixel != 3) && (bytes_pixel != 4))
 		{
-			fclose(archivo);
+			std::cout << " file " << texture_path << " wrong bytes per pixel " << std::endl;
+			fclose(file);
 			estado = false;
 			return;
 		}
-		fseek(archivo, 0x12, SEEK_SET);
-		fread(&ancho, sizeof(long int), 1, archivo);
-		fread(&alto, sizeof(long int), 1, archivo);
-		fseek(archivo, 0x0A, SEEK_SET);
-		fread(&offset, sizeof(long int), 1, archivo);
+		fseek(file, 0x12, SEEK_SET);
+		fread(&ancho, sizeof(long int), 1, file);
+		fread(&alto, sizeof(long int), 1, file);
+		fseek(file, 0x0A, SEEK_SET);
+		fread(&offset, sizeof(long int), 1, file);
 		imagen = new unsigned char[ancho * alto * bytes_pixel];
-		fseek(archivo, offset, SEEK_SET);
-		fread(imagen, sizeof(unsigned char), ancho * alto * bytes_pixel, archivo);
+		fseek(file, offset, SEEK_SET);
+		fread(imagen, sizeof(unsigned char), ancho * alto * bytes_pixel, file);
 		this->ancho = ancho;
 		this->alto = alto;
 		this->bytes_pixel = bytes_pixel;
@@ -47,15 +54,24 @@ Bitmap::Bitmap(char *nombre_archivo)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		if (bytes_pixel == 3)
+		{
+			std::cout << " file " << texture_path << " uses RGB" << std::endl;
 			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGB, GL_UNSIGNED_BYTE, imagen);
+		}
 		else
+		{
+			std::cout << " file " << texture_path << " uses RGBA" << std::endl;
 			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGBA, GL_UNSIGNED_BYTE, imagen);
+		}
 
 		estado = true;
 	}
 	else
+	{
+		std::cout << " file " << texture_path << " gives error" << std::endl;
 		estado = false;
-	fclose(archivo);
+	}
+	fclose(file);
 }
 
 bool Bitmap::verEstado()
@@ -63,9 +79,10 @@ bool Bitmap::verEstado()
 	return estado;
 }
 
-void Bitmap::usarTextura()
+void Bitmap::ApplyTexture()
 {
-	glEnable(GL_TEXTURE_2D);
+	std::cout << " Using texture" << texture_path << std::endl;
+
 	glBindTexture(GL_TEXTURE_2D, texture);
 	if (bytes_pixel == 4)
 	{

@@ -50,12 +50,6 @@ void Hombre::Draw()
 	// Head
 	glutSolidSphere(altura / 4, 100, 100);
 
-	// Original character
-	// glTranslatef(0, altura / 2, 0);
-	// glutSolidCube(anchura);
-	// glTranslatef(0.0f, altura / 2 + 0.5f, 0);
-	// glutSolidSphere(0.5f, 100, 100);
-
 	glPopMatrix();
 }
 

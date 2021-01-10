@@ -36,7 +36,7 @@ public:
 	ListaDisparos disparos;
 	PlatformContainer platforms;
 	Hombre hombre;
-	Bonus bonus;
+	// Bonus bonus;
 	Caja caja;
 	LevelDoor puerta;
 	DisparoEspecial dispowa;

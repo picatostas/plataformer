@@ -9,10 +9,12 @@ class Bitmap
 	unsigned int bytes_pixel;
 	unsigned char *imagen;
 	GLuint texture;
+	char *texture_path;
 
 public:
 	Bitmap(char *nombre_archivo);
+	Bitmap();
 	bool verEstado();
-	void usarTextura();
+	void ApplyTexture();
 	~Bitmap();
 };

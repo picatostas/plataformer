@@ -2,6 +2,7 @@
 #include "OpenGL.h"
 #include "glut.h"
 #include "mmsystem.h"
+#include "TextureContainer.h"
 
 CoordinadorJuego::CoordinadorJuego(void)
 {
@@ -108,6 +109,11 @@ void CoordinadorJuego::Key(unsigned char key)
 	{
 		if (key == 'e')
 		{
+			TextureContainer &container = TextureContainer::GetInstance();
+			if (!container.GetStatus())
+			{
+				container.LoadCommonTextures();
+			}
 			mciSendString(TEXT("stop open_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			world.Inicializa();

@@ -1,0 +1,32 @@
+#ifndef __TEXTURECONTAINER_H__
+#define __TEXTURECONTAINER_H__
+
+#include <unordered_map>
+#include "Bitmap.h"
+#include "stdbool.h"
+
+class TextureContainer
+{
+private:
+	bool initialized;
+	TextureContainer() { initialized = false; }
+	TextureContainer(TextureContainer const &) = delete;
+	void operator=(TextureContainer const &) = delete;
+	std::unordered_map<const char *, Bitmap *> container;
+	static TextureContainer *s_instance;
+
+public:
+	void LoadCommonTextures();
+	Bitmap *GetTexture(char *texture);
+	bool GetStatus();
+	static TextureContainer &GetInstance()
+	{
+		if (!s_instance)
+		{
+			s_instance = new TextureContainer();
+		}
+		return *s_instance;
+	}
+};
+
+#endif // __TEXTURECONTAINER_H__
