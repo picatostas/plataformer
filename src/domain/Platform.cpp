@@ -15,27 +15,27 @@ Platform::Platform(float x = -9.0f, float y = 2.0f, float width = 4.0f)
 	height = 0.25f;
 	this->width = width;
 
-	floor.LoadTexture("wooden_floor");
+	floor.LoadTexture("wooden_box");
 	floor.color = ColorPalette::Brown();
 	floor.SetPos(this->x, this->y, this->x + width, this->y, depth, false);
 
-	roof.LoadTexture("wooden_floor");
+	roof.LoadTexture("wooden_box");
 	roof.color = ColorPalette::Brown();
 	roof.SetPos(this->x, this->y + height, this->x + width, this->y + height, depth, false);
 
-	right_side.LoadTexture("wooden_floor");
+	right_side.LoadTexture("wooden_box");
 	right_side.color = ColorPalette::Brown();
 	right_side.SetPos(this->x + width, this->y, this->x + width, this->y + height, depth, false);
 
-	left_side.LoadTexture("wooden_floor");
+	left_side.LoadTexture("wooden_box");
 	left_side.color = ColorPalette::Brown();
 	left_side.SetPos(this->x, this->y, this->x, this->y + height, depth, false);
 
-	front.LoadTexture("wooden_floor");
+	front.LoadTexture("wooden_box");
 	front.color = ColorPalette::Brown();
 	front.SetPos(this->x, this->y, this->x + width, this->y + height, depth, true);
 
-	back.LoadTexture("wooden_floor");
+	back.LoadTexture("wooden_box");
 	back.color = ColorPalette::Brown();
 	back.SetPos(this->x, this->y, this->x + width, this->y + height, -depth, true);
 }
