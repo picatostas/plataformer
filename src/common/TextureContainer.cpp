@@ -11,7 +11,7 @@ void TextureContainer::LoadCommonTextures()
 	initialized = true;
 }
 
-Bitmap *TextureContainer::GetTexture(char *texture)
+Bitmap *TextureContainer::GetTexture(std::string texture)
 {
 	return container[texture];
 }

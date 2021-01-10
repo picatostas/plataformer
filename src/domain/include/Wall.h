@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "ColorPalette.h"
 #include "stdbool.h"
+#include <string>
 
 class Wall
 {
@@ -10,7 +11,7 @@ public:
 	Wall(char *texture);
 	virtual ~Wall(void);
 	ColorPalette color;
-	char *texture;
+	std::string texture;
 
 public:
 	Vector2D limit1;

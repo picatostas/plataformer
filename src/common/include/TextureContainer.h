@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "Bitmap.h"
 #include "stdbool.h"
+#include <string>
 
 class TextureContainer
 {
@@ -12,12 +13,12 @@ private:
 	TextureContainer() { initialized = false; }
 	TextureContainer(TextureContainer const &) = delete;
 	void operator=(TextureContainer const &) = delete;
-	std::unordered_map<const char *, Bitmap *> container;
+	std::unordered_map<std::string, Bitmap *> container;
 	static TextureContainer *s_instance;
 
 public:
 	void LoadCommonTextures();
-	Bitmap *GetTexture(char *texture);
+	Bitmap *GetTexture(std::string texture);
 	bool GetStatus();
 	static TextureContainer &GetInstance()
 	{
