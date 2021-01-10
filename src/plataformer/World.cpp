@@ -10,7 +10,7 @@ using namespace std;
 
 World::World()
 {
-	puerta.LoadTexture((char *)"old_door");
+	puerta.LoadTexture("old_door");
 	nivelterminado = false;
 }
 World::~World()
@@ -229,7 +229,7 @@ bool World::SetLevel()
 
 	if (nivel == 1)
 	{
-		puerta.SetPos(8.5, 11, 9, 13, 5, true);
+		puerta.SetPos(8.25, 11, 9.75, 13.25, 0, true);
 
 		Platform *level_platforms[] = {
 		    new Platform(8.0f, 11.0f, 3.0f),
@@ -259,7 +259,7 @@ bool World::SetLevel()
 
 	if (nivel == 2)
 	{
-		puerta.SetPos(8.5, 11, 9, 13, 5, true);
+		puerta.SetPos(8.25, 11, 9.75, 13.25, 0, true);
 		Platform *level_platforms[] = {
 		    new Platform(8.0f, 11.0f, 2.0f),
 		    new Platform(-6.0f, 1.0f, 2.0f),
@@ -299,7 +299,7 @@ bool World::SetLevel()
 	}
 	if (nivel == 3)
 	{
-		puerta.SetPos(8.5, 11, 9, 13, 5, true);
+		puerta.SetPos(8.25, 11, 9.75, 13.25, 0, true);
 		Platform *level_platforms[] = {
 		    new Platform(8.0f, 11.0f, 2.0f),
 		    new Platform(1.0f, 2.0f, 2.0f),

@@ -35,7 +35,7 @@ void Wall::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_fron
 	z = z1;
 	this->is_front = is_front;
 }
-void Wall::LoadTexture(char *texture)
+void Wall::LoadTexture(std::string texture)
 {
 	this->texture = texture;
 }
