@@ -1,6 +1,5 @@
 #include "LevelDoor.h"
 #include "glut.h"
-#include "TextureLoader.h"
 #include "GL/gl.h"
 #include "Bitmap.h"
 
