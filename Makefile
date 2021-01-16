@@ -1,7 +1,7 @@
 CXX      := -g++
 CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror -Wno-unused-but-set-variable
 # All these libraries are places under "C:\VSARM\mingw\lib" in case of being elsewhere, add path with -L
-LDFLAGS  := -lfreeglut -lopengl32 -lwinmm -lglu32 -lSDL2main -lSDL2 -llibSDL2_mixer # -Wl,--subsystem,windows
+LDFLAGS  := -lfreeglut -lopengl32 -lwinmm -lglu32 -lSDL2main -lSDL2 -llibSDL2_mixer -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
