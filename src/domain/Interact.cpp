@@ -246,13 +246,15 @@ bool Interact::Colision(Hombre &h, LevelDoor p)
 	}
 	return false;
 }
-void Interact::Colision(Hombre &h, Bonus &b)
+bool Interact::Colision(Hombre &h, Bonus &b)
 {
 	if (((h.pos.x > b.pos.x - 1) && (h.pos.x < b.pos.x + 1)) && ((h.pos.y < b.pos.y + 1) && (h.pos.y > b.pos.y - 1)))
 	{
 		h.SetVidas(3);
 		b.SetPos(20, 20);
+		return true;
 	}
+	return false;
 }
 
 void Interact::Colision(Hombre &h, Platform &p)

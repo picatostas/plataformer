@@ -1,6 +1,7 @@
 CXX      := -g++
 CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror -Wno-unused-but-set-variable
-LDFLAGS  := -L"C:\VSARM\mingw\freeglut\lib" -lfreeglut -lopengl32 -lwinmm -lglu32 -Wl,--subsystem,windows
+# All these libraries are places under "C:\VSARM\mingw\lib" in case of being elsewhere, add path with -L
+LDFLAGS  := -lfreeglut -lopengl32 -lwinmm -lglu32 -lSDL2main -lSDL2 -llibSDL2_mixer # -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
@@ -38,9 +39,11 @@ build:
 	@mkdir -p $(APP_DIR)/music/
 	@mkdir -p $(APP_DIR)/textures/
 	@mkdir -p $(APP_DIR)/models/
+	@mkdir -p $(APP_DIR)/sounds/
 	@cp ./bin/*.mp3 $(APP_DIR)/music/
 	@cp ./textures/*.bmp $(APP_DIR)/textures/
 	@cp ./models/*.obj $(APP_DIR)/models/
+	@cp ./sounds/*.wav $(APP_DIR)/sounds/
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all

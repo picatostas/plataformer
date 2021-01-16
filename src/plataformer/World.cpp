@@ -5,6 +5,7 @@
 #include <iostream>
 #include "EsferaPulsante.h"
 #include "stdbool.h"
+#include "SDL2/SDL.h"
 
 using namespace std;
 
@@ -12,6 +13,29 @@ World::World()
 {
 	puerta.LoadTexture("old_door");
 	nivelterminado = false;
+	if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
+	{
+		std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
+		system("pause");
+		exit(1);
+	}
+	atexit(Mix_CloseAudio);
+	Mix_AllocateChannels(50);
+	shot = Mix_LoadWAV("sounds/pew.wav");
+	jump = Mix_LoadWAV("sounds/jump.wav");
+	hit_player = Mix_LoadWAV("sounds/hit_player.wav");
+	hit_enemy = Mix_LoadWAV("sounds/hit_enemy.wav");
+	get_bonus = Mix_LoadWAV("sounds/get_bonus.wav");
+	player_died = Mix_LoadWAV("sounds/player_died.wav");
+
+	if (shot == NULL || jump == NULL)
+	{
+		std::cout << "Error al cargar sonidos" << Mix_GetError() << std::endl;
+		system("pause");
+		exit(1);
+	}
+	// TODO: Mix each chunk separately with  Mix_VolumeChunk(<chunk>, <volume_chunk>);
+	Mix_Volume(-1, 200);
 }
 World::~World()
 {
@@ -56,7 +80,10 @@ void World::Move()
 	esferas.Rebote();
 	disparos.Colision(caja);
 	platforms.Colision(hombre);
-	Interact::Colision(hombre, bonus);
+	if (Interact::Colision(hombre, bonus))
+	{
+		Mix_PlayChannel(-1, get_bonus, 0);
+	}
 
 	if (hombre.GetVel().y == 0)
 		hombre.SetSalto(true);
@@ -69,9 +96,13 @@ void World::Move()
 	{
 
 		hombre.SetVidas(hombre.GetVidas() - 1);
+		Mix_PlayChannel(-1, hit_player, 0);
 		esferas.Eliminar(aux);
 	}
-
+	if (hombre.GetVidas() == 0)
+	{
+		Mix_PlayChannel(-1, player_died, 0);
+	}
 	// bonus.SetVel();
 
 	if (Interact::Colision(hombre, puerta))
@@ -124,6 +155,7 @@ void World::KeyUp(unsigned char key)
 	{
 	case 'w':
 		hombre.SetVel(hombre.GetVel().x, 0.0f);
+		Mix_PlayChannel(-1, jump, 0);
 		break;
 	case 'a':
 		hombre.SetVel(0.0f, hombre.GetVel().y);
@@ -172,11 +204,12 @@ void World::Key(unsigned char key)
 		}
 		else
 		{
-			d->SetVel(-15, 0);
+			d->SetVel(-20, 0);
 		}
 		d->SetPos(pos.x, pos.y + 1);
 		d->color.Steel();
 		disparos.Add(d);
+		Mix_PlayChannel(-1, shot, 0);
 
 		break;
 	}

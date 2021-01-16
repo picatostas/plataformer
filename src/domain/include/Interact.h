@@ -26,6 +26,6 @@ public:
 	static bool Colision(Disparo d, Caja c);
 	static bool Colision(Esfera e, Disparo d);
 	static bool Colision(Hombre &h, LevelDoor p);
-	static void Colision(Hombre &h, Bonus &b);
+	static bool Colision(Hombre &h, Bonus &b);
 	static void Colision(Hombre &h, Platform &p);
 };

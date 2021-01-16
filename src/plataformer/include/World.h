@@ -10,6 +10,8 @@
 #include "EsferaPulsante.h"
 #include "DisparoEspecial.h"
 #include "LevelDoor.h"
+#include "SDL2/SDL_mixer.h"
+
 class World
 {
 private:
@@ -40,6 +42,7 @@ public:
 	Caja caja;
 	LevelDoor puerta;
 	DisparoEspecial dispowa;
+	Mix_Chunk *shot, *jump, *hit_player, *hit_enemy, *get_bonus, *player_died;
 
 	void KeyEspecial(unsigned char key);
 	void KeyDown(unsigned char key);
