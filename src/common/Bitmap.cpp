@@ -81,8 +81,6 @@ bool Bitmap::verEstado()
 
 void Bitmap::ApplyTexture()
 {
-	std::cout << " Using texture" << texture_path << std::endl;
-
 	glBindTexture(GL_TEXTURE_2D, texture);
 	if (bytes_pixel == 4)
 	{
