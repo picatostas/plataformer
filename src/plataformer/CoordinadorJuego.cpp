@@ -23,9 +23,9 @@ void CoordinadorJuego::Draw()
 	if (estado == INICIO)
 	{
 		OpenGL::Print((char *)"PLATAFORMER", 300, 100, 255, 255, 255);
-		OpenGL::Print((char *)"Presione -E- para comenzar a jugar", 320, 300, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -O- para ver las opciones", 320, 325, 130, 100, 255);
-		OpenGL::Print((char *)"Presione -S- para salir", 320, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Press -E- to start game", 320, 300, 5, 255, 255);
+		OpenGL::Print((char *)"Press -O- to see the options", 320, 325, 130, 100, 255);
+		OpenGL::Print((char *)"Press -S- to exit", 320, 350, 0, 100, 255);
 	}
 	else if (estado == JUEGO)
 	{
@@ -34,48 +34,47 @@ void CoordinadorJuego::Draw()
 	else if (estado == GAMEOVER)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"HAS PERDIDO         ", 300, 200, 255, 0, 0);
-		OpenGL::Print((char *)"TE QUEDASTE SIN VIDAS", 300, 225, 255, 0, 255);
-		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -S- para salir, gallina", 270, 300, 0, 100, 255);
+		OpenGL::Print((char *)"YOU DIED         ", 300, 200, 255, 0, 0);
+		OpenGL::Print((char *)"Press -C- to play again", 200, 250, 5, 255, 255);
+		OpenGL::Print((char *)"Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
+		OpenGL::Print((char *)"Press -S- to exit", 270, 300, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == FIN)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"ENHORABUENA, HAS GANADO!", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Presione -C- para volver a jugar", 200, 250, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -M- para volver al menu principal", 200, 275, 5, 255, 255);
-		OpenGL::Print((char *)"Presione -S- para salir", 270, 300, 5, 255, 255);
+		OpenGL::Print((char *)"CONGRATS, ITS A VICTORY!", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Press -C- to play again", 200, 250, 5, 255, 255);
+		OpenGL::Print((char *)"Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
+		OpenGL::Print((char *)"Press -S- to exit", 270, 300, 5, 255, 255);
 		glEnable(GL_LIGHTING);
 	}
 	else if (estado == PAUSA)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"PAUSA", 370, 250, 255, 255, 0);
-		OpenGL::Print((char *)"Presione -C- para continuar", 300, 300, 255, 255, 0);
-		OpenGL::Print((char *)"Presione -O- para ver las opciones", 300, 325, 130, 100, 255);
-		OpenGL::Print((char *)"Presione -S- para volver al menu principal", 300, 350, 0, 100, 255);
-		glEnable(GL_LIGHTING);
+		OpenGL::Print((char *)"PAUSE", 370, 250, 255, 255, 0);
+		OpenGL::Print((char *)"Press -C- to continue", 300, 300, 255, 255, 0);
+		OpenGL::Print((char *)"Press -O- to see the options", 300, 325, 130, 100, 255);
+		OpenGL::Print((char *)"Press -M- to go back to the main menu", 300, 350, 0, 100, 255);
+		// glEnable(GL_LIGHTING);
 	}
 	else if (estado == CONTROLES)
 	{
-		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Movimiento lateral  keys -A- y -D-", 300, 250, 0, 100, 255);
-		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
-		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
-		OpenGL::Print((char *)"Presione -E- para volver al Menu", 300, 380, 255, 0, 255);
-		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
+		OpenGL::Print((char *)"CONTROLS", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Jump -W-", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Shoot -Space-", 300, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Press -E- to go back to the main menu", 300, 380, 255, 0, 255);
+		OpenGL::Print((char *)"Game goal, reach the level gate without being killed", 150, 420, 255, 255, 255);
 	}
 	else if (estado == CONTROLES_IN_GAME)
 	{
-		OpenGL::Print((char *)"CONTROLES", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Movimiento lateral  keys -A- y -D-", 300, 250, 0, 100, 255);
-		OpenGL::Print((char *)"Salto -W-", 300, 300, 0, 100, 255);
-		OpenGL::Print((char *)"Disparo -Espacio-", 300, 350, 0, 100, 255);
-		OpenGL::Print((char *)"Presione -E- para volver al menu de pausa", 300, 380, 255, 0, 255);
-		OpenGL::Print((char *)"Objetivo, Alcanza la puerta rosa sin que las esferas te maten", 150, 420, 255, 255, 255);
+		OpenGL::Print((char *)"CONTROLS", 250, 200, 218, 165, 32);
+		OpenGL::Print((char *)"Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print((char *)"Jump -W-", 300, 300, 0, 100, 255);
+		OpenGL::Print((char *)"Shoot -Space-", 300, 350, 0, 100, 255);
+		OpenGL::Print((char *)"Press -E- to go back to the pause menu", 300, 380, 255, 0, 255);
+		OpenGL::Print((char *)"Game goal, reach the level gate without being killed", 150, 420, 255, 255, 255);
 	}
 }
 
