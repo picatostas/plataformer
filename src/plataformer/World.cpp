@@ -5,7 +5,6 @@
 #include <iostream>
 #include "EsferaPulsante.h"
 #include "stdbool.h"
-#include "SDL2/SDL.h"
 
 using namespace std;
 
@@ -13,29 +12,6 @@ World::World()
 {
 	puerta.LoadTexture("old_door");
 	nivelterminado = false;
-	if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
-	{
-		std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
-		system("pause");
-		exit(1);
-	}
-	atexit(Mix_CloseAudio);
-	Mix_AllocateChannels(50);
-	shot = Mix_LoadWAV("sounds/pew.wav");
-	jump = Mix_LoadWAV("sounds/jump.wav");
-	hit_player = Mix_LoadWAV("sounds/hit_player.wav");
-	hit_enemy = Mix_LoadWAV("sounds/hit_enemy.wav");
-	get_bonus = Mix_LoadWAV("sounds/get_bonus.wav");
-	player_died = Mix_LoadWAV("sounds/player_died.wav");
-
-	if (shot == NULL || jump == NULL)
-	{
-		std::cout << "Error al cargar sonidos" << Mix_GetError() << std::endl;
-		system("pause");
-		exit(1);
-	}
-	// TODO: Mix each chunk separately with  Mix_VolumeChunk(<chunk>, <volume_chunk>);
-	Mix_Volume(-1, 200);
 }
 World::~World()
 {

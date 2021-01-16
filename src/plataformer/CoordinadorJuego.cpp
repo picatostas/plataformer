@@ -3,10 +3,27 @@
 #include "glut.h"
 #include "mmsystem.h"
 #include "TextureContainer.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_mixer.h"
 
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	estado = INICIO;
+	if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
+	{
+		std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
+		system("pause");
+		exit(1);
+	}
+	atexit(Mix_CloseAudio);
+	Mix_AllocateChannels(50);
+	world.shot = Mix_LoadWAV("sounds/pew.wav");
+	world.jump = Mix_LoadWAV("sounds/jump.wav");
+	world.hit_player = Mix_LoadWAV("sounds/hit_player.wav");
+	world.hit_enemy = Mix_LoadWAV("sounds/hit_enemy.wav");
+	world.get_bonus = Mix_LoadWAV("sounds/get_bonus.wav");
+	world.player_died = Mix_LoadWAV("sounds/player_died.wav");
+	Mix_Volume(-1, 200);
 	mciSendString(TEXT("open \"./music/OPEN.mp3\" type mpegvideo alias open_sound"), NULL, 0, NULL);
 	mciSendString(TEXT("open \"./music/JUEGO.mp3\" type mpegvideo alias game_sound"), NULL, 0, NULL);
 	mciSendString(TEXT("open \"./music/WON.mp3\" type mpegvideo alias won_sound"), NULL, 0, NULL);
