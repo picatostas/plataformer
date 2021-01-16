@@ -32,6 +32,12 @@ void Hombre::Draw()
 	glTranslatef(pos.x, pos.y, 0);
 	glScalef(0.06f, 0.06f, 0.06f);
 	glRotatef(-180, 0, 1, 0);
+	if (vidas == 0)
+	{
+		// If player died, turn its body as if it fell
+		glTranslatef(0, 12, 0);
+		glRotatef(-90, 0, 0, 1);
+	}
 	if (rot != 0)
 	{
 		glRotatef(90, 0, 1 * rot, 0);
