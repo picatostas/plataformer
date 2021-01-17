@@ -24,6 +24,7 @@ CoordinadorJuego::CoordinadorJuego(void)
 	state = INIT;
 	if (audio_devices.size() > 0)
 	{
+		std::cout << "Opening audio device " << audio_devices[0].c_str() << " by default" << std::endl;
 		if (Mix_OpenAudioDevice(44100, AUDIO_S16, 2, 2046, audio_devices[0].c_str(), SDL_AUDIO_ALLOW_ANY_CHANGE))
 		{
 			std::cout << "Cannot open audio device" << Mix_GetError() << std::endl;
