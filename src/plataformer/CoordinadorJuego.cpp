@@ -101,7 +101,7 @@ void CoordinadorJuego::Draw()
 	else if (state == CONTROLS || state == CONTROLS_IN_GAME)
 	{
 		OpenGL::Print("CONTROLS", 250, 200, 218, 165, 32);
-		OpenGL::Print("Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print("Move left-right keys -A- & -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print("Jump -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print("Shoot -Space-", 300, 350, 0, 100, 255);
 		OpenGL::Print("Press -E- to go back", 300, 380, 255, 0, 255);
