@@ -104,7 +104,7 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print("Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
 		OpenGL::Print("Jump -W-", 300, 300, 0, 100, 255);
 		OpenGL::Print("Shoot -Space-", 300, 350, 0, 100, 255);
-		OpenGL::Print("Press -E- to go back to the main menu", 300, 380, 255, 0, 255);
+		OpenGL::Print("Press -E- to go back", 300, 380, 255, 0, 255);
 		OpenGL::Print("Press -A- to go to Audio menu", 300, 400, 255, 0, 255);
 		OpenGL::Print("Game goal, reach the level gate without being killed", 150, 430, 255, 255, 255);
 	}
