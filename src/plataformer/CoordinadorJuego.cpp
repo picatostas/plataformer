@@ -1,7 +1,6 @@
 #include "CoordinadorJuego.h"
 #include "OpenGL.h"
 #include "glut.h"
-#include "mmsystem.h"
 #include "TextureContainer.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
@@ -45,12 +44,14 @@ CoordinadorJuego::CoordinadorJuego(void)
 	world.hit_enemy = Mix_LoadWAV("sounds/hit_enemy.wav");
 	world.get_bonus = Mix_LoadWAV("sounds/get_bonus.wav");
 	world.player_died = Mix_LoadWAV("sounds/player_died.wav");
-	Mix_Volume(-1, 200);
-	mciSendString(TEXT("open \"./music/OPEN.mp3\" type mpegvideo alias open_sound"), NULL, 0, NULL);
-	mciSendString(TEXT("open \"./music/JUEGO.mp3\" type mpegvideo alias game_sound"), NULL, 0, NULL);
-	mciSendString(TEXT("open \"./music/WON.mp3\" type mpegvideo alias won_sound"), NULL, 0, NULL);
-	mciSendString(TEXT("open \"./music/LOST.mp3\" type mpegvideo alias lost_sound"), NULL, 0, NULL);
-	mciSendString(TEXT("Play open_sound"), NULL, 0, NULL);
+	main_menu_music = Mix_LoadMUS("music/main_menu.mp3");
+	defeat_music = Mix_LoadMUS("music/defeat.mp3");
+	victory_music = Mix_LoadMUS("music/victory.mp3");
+	game_music = Mix_LoadMUS("music/game.mp3");
+	Mix_VolumeChunk(world.get_bonus, 50);
+	Mix_VolumeMusic(100);
+	Mix_Volume(-1, 100);
+	Mix_PlayMusic(main_menu_music, -1);
 }
 
 CoordinadorJuego::~CoordinadorJuego(void)
@@ -157,8 +158,7 @@ void CoordinadorJuego::Key(unsigned char key)
 			{
 				container.LoadCommonTextures();
 			}
-			mciSendString(TEXT("stop open_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(game_music, -1);
 			world.Inicializa();
 			state = GAME;
 		}
@@ -178,7 +178,7 @@ void CoordinadorJuego::Key(unsigned char key)
 		world.Key(key);
 		if (key == 'p')
 		{
-			mciSendString(TEXT("pause game_sound"), NULL, 0, NULL);
+			Mix_PauseMusic();
 			state = PAUSE;
 		}
 	}
@@ -187,15 +187,13 @@ void CoordinadorJuego::Key(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(game_music, -1);
 			world.Inicializa();
 			state = GAME;
 		}
 		if (key == 'm')
 		{
-			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
 
@@ -208,15 +206,13 @@ void CoordinadorJuego::Key(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(game_music, -1);
 			world.Inicializa();
 			state = GAME;
 		}
 		if (key == 'm')
 		{
-			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
 
@@ -229,13 +225,13 @@ void CoordinadorJuego::Key(unsigned char key)
 	{
 		if (key == 'c')
 		{
-			mciSendString(TEXT("resume game_sound"), NULL, 0, NULL);
+			Mix_ResumeMusic();
 			state = GAME;
 		}
 		if (key == 's')
 		{
-			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
+			Mix_ResumeMusic();
+			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
 		if (key == 'o')
@@ -290,16 +286,14 @@ void CoordinadorJuego::Move()
 		{
 			if (!world.SetLevel())
 			{
-				mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
-				mciSendString(TEXT("play won_sound"), NULL, 0, NULL);
+				Mix_PlayMusic(victory_music, -1);
 				state = VICTORY;
 			}
 		}
 
 		if (world.GetVidasHombre() == 0)
 		{
-			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
-			mciSendString(TEXT("play lost_sound"), NULL, 0, NULL);
+			Mix_PlayMusic(defeat_music, -1);
 			state = GAMEOVER;
 		}
 	}

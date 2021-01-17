@@ -40,6 +40,7 @@ build:
 	@mkdir -p $(APP_DIR)/textures/
 	@mkdir -p $(APP_DIR)/models/
 	@mkdir -p $(APP_DIR)/sounds/
+	@cp ./bin/*.dll $(APP_DIR)
 	@cp ./music/*.mp3 $(APP_DIR)/music/
 	@cp ./textures/*.bmp $(APP_DIR)/textures/
 	@cp ./models/*.obj $(APP_DIR)/models/

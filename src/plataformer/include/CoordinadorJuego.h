@@ -2,6 +2,7 @@
 #include "World.h"
 #include <vector>
 #include <string>
+#include "SDL2/SDL_mixer.h"
 
 class CoordinadorJuego
 {
@@ -21,6 +22,7 @@ protected:
 	};
 	States state;
 	std::vector<std::string> audio_devices;
+	Mix_Music *main_menu_music, *game_music, *defeat_music, *victory_music;
 
 public:
 	CoordinadorJuego(void);
