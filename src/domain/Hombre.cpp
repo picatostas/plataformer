@@ -1,10 +1,12 @@
 #include "Hombre.h"
 #include "glut.h"
 
+#define HITBOX 1
+
 Hombre::Hombre(void)
 {
-	altura = 1;
-	anchura = 0.75f;
+	altura = 2.0f;
+	anchura = 1.0f;
 	acelr.y = -20.8f;
 	vidas = 3;
 	model.Load("models/birdman.obj");
@@ -16,7 +18,7 @@ Hombre::~Hombre(void)
 }
 void Hombre::Draw()
 {
-
+	glDisable(GL_LIGHTING);
 	if (vidas >= 3)
 		color = ColorPalette::Lime();
 	else if (vidas == 2)
@@ -27,9 +29,15 @@ void Hombre::Draw()
 		color = ColorPalette::Brown();
 
 	glPushMatrix();
+	glTranslatef(pos.x, pos.y, 0);
+
+	if (HITBOX)
+	{
+		DrawHitbox();
+	}
 
 	glColor3ub(color.r, color.g, color.b);
-	glTranslatef(pos.x, pos.y, 0);
+	glPushMatrix();
 	glScalef(0.06f, 0.06f, 0.06f);
 	glRotatef(-180, 0, 1, 0);
 	if (vidas == 0)
@@ -43,11 +51,12 @@ void Hombre::Draw()
 		glRotatef(90, 0, 1 * rot, 0);
 	}
 	model.Draw();
+	glPopMatrix();
 	// float cumulative_hieght = 0.0f;
 	// static GLUquadric *gluQuadric = NULL;
 	// if (gluQuadric == NULL)
 	// 	gluQuadric = gluNewQuadric();
-	// glRotatef(-90, 1, 0, 0);
+	// glRotatef(-90, 0, 0, 0);
 	// cumulative_hieght += altura / 5;
 	// glTranslatef(-anchura / 5, 0, 0);
 	// // Legs
@@ -63,7 +72,49 @@ void Hombre::Draw()
 	// glTranslatef(0, 0, cumulative_hieght);
 	// // Head
 	// glutSolidSphere(altura / 4, 100, 100);
-
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+}
+void Hombre::DrawHitbox()
+{
+	glPushMatrix();
+	glTranslatef(-anchura / 2, 0, 0);
+	ColorPalette aux_color = ColorPalette::Yellow();
+	glColor3ub(aux_color.r, aux_color.g, aux_color.b);
+	// TODO: Implement this only Giving vertex and not specifying every single wire
+	glBegin(GL_LINES);
+	// Base
+	glVertex3f(0, 0, 0);
+	glVertex3f(anchura, 0, 0);
+	glVertex3f(anchura, 0, 0);
+	glVertex3f(anchura, 0, anchura);
+	glVertex3f(anchura, 0, anchura);
+	glVertex3f(0, 0, anchura);
+	glVertex3f(0, 0, anchura);
+	glVertex3f(0, 0, 0);
+	// roof
+	glVertex3f(0, altura, 0);
+	glVertex3f(anchura, altura, 0);
+	glVertex3f(anchura, altura, 0);
+	glVertex3f(anchura, altura, anchura);
+	glVertex3f(anchura, altura, anchura);
+	glVertex3f(0, altura, anchura);
+	glVertex3f(0, altura, anchura);
+	glVertex3f(0, altura, 0);
+	// vertical wires
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, altura, 0);
+	glVertex3f(anchura, 0, 0);
+	glVertex3f(anchura, altura, 0);
+	glVertex3f(anchura, 0, 0);
+	glVertex3f(anchura, altura, 0);
+	glVertex3f(anchura, 0, anchura);
+	glVertex3f(anchura, altura, anchura);
+	glVertex3f(0, 0, anchura);
+	glVertex3f(0, altura, anchura);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, altura, 0);
+	glEnd();
 	glPopMatrix();
 }
 

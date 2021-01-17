@@ -232,10 +232,10 @@ bool World::SetLevel()
 	// Test_level
 	if (nivel == 0)
 	{
-		puerta.SetPos(2.0f, 1.25f, 5.0f, 6.27f, 0, true);
+		puerta.SetPos(-2.0f, 1.25f, 2.0f, 8.0f, 0.0f, true);
 
 		Platform *level_platforms[] = {
-		    new Platform(0.0f, 1.0f, 8.0f)};
+		    new Platform(-3.0f, 1.0f, 6.0f)};
 
 		for (unsigned int i = 0; i < sizeof(level_platforms) / sizeof(level_platforms[0]); i++)
 		{

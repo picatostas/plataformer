@@ -25,4 +25,5 @@ public:
 	bool GetSalto();
 	void SetSalto(bool sal);
 	void SetRot(int rot);
+	void DrawHitbox();
 };
