@@ -1,21 +1,26 @@
 #pragma once
 #include "World.h"
+#include <vector>
+#include <string>
 
 class CoordinadorJuego
 {
 protected:
 	World world;
-	enum Estado
+	enum States
 	{
-		INICIO,
-		JUEGO,
+		INIT,
+		GAME,
 		GAMEOVER,
-		FIN,
-		PAUSA,
-		CONTROLES,
-		CONTROLES_IN_GAME
+		VICTORY,
+		PAUSE,
+		CONTROLS,
+		CONTROLS_IN_GAME,
+		AUDIO_CONFIG,
+		AUDIO_CONFIG_IN_GAME
 	};
-	Estado estado;
+	States state;
+	std::vector<std::string> audio_devices;
 
 public:
 	CoordinadorJuego(void);

@@ -5,16 +5,41 @@
 #include "TextureContainer.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
+#include <iostream>
 
 CoordinadorJuego::CoordinadorJuego(void)
 {
-	estado = INICIO;
-	if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
+	state = INIT;
+	int i, count = SDL_GetNumAudioDevices(0);
+	for (i = 0; i < count; ++i)
 	{
-		std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
-		system("pause");
-		exit(1);
+		std::cout << "Audio device number: " << i << " Device name: " << SDL_GetAudioDeviceName(i, 0) << std::endl;
+		audio_devices.push_back(SDL_GetAudioDeviceName(i, 0));
 	}
+	std::cout << "Audio devices stored: " << audio_devices.size() << std::endl;
+	for (unsigned int i = 0; i < audio_devices.size(); i++)
+	{
+		std::cout << "ID: " << i << " " << audio_devices[i] << std::endl;
+	}
+	if (audio_devices.size() > 0)
+	{
+		if (Mix_OpenAudioDevice(44100, AUDIO_S16, 2, 2046, audio_devices[1].c_str(), 1))
+		{
+			std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
+			system("pause");
+			exit(1);
+		}
+	}
+	else
+	{
+		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
+		{
+			std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
+			system("pause");
+			exit(1);
+		}
+	}
+
 	atexit(Mix_CloseAudio);
 	Mix_AllocateChannels(50);
 	world.shot = Mix_LoadWAV("sounds/pew.wav");
@@ -37,67 +62,72 @@ CoordinadorJuego::~CoordinadorJuego(void)
 
 void CoordinadorJuego::Draw()
 {
-	if (estado == INICIO)
+	if (state == INIT)
 	{
-		OpenGL::Print((char *)"PLATAFORMER", 300, 100, 255, 255, 255);
-		OpenGL::Print((char *)"Press -E- to start game", 320, 300, 5, 255, 255);
-		OpenGL::Print((char *)"Press -O- to see the options", 320, 325, 130, 100, 255);
-		OpenGL::Print((char *)"Press -S- to exit", 320, 350, 0, 100, 255);
+		OpenGL::Print("PLATAFORMER", 300, 100, 255, 255, 255);
+		OpenGL::Print("Press -E- to start game", 320, 300, 5, 255, 255);
+		OpenGL::Print("Press -O- to see the options", 320, 325, 130, 100, 255);
+		OpenGL::Print("Press -S- to exit", 320, 350, 0, 100, 255);
 	}
-	else if (estado == JUEGO)
+	else if (state == GAME)
 	{
 		world.Draw();
 	}
-	else if (estado == GAMEOVER)
+	else if (state == GAMEOVER)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"YOU DIED         ", 300, 200, 255, 0, 0);
-		OpenGL::Print((char *)"Press -C- to play again", 200, 250, 5, 255, 255);
-		OpenGL::Print((char *)"Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
-		OpenGL::Print((char *)"Press -S- to exit", 270, 300, 0, 100, 255);
+		OpenGL::Print("YOU DIED         ", 300, 200, 255, 0, 0);
+		OpenGL::Print("Press -C- to play again", 200, 250, 5, 255, 255);
+		OpenGL::Print("Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
+		OpenGL::Print("Press -S- to exit", 270, 300, 0, 100, 255);
 		glEnable(GL_LIGHTING);
 	}
-	else if (estado == FIN)
+	else if (state == VICTORY)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"CONGRATS, ITS A VICTORY!", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Press -C- to play again", 200, 250, 5, 255, 255);
-		OpenGL::Print((char *)"Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
-		OpenGL::Print((char *)"Press -S- to exit", 270, 300, 5, 255, 255);
+		OpenGL::Print("CONGRATS, ITS A VICTORY!", 250, 200, 218, 165, 32);
+		OpenGL::Print("Press -C- to play again", 200, 250, 5, 255, 255);
+		OpenGL::Print("Press -M- to go back to the main menu", 200, 275, 5, 255, 255);
+		OpenGL::Print("Press -S- to exit", 270, 300, 5, 255, 255);
 		glEnable(GL_LIGHTING);
 	}
-	else if (estado == PAUSA)
+	else if (state == PAUSE)
 	{
 		world.Draw();
-		OpenGL::Print((char *)"PAUSE", 370, 250, 255, 255, 0);
-		OpenGL::Print((char *)"Press -C- to continue", 300, 300, 255, 255, 0);
-		OpenGL::Print((char *)"Press -O- to see the options", 300, 325, 130, 100, 255);
-		OpenGL::Print((char *)"Press -M- to go back to the main menu", 300, 350, 0, 100, 255);
+		OpenGL::Print("PAUSE", 370, 250, 255, 255, 0);
+		OpenGL::Print("Press -C- to continue", 300, 300, 255, 255, 0);
+		OpenGL::Print("Press -O- to see the options", 300, 325, 130, 100, 255);
+		OpenGL::Print("Press -M- to go back to the main menu", 300, 350, 0, 100, 255);
 		// glEnable(GL_LIGHTING);
 	}
-	else if (estado == CONTROLES)
+	else if (state == CONTROLS || state == CONTROLS_IN_GAME)
 	{
-		OpenGL::Print((char *)"CONTROLS", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
-		OpenGL::Print((char *)"Jump -W-", 300, 300, 0, 100, 255);
-		OpenGL::Print((char *)"Shoot -Space-", 300, 350, 0, 100, 255);
-		OpenGL::Print((char *)"Press -E- to go back to the main menu", 300, 380, 255, 0, 255);
-		OpenGL::Print((char *)"Game goal, reach the level gate without being killed", 150, 420, 255, 255, 255);
+		OpenGL::Print("CONTROLS", 250, 200, 218, 165, 32);
+		OpenGL::Print("Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
+		OpenGL::Print("Jump -W-", 300, 300, 0, 100, 255);
+		OpenGL::Print("Shoot -Space-", 300, 350, 0, 100, 255);
+		OpenGL::Print("Press -E- to go back to the main menu", 300, 380, 255, 0, 255);
+		OpenGL::Print("Press -A- to go to Audio menu", 300, 400, 255, 0, 255);
+		OpenGL::Print("Game goal, reach the level gate without being killed", 150, 430, 255, 255, 255);
 	}
-	else if (estado == CONTROLES_IN_GAME)
+	else if (state == AUDIO_CONFIG || state == AUDIO_CONFIG_IN_GAME)
 	{
-		OpenGL::Print((char *)"CONTROLS", 250, 200, 218, 165, 32);
-		OpenGL::Print((char *)"Move left-right keys -A- y -D-", 300, 250, 0, 100, 255);
-		OpenGL::Print((char *)"Jump -W-", 300, 300, 0, 100, 255);
-		OpenGL::Print((char *)"Shoot -Space-", 300, 350, 0, 100, 255);
-		OpenGL::Print((char *)"Press -E- to go back to the pause menu", 300, 380, 255, 0, 255);
-		OpenGL::Print((char *)"Game goal, reach the level gate without being killed", 150, 420, 255, 255, 255);
+		OpenGL::Print("AUDIO CONFIG", 250, 200, 218, 165, 32);
+		OpenGL::Print("List of devices found", 300, 250, 0, 100, 255);
+		int list_displacement = 250;
+		for (unsigned int i = 0; i < audio_devices.size(); i++)
+		{
+			list_displacement += 25;
+			OpenGL::Print(audio_devices[i], 300, list_displacement, 0, 100, 255);
+		}
+
+		OpenGL::Print("Press -E- to go back to the controls menu", 300, list_displacement + 30, 255, 0, 255);
 	}
 }
 
 void CoordinadorJuego::KeyEspecial(unsigned char key)
 {
-	if (estado == JUEGO)
+	if (state == GAME)
 	{
 		world.KeyEspecial(key);
 	}
@@ -105,7 +135,7 @@ void CoordinadorJuego::KeyEspecial(unsigned char key)
 
 void CoordinadorJuego::KeyUp(unsigned char key)
 {
-	if (estado == JUEGO)
+	if (state == GAME)
 	{
 		world.KeyUp(key);
 	}
@@ -113,7 +143,7 @@ void CoordinadorJuego::KeyUp(unsigned char key)
 
 void CoordinadorJuego::KeyDown(unsigned char key)
 {
-	if (estado == JUEGO)
+	if (state == GAME)
 	{
 		world.KeyDown(key);
 	}
@@ -121,7 +151,7 @@ void CoordinadorJuego::KeyDown(unsigned char key)
 
 void CoordinadorJuego::Key(unsigned char key)
 {
-	if (estado == INICIO)
+	if (state == INIT)
 	{
 		if (key == 'e')
 		{
@@ -133,7 +163,7 @@ void CoordinadorJuego::Key(unsigned char key)
 			mciSendString(TEXT("stop open_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			world.Inicializa();
-			estado = JUEGO;
+			state = GAME;
 		}
 
 		if (key == 's')
@@ -143,33 +173,33 @@ void CoordinadorJuego::Key(unsigned char key)
 
 		if (key == 'o')
 		{
-			estado = CONTROLES;
+			state = CONTROLS;
 		}
 	}
-	else if (estado == JUEGO)
+	else if (state == GAME)
 	{
 		world.Key(key);
 		if (key == 'p')
 		{
 			mciSendString(TEXT("pause game_sound"), NULL, 0, NULL);
-			estado = PAUSA;
+			state = PAUSE;
 		}
 	}
 
-	else if (estado == GAMEOVER)
+	else if (state == GAMEOVER)
 	{
 		if (key == 'c')
 		{
 			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			world.Inicializa();
-			estado = JUEGO;
+			state = GAME;
 		}
 		if (key == 'm')
 		{
 			mciSendString(TEXT("stop lost_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
-			estado = INICIO;
+			state = INIT;
 		}
 
 		if (key == 's')
@@ -177,20 +207,20 @@ void CoordinadorJuego::Key(unsigned char key)
 			exit(0);
 		}
 	}
-	else if (estado == FIN)
+	else if (state == VICTORY)
 	{
 		if (key == 'c')
 		{
 			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play game_sound"), NULL, 0, NULL);
 			world.Inicializa();
-			estado = JUEGO;
+			state = GAME;
 		}
 		if (key == 'm')
 		{
 			mciSendString(TEXT("stop won_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
-			estado = INICIO;
+			state = INIT;
 		}
 
 		if (key == 's')
@@ -198,43 +228,65 @@ void CoordinadorJuego::Key(unsigned char key)
 			exit(0);
 		}
 	}
-	else if (estado == PAUSA)
+	else if (state == PAUSE)
 	{
 		if (key == 'c')
 		{
 			mciSendString(TEXT("resume game_sound"), NULL, 0, NULL);
-			estado = JUEGO;
+			state = GAME;
 		}
 		if (key == 's')
 		{
 			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play open_sound"), NULL, 0, NULL);
-			estado = INICIO;
+			state = INIT;
 		}
 		if (key == 'o')
 		{
-			estado = CONTROLES_IN_GAME;
+			state = CONTROLS_IN_GAME;
 		}
 	}
-	else if (estado == CONTROLES)
+	else if (state == CONTROLS)
 	{
 		if (key == 'e')
 		{
-			estado = INICIO;
+			state = INIT;
+		}
+		if (key == 'a')
+		{
+			state = AUDIO_CONFIG;
 		}
 	}
-	else if (estado == CONTROLES_IN_GAME)
+	else if (state == CONTROLS_IN_GAME)
 	{
 		if (key == 'e')
 		{
-			estado = PAUSA;
+			state = PAUSE;
+		}
+		if (key == 'a')
+		{
+			state = AUDIO_CONFIG_IN_GAME;
+		}
+	}
+	else if (state == AUDIO_CONFIG)
+	{
+		if (key == 'e')
+		{
+			state = CONTROLS;
+		}
+	}
+	else if (state == AUDIO_CONFIG_IN_GAME)
+	{
+		if (key == 'e')
+		{
+			state = CONTROLS_IN_GAME;
 		}
 	}
 }
 
 void CoordinadorJuego::Move()
 {
-	if (estado == JUEGO)
+	if (state == GAME)
 	{
 		world.Move();
 		if (world.estadoNivel())
@@ -243,7 +295,7 @@ void CoordinadorJuego::Move()
 			{
 				mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
 				mciSendString(TEXT("play won_sound"), NULL, 0, NULL);
-				estado = FIN;
+				state = VICTORY;
 			}
 		}
 
@@ -251,11 +303,11 @@ void CoordinadorJuego::Move()
 		{
 			mciSendString(TEXT("stop game_sound"), NULL, 0, NULL);
 			mciSendString(TEXT("play lost_sound"), NULL, 0, NULL);
-			estado = GAMEOVER;
+			state = GAMEOVER;
 		}
 	}
 
-	if (estado == PAUSA)
+	if (state == PAUSE)
 	{
 	}
 }

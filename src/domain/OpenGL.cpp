@@ -16,7 +16,7 @@ OpenGL::OpenGL()
 OpenGL::~OpenGL()
 {
 }
-void OpenGL::Print(char *mensaje, int x, int y, unsigned char r, unsigned char g, unsigned char b)
+void OpenGL::Print(std::string msg, int x, int y, unsigned char r, unsigned char g, unsigned char b)
 {
 	glDisable(GL_LIGHTING);
 
@@ -38,9 +38,8 @@ void OpenGL::Print(char *mensaje, int x, int y, unsigned char r, unsigned char g
 	glDisable(GL_BLEND);
 	glColor3ub(r, g, b);
 	glRasterPos3f(x, glutGet(GLUT_WINDOW_HEIGHT) - 18 - y, 0);
-	int len = strlen(mensaje);
-	for (int i = 0; i < len; i++)
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, mensaje[i]);
+	for (unsigned int i = 0; i < msg.size(); i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, msg[i]);
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
