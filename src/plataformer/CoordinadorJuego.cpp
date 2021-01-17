@@ -10,34 +10,11 @@
 CoordinadorJuego::CoordinadorJuego(void)
 {
 	state = INIT;
-	int i, count = SDL_GetNumAudioDevices(0);
-	for (i = 0; i < count; ++i)
+	if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
 	{
-		std::cout << "Audio device number: " << i << " Device name: " << SDL_GetAudioDeviceName(i, 0) << std::endl;
-		audio_devices.push_back(SDL_GetAudioDeviceName(i, 0));
-	}
-	std::cout << "Audio devices stored: " << audio_devices.size() << std::endl;
-	for (unsigned int i = 0; i < audio_devices.size(); i++)
-	{
-		std::cout << "ID: " << i << " " << audio_devices[i] << std::endl;
-	}
-	if (audio_devices.size() > 0)
-	{
-		if (Mix_OpenAudioDevice(44100, AUDIO_S16, 2, 2046, audio_devices[1].c_str(), 1))
-		{
-			std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
-			system("pause");
-			exit(1);
-		}
-	}
-	else
-	{
-		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096))
-		{
-			std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
-			system("pause");
-			exit(1);
-		}
+		std::cout << "No se puede inicializar SDL_mixer" << Mix_GetError() << std::endl;
+		system("pause");
+		exit(1);
 	}
 
 	atexit(Mix_CloseAudio);
@@ -54,6 +31,17 @@ CoordinadorJuego::CoordinadorJuego(void)
 	mciSendString(TEXT("open \"./music/WON.mp3\" type mpegvideo alias won_sound"), NULL, 0, NULL);
 	mciSendString(TEXT("open \"./music/LOST.mp3\" type mpegvideo alias lost_sound"), NULL, 0, NULL);
 	mciSendString(TEXT("Play open_sound"), NULL, 0, NULL);
+	int i, count = SDL_GetNumAudioDevices(0);
+	for (i = 0; i < count; ++i)
+	{
+		std::cout << "Audio device number: " << i << " Device name: " << SDL_GetAudioDeviceName(i, 0) << std::endl;
+		audio_devices.push_back(SDL_GetAudioDeviceName(i, 0));
+	}
+	std::cout << "Audio devices stored: " << audio_devices.size() << std::endl;
+	for (unsigned int i = 0; i < audio_devices.size(); i++)
+	{
+		std::cout << "ID: " << i << " " << audio_devices[i] << std::endl;
+	}
 }
 
 CoordinadorJuego::~CoordinadorJuego(void)
