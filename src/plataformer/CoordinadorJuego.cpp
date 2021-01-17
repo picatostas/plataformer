@@ -228,7 +228,7 @@ void CoordinadorJuego::Key(unsigned char key)
 			Mix_ResumeMusic();
 			state = GAME;
 		}
-		if (key == 's')
+		if (key == 'm')
 		{
 			Mix_ResumeMusic();
 			Mix_PlayMusic(main_menu_music, -1);
