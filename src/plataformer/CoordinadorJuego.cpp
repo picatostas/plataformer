@@ -151,7 +151,7 @@ void CoordinadorJuego::Key(unsigned char key)
 {
 	if (state == INIT)
 	{
-		if (key == 'e')
+		if (key == 'e' || key == 'E')
 		{
 			TextureContainer &container = TextureContainer::GetInstance();
 			if (!container.GetStatus())
@@ -163,12 +163,12 @@ void CoordinadorJuego::Key(unsigned char key)
 			state = GAME;
 		}
 
-		if (key == 's')
+		if (key == 's' || key == 'S')
 		{
 			exit(0);
 		}
 
-		if (key == 'o')
+		if (key == 'o' || key == 'O')
 		{
 			state = CONTROLS;
 		}
@@ -176,7 +176,7 @@ void CoordinadorJuego::Key(unsigned char key)
 	else if (state == GAME)
 	{
 		world.Key(key);
-		if (key == 'p')
+		if (key == 'p' || key == 'P')
 		{
 			Mix_PauseMusic();
 			state = PAUSE;
@@ -185,92 +185,92 @@ void CoordinadorJuego::Key(unsigned char key)
 
 	else if (state == GAMEOVER)
 	{
-		if (key == 'c')
+		if (key == 'c' || key == 'C')
 		{
 			Mix_PlayMusic(game_music, -1);
 			world.Inicializa();
 			state = GAME;
 		}
-		if (key == 'm')
+		if (key == 'm' || key == 'M')
 		{
 			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
 
-		if (key == 's')
+		if (key == 's' || key == 'S')
 		{
 			exit(0);
 		}
 	}
 	else if (state == VICTORY)
 	{
-		if (key == 'c')
+		if (key == 'c' || key == 'C')
 		{
 			Mix_PlayMusic(game_music, -1);
 			world.Inicializa();
 			state = GAME;
 		}
-		if (key == 'm')
+		if (key == 'm' || key == 'M')
 		{
 			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
 
-		if (key == 's')
+		if (key == 's' || key == 'S')
 		{
 			exit(0);
 		}
 	}
 	else if (state == PAUSE)
 	{
-		if (key == 'c')
+		if (key == 'c' || key == 'C')
 		{
 			Mix_ResumeMusic();
 			state = GAME;
 		}
-		if (key == 'm')
+		if (key == 'm' || key == 'M')
 		{
 			Mix_ResumeMusic();
 			Mix_PlayMusic(main_menu_music, -1);
 			state = INIT;
 		}
-		if (key == 'o')
+		if (key == 'o' || key == 'O')
 		{
 			state = CONTROLS_IN_GAME;
 		}
 	}
 	else if (state == CONTROLS)
 	{
-		if (key == 'e')
+		if (key == 'e' || key == 'E')
 		{
 			state = INIT;
 		}
-		if (key == 'a')
+		if (key == 'a' || key == 'A')
 		{
 			state = AUDIO_CONFIG;
 		}
 	}
 	else if (state == CONTROLS_IN_GAME)
 	{
-		if (key == 'e')
+		if (key == 'e' || key == 'E')
 		{
 			state = PAUSE;
 		}
-		if (key == 'a')
+		if (key == 'a' || key == 'A')
 		{
 			state = AUDIO_CONFIG_IN_GAME;
 		}
 	}
 	else if (state == AUDIO_CONFIG)
 	{
-		if (key == 'e')
+		if (key == 'e' || key == 'E')
 		{
 			state = CONTROLS;
 		}
 	}
 	else if (state == AUDIO_CONFIG_IN_GAME)
 	{
-		if (key == 'e')
+		if (key == 'e' || key == 'E')
 		{
 			state = CONTROLS_IN_GAME;
 		}

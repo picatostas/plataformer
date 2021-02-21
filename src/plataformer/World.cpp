@@ -111,14 +111,17 @@ void World::KeyDown(unsigned char key)
 	switch (key)
 	{
 	case 'w':
+	case 'W':
 		if (hombre.GetSalto() == true)
 			hombre.SetVel(hombre.GetVel().x, 8.0f);
 		break;
 	case 'a':
+	case 'A':
 		hombre.SetVel(-10.0f, hombre.GetVel().y);
 		hombre.SetRot(-1);
 		break;
 	case 'd':
+	case 'D':
 		hombre.SetVel(10.0f, hombre.GetVel().y);
 		hombre.SetRot(1);
 		break;
@@ -130,14 +133,17 @@ void World::KeyUp(unsigned char key)
 	switch (key)
 	{
 	case 'w':
+	case 'W':
 		hombre.SetVel(hombre.GetVel().x, 0.0f);
 		Mix_PlayChannel(-1, jump, 0);
 		break;
 	case 'a':
+	case 'A':
 		hombre.SetVel(0.0f, hombre.GetVel().y);
 		hombre.SetRot(0);
 		break;
 	case 'd':
+	case 'D':
 		hombre.SetVel(0.0f, hombre.GetVel().y);
 		hombre.SetRot(0);
 		break;
@@ -190,18 +196,21 @@ void World::Key(unsigned char key)
 		break;
 	}
 	case 'o':
+        case 'O':
 	{
 		esferas.DestruirContenido();
 
 		break;
 	}
 	case 't':
+	case 'T':
 	{
 		hombre.SetVidas(50);
 
 		break;
 	}
 	case 'm':
+	case 'M':
 	{
 		nivelterminado = true;
 		cout << " Colision with puerta nivel" << endl;
