@@ -3,9 +3,8 @@
 #include <stdlib.h>
 #include "glut.h"
 #include "Hombre.h"
-#include "Caja.h"
+#include "Box.h"
 #include <math.h>
-//#include "World.h"
 #include "CoordinadorJuego.h"
 #include <iostream>
 using namespace std;
@@ -20,12 +19,12 @@ Interact::~Interact(void)
 {
 }
 
-void Interact::Rebote(Hombre &h, Caja c)
+void Interact::Rebote(Hombre &h, Box b)
 {
-	float xmax = c.floor.limit2.x - h.anchura / 2;
-	float xmin = c.floor.limit1.x + h.anchura / 2;
-	float ymin = c.floor.limit1.y;
-	float ymax = c.roof.limit2.y - 1 - h.anchura;
+	float xmax = b.floor.limit2.x - h.anchura / 2;
+	float xmin = b.floor.limit1.x + h.anchura / 2;
+	float ymin = b.floor.limit1.y;
+	float ymax = b.roof.limit2.y - 1 - h.anchura;
 	if (h.pos.x > xmax)
 		h.pos.x = xmax;
 	if (h.pos.x < xmin)
@@ -107,18 +106,18 @@ void Interact::Rebote(Esfera &e1, Esfera &e2)
 		e2.vel = v2_final;
 	}
 }
-void Interact::Rebote(Esfera &e, Caja c)
+void Interact::Rebote(Esfera &e, Box b)
 {
 	bool flag_suelo, flag_techo, flag_pared_izq, flag_pared_der;
-	flag_suelo = Rebote(e, c.floor);
-	flag_techo = Rebote(e, c.roof);
-	flag_pared_izq = Rebote(e, c.left_side);
-	flag_pared_der = Rebote(e, c.right_side);
+	flag_suelo = Rebote(e, b.floor);
+	flag_techo = Rebote(e, b.roof);
+	flag_pared_izq = Rebote(e, b.left_side);
+	flag_pared_der = Rebote(e, b.right_side);
 
 	if (flag_suelo == true)
 	{
-		float xmax = c.floor.limit2.x;
-		float xmin = c.floor.limit1.x;
+		float xmax = b.floor.limit2.x;
+		float xmin = b.floor.limit1.x;
 		if (e.pos.x > xmax)
 			e.pos.x = xmax;
 		if (e.pos.x < xmin)
@@ -127,8 +126,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_techo == true)
 	{
-		float xmax = c.roof.limit2.x;
-		float xmin = c.roof.limit1.x;
+		float xmax = b.roof.limit2.x;
+		float xmin = b.roof.limit1.x;
 		if (e.pos.x > xmax)
 			e.pos.x = xmax;
 		if (e.pos.x < xmin)
@@ -137,8 +136,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_pared_izq == true)
 	{
-		float ymax = c.left_side.limit2.y;
-		float ymin = c.left_side.limit1.y;
+		float ymax = b.left_side.limit2.y;
+		float ymin = b.left_side.limit1.y;
 		if (e.pos.y > ymax)
 			e.pos.y = ymax;
 		if (e.pos.y < ymin)
@@ -147,8 +146,8 @@ void Interact::Rebote(Esfera &e, Caja c)
 
 	if (flag_pared_der == true)
 	{
-		float ymax = c.right_side.limit2.y;
-		float ymin = c.right_side.limit1.y;
+		float ymax = b.right_side.limit2.y;
+		float ymin = b.right_side.limit1.y;
 		if (e.pos.y > ymax)
 			e.pos.y = ymax;
 		if (e.pos.y < ymin)

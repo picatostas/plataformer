@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
-#include "Caja.h"
-class Platform : public Caja
+#include "Box.h"
+class Platform : public Box
 {
 private:
 	Wall front;

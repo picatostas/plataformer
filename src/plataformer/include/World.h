@@ -1,5 +1,5 @@
 #include "Bonus.h"
-#include "Caja.h"
+#include "Box.h"
 #include "Disparo.h"
 #include "Esfera.h"
 #include "Hombre.h"
@@ -39,7 +39,7 @@ public:
 	PlatformContainer platforms;
 	Hombre hombre;
 	Bonus bonus;
-	Caja caja;
+	Box box;
 	LevelDoor puerta;
 	DisparoEspecial dispowa;
 	Mix_Chunk *shot, *jump, *hit_player, *hit_enemy, *get_bonus, *player_died;

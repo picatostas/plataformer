@@ -13,7 +13,7 @@ public:
 	void Draw();
 	void Mueve(float t);
 	void Rebote();
-	void Rebote(Caja caja);
+	void Rebote(Box box);
 	void Rebote(Wall plataforma);
 	bool Add(Esfera *e);
 	void DestruirContenido();

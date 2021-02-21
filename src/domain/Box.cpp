@@ -1,9 +1,9 @@
-#include "Caja.h"
+#include "Box.h"
 #include "glut.h"
 #include "stdio.h"
 #include "stdbool.h"
 
-Caja::Caja(void)
+Box::Box(void)
 {
 	floor.LoadTexture("dungeon_wall");
 	floor.color = ColorPalette::Gray();
@@ -26,11 +26,11 @@ Caja::Caja(void)
 	back.SetPos(-10.0f, 0.0f, 10.0f, 15.0f, -10.0f, true);
 }
 
-Caja::~Caja(void)
+Box::~Box(void)
 {
 }
 
-void Caja::Draw()
+void Box::Draw()
 {
 	floor.Draw();
 	roof.Draw();

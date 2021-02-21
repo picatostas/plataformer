@@ -28,10 +28,10 @@ void ListaEsferas::Mueve(float t)
 	for (unsigned int i = 0; i < lista.size(); i++)
 		lista[i]->Move(t);
 }
-void ListaEsferas::Rebote(Caja caja)
+void ListaEsferas::Rebote(Box box)
 {
 	for (unsigned int i = 0; i < lista.size(); i++)
-		Interact::Rebote(*(lista[i]), caja);
+		Interact::Rebote(*(lista[i]), box);
 }
 void ListaEsferas::Rebote(Wall plataforma)
 {

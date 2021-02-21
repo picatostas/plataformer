@@ -36,7 +36,7 @@ void World::Draw()
 
 	hombre.Draw();
 	bonus.Draw();
-	caja.Draw();
+	box.Draw();
 	esferas.Draw();
 	platforms.Draw();
 	disparos.Draw();
@@ -49,12 +49,12 @@ void World::Move()
 	esferas.Mueve(0.025f);
 	disparos.Move(0.025f);
 	// bonus.Move(0.025f);
-	Interact::Rebote(hombre, caja);
-	esferas.Rebote(caja);
+	Interact::Rebote(hombre, box);
+	esferas.Rebote(box);
 	ListaInteract::Interact(esferas, platforms);
 	ListaInteract::Interact(esferas, disparos);
 	esferas.Rebote();
-	disparos.Colision(caja);
+	disparos.Colision(box);
 	platforms.Colision(hombre);
 	if (Interact::Colision(hombre, bonus))
 	{

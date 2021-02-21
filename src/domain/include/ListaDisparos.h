@@ -1,7 +1,7 @@
 #pragma once
 #define MAX_DISPAROS 3
 #include "Disparo.h"
-#include "Caja.h"
+#include "Box.h"
 #include "Interact.h"
 #include "ListaEsferas.h"
 #include <vector>
@@ -27,7 +27,7 @@ public:
 	void Eliminar(Disparo *d);
 
 	void Colision(Wall p);
-	void Colision(Caja c);
+	void Colision(Box b);
 	void Colision(Esfera *e);
 	Disparo *operator[](int i);
 	int GetNum();

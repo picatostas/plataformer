@@ -47,12 +47,12 @@ void ListaDisparos::Colision(Wall p)
 			Eliminar(i);
 	}
 }
-void ListaDisparos::Colision(Caja c)
+void ListaDisparos::Colision(Box b)
 {
-	ListaDisparos::Colision(c.roof);
-	ListaDisparos::Colision(c.floor);
-	ListaDisparos::Colision(c.left_side);
-	ListaDisparos::Colision(c.right_side);
+	ListaDisparos::Colision(b.roof);
+	ListaDisparos::Colision(b.floor);
+	ListaDisparos::Colision(b.left_side);
+	ListaDisparos::Colision(b.right_side);
 }
 int ListaDisparos::GetNum()
 {
