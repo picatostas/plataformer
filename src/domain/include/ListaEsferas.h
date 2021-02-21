@@ -20,7 +20,7 @@ public:
 	void Eliminar(unsigned int index);
 	void Eliminar(Esfera *e);
 	int GetNum();
-	Esfera *Colision(Hombre &e);
+	Esfera *Colision(Hombre &h);
 	Esfera *operator[](unsigned int i);
 	friend class ListaInteract;
 
