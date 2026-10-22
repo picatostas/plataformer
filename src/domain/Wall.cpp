@@ -82,6 +82,10 @@ void Wall::Draw()
 		glVertex3d(limit1.x, limit1.y, -z);
 	}
 	glEnd();
+	if (texture_obj != nullptr)
+	{
+		texture_obj->ReleaseTexture();
+	}
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 }

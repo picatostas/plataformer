@@ -5,6 +5,7 @@
 Projectile::Projectile(void)
 {
 	rad = 0.2f;
+	color = ColorPalette::Orange();
 }
 
 Projectile::~Projectile(void)
@@ -13,7 +14,6 @@ Projectile::~Projectile(void)
 
 void Projectile::Draw()
 {
-	color = ColorPalette::Orange();
 	glColor3ub(color.r, color.g, color.b);
 	glPushMatrix();
 	glTranslatef(pos.x, pos.y, 0);

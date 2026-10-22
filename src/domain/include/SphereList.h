@@ -13,7 +13,7 @@ public:
 	void Draw();
 	void Move(float t);
 	void Bounce();
-	void Bounce(Box box);
+	void Bounce(Box &box);
 	void Bounce(Wall wall);
 	bool Add(Sphere *sph);
 	void DestroyContents();

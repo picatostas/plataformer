@@ -55,7 +55,8 @@ float Sphere::Distance(Vector2D point, Vector2D *direction)
 {
 	Vector2D u = (point - pos);
 	float distance = u.magnitude();
-	*direction = u.Unit();
+	if (direction != 0)
+		*direction = u.Unit();
 	return distance;
 }
 float Sphere::GetRad()

@@ -19,7 +19,7 @@ Interact::~Interact(void)
 {
 }
 
-void Interact::Bounce(Player &plyr, Box box)
+void Interact::Bounce(Player &plyr, Box &box)
 {
 	float xmax = box.floor.limit2.x - plyr.width / 2;
 	float xmin = box.floor.limit1.x + plyr.width / 2;
@@ -51,26 +51,9 @@ bool Interact::Bounce(Sphere &sph, Wall wall)
 	}
 	return false;
 }
-bool Interact::Bounce(Sphere &sph, Platform plat)
+bool Interact::Bounce(Sphere &sph, Platform &plat)
 {
-	Vector2D dir;
-	float diff1 = plat.roof.Distance(sph.pos, &dir) - sph.rad;
-	float diff2 = plat.floor.Distance(sph.pos, &dir) - sph.rad;
-	if (diff1 <= 0.0f)
-	{
-		Vector2D initial_vel = sph.vel;
-		sph.vel = initial_vel - (dir * (initial_vel * dir)) * 2.0f;
-		sph.pos = sph.pos - dir * diff1;
-		return true;
-	}
-	if (diff2 <= 0.0f)
-	{
-		Vector2D initial_vel = sph.vel;
-		sph.vel = initial_vel - (dir * (initial_vel * dir)) * 2.0f;
-		sph.pos = sph.pos - dir * diff2;
-		return true;
-	}
-	return false;
+	return Bounce(sph, plat.roof) || Bounce(sph, plat.floor);
 }
 // collision between spheres
 void Interact::Bounce(Sphere &sph1, Sphere &sph2)
@@ -106,7 +89,7 @@ void Interact::Bounce(Sphere &sph1, Sphere &sph2)
 		sph2.vel = v2_final;
 	}
 }
-void Interact::Bounce(Sphere &sph, Box box)
+void Interact::Bounce(Sphere &sph, Box &box)
 {
 	bool floor_hit, roof_hit, left_wall_hit, right_wall_hit;
 	floor_hit = Bounce(sph, box.floor);
@@ -186,7 +169,7 @@ void Interact::Bounce(Sphere &sph, Player &plyr)
 		plyr.vel = v2_final;
 	}
 }
-bool Interact::Collision(Sphere sph, Player plyr)
+bool Interact::Collision(Sphere &sph, Player &plyr)
 {
 	Vector2D pos = plyr.GetPos();
 	pos.y += plyr.GetHeight(); // position of the center
@@ -202,7 +185,7 @@ bool Interact::Collision(Sphere sph, Player plyr)
 void Interact::Collision(Player &plyr, Wall wall)
 {
 	float xmin = wall.limit1.x - plyr.width / 2;
-	float xmax = wall.limit2.x + plyr.height / 2;
+	float xmax = wall.limit2.x + plyr.width / 2;
 	float y = wall.limit1.y;
 
 	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)
@@ -259,7 +242,7 @@ bool Interact::Collision(Player &plyr, Bonus &bon)
 void Interact::Collision(Player &plyr, Platform &plat)
 {
 	float xmin = plat.x - plyr.width / 2;
-	float xmax = (plat.x + plat.width) + plyr.height / 2;
+	float xmax = (plat.x + plat.width) + plyr.width / 2;
 	float y = plat.y + plat.height;
 
 	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)

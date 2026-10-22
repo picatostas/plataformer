@@ -9,6 +9,7 @@ Player::Player(void)
 	width = 1.0f;
 	accel.y = -20.8f;
 	lives = 3;
+	can_jump = false;
 	model.Load("models/birdman.obj");
 	rot = 0;
 }

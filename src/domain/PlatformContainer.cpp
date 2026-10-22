@@ -58,7 +58,7 @@ int PlatformContainer::GetNum()
 }
 Platform *PlatformContainer::operator[](unsigned int i)
 {
-	if (i > container.size()) // index out of range: return the last platform
+	if (i >= container.size()) // index out of range: return the last platform
 	{
 		i = container.size() - 1;
 	}

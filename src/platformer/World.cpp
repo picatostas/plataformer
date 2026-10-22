@@ -52,7 +52,8 @@ void World::Move()
 	Interact::Bounce(player, box);
 	spheres.Bounce(box);
 	ListInteract::Interact(spheres, platforms);
-	ListInteract::Interact(spheres, projectiles);
+	if (ListInteract::Interact(spheres, projectiles))
+		Mix_PlayChannel(-1, hit_enemy, 0);
 	spheres.Bounce();
 	projectiles.Collision(box);
 	platforms.Collision(player);
@@ -113,7 +114,10 @@ void World::KeyDown(unsigned char key)
 	case 'w':
 	case 'W':
 		if (player.GetCanJump() == true)
+		{
 			player.SetVel(player.GetVel().x, 8.0f);
+			Mix_PlayChannel(-1, jump, 0);
+		}
 		break;
 	case 'a':
 	case 'A':
@@ -134,8 +138,10 @@ void World::KeyUp(unsigned char key)
 	{
 	case 'w':
 	case 'W':
-		player.SetVel(player.GetVel().x, 0.0f);
-		Mix_PlayChannel(-1, jump, 0);
+		// Releasing W early cuts the jump short. Only cut upward speed:
+		// zeroing it while falling would let the player float by tapping W.
+		if (player.GetVel().y > 0)
+			player.SetVel(player.GetVel().x, 0.0f);
 		break;
 	case 'a':
 	case 'A':
@@ -189,9 +195,11 @@ void World::Key(unsigned char key)
 			proj->SetVel(-20, 0);
 		}
 		proj->SetPos(pos.x, pos.y + 1);
-		proj->color.Steel();
-		projectiles.Add(proj);
-		Mix_PlayChannel(-1, shot, 0);
+		// Only MAX_PROJECTILES can be in flight at once
+		if (projectiles.Add(proj))
+			Mix_PlayChannel(-1, shot, 0);
+		else
+			delete proj;
 
 		break;
 	}

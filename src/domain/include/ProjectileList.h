@@ -27,7 +27,7 @@ public:
 	void Remove(Projectile *proj);
 
 	void Collision(Wall wall);
-	void Collision(Box box);
+	void Collision(Box &box);
 	void Collision(Sphere *sph);
 	Projectile *operator[](int i);
 	int GetNum();

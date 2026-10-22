@@ -28,7 +28,7 @@ void SphereList::Move(float t)
 	for (unsigned int i = 0; i < items.size(); i++)
 		items[i]->Move(t);
 }
-void SphereList::Bounce(Box box)
+void SphereList::Bounce(Box &box)
 {
 	for (unsigned int i = 0; i < items.size(); i++)
 		Interact::Bounce(*(items[i]), box);
@@ -48,11 +48,8 @@ void SphereList::Bounce()
 
 void SphereList::DestroyContents()
 {
-
 	for (unsigned int i = 0; i < items.size(); i++)
-	{
-		SphereList::Remove(i);
-	}
+		delete items[i];
 	items.clear();
 }
 int SphereList::GetNum()
@@ -91,7 +88,7 @@ Sphere *SphereList::Collision(Player &plyr)
 }
 Sphere *SphereList::operator[](unsigned int i)
 {
-	if (i > items.size()) // index out of range: return the last sphere
+	if (i >= items.size()) // index out of range: return the last sphere
 	{
 		i = items.size() - 1;
 	}

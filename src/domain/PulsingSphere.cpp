@@ -1,14 +1,12 @@
 #include "PulsingSphere.h"
 
-PulsingSphere::PulsingSphere(float px = 0, float py = 0)
+PulsingSphere::PulsingSphere(float px, float py)
 {
 	pos.x = px;
 	pos.y = py;
 	pulse = 0.5;
 	rad_max = 2;
 	rad_min = 0.5;
-	pos.x = 0;
-	pos.y = 5;
 	accel.y = 0;
 	accel.x = 0;
 }

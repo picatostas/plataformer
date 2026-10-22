@@ -35,19 +35,24 @@ void ProjectileList::Move(float t)
 }
 void ProjectileList::DestroyContents()
 {
+	// Reset the list too, otherwise it keeps pointing at deleted projectiles
 	for (int i = 0; i < count; i++)
+	{
 		delete items[i];
-	//items.clear();
+		items[i] = 0;
+	}
+	count = 0;
 }
 void ProjectileList::Collision(Wall wall)
 {
-	for (int i = 0; i < count; i++)
+	// Backwards, because Remove() shifts the following items down
+	for (int i = count - 1; i >= 0; i--)
 	{
 		if (Interact::Collision(*(items[i]), wall))
 			Remove(i);
 	}
 }
-void ProjectileList::Collision(Box box)
+void ProjectileList::Collision(Box &box)
 {
 	ProjectileList::Collision(box.roof);
 	ProjectileList::Collision(box.floor);
@@ -84,7 +89,7 @@ void ProjectileList::Remove(Projectile *proj)
 
 Projectile *ProjectileList::operator[](int i)
 {
-	if (i > count) // index out of range: return the last projectile
+	if (i >= count) // index out of range: return the last projectile
 		i = count - 1;
 
 	if (i < 0)     // negative index: return the first projectile

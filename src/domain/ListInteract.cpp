@@ -10,9 +10,9 @@ ListInteract::ListInteract(void)
 ListInteract::~ListInteract(void)
 {
 }
-void ListInteract::Interact(SphereList &spheres, ProjectileList &projectiles)
+bool ListInteract::Interact(SphereList &spheres, ProjectileList &projectiles)
 {
-
+	bool any_hit = false;
 	for (int i = spheres.GetNum() - 1; i >= 0; i--)
 		for (int j = 0; j < projectiles.GetNum(); j++)
 		{
@@ -26,10 +26,14 @@ void ListInteract::Interact(SphereList &spheres, ProjectileList &projectiles)
 				else
 				{
 					spheres.Add(half);
-					projectiles.Remove(j);
 				}
+				projectiles.Remove(j);
+				any_hit = true;
+				// Sphere i was split or removed; stop checking it against more projectiles
+				break;
 			}
 		}
+	return any_hit;
 }
 void ListInteract::Interact(SphereList &spheres, PlatformContainer &platforms)
 {

@@ -6,6 +6,7 @@
 Bonus::Bonus(void)
 {
 	side = 1;
+	rot = 0;
 	//vel.x=5;
 }
 
