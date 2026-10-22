@@ -6,6 +6,7 @@
 #include "SDL2/SDL_mixer.h"
 #include <iostream>
 
+// Open the first audio device and load all sounds and music
 GameCoordinator::GameCoordinator(void)
 {
 	SDL_Init(SDL_INIT_AUDIO);
@@ -144,6 +145,7 @@ void GameCoordinator::Key(unsigned char key)
 	{
 		if (key == 'e' || key == 'E')
 		{
+			// Textures need the OpenGL context, so load them on the first start
 			TextureContainer &container = TextureContainer::GetInstance();
 			if (!container.GetStatus())
 			{

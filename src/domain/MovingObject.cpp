@@ -9,6 +9,7 @@ MovingObject::MovingObject(void)
 MovingObject::~MovingObject(void)
 {
 }
+// Constant-acceleration motion: p += v*t + a*t^2/2, v += a*t
 void MovingObject::Move(float t)
 {
 	pos = pos + vel * t + accel * (0.5f * t * t);

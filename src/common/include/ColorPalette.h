@@ -1,5 +1,6 @@
 #pragma once
 
+// RGB colour (0-255 per channel) plus a set of named presets.
 class ColorPalette
 {
 public:

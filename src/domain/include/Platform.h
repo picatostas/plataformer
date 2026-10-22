@@ -1,6 +1,8 @@
 #pragma once
 #include "Vector2D.h"
 #include "Box.h"
+// A thin box the player can stand on and spheres bounce off.
+// It spans x .. x+width horizontally, with its bottom at y.
 class Platform : public Box
 {
 private:

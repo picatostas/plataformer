@@ -4,6 +4,8 @@
 #include <string>
 #include "SDL2/SDL_mixer.h"
 
+// Top-level game state machine: menus, pause, game over and victory
+// screens, music, and handing the keyboard to the World while playing.
 class GameCoordinator
 {
 protected:
@@ -16,9 +18,9 @@ protected:
 		VICTORY,
 		PAUSE,
 		CONTROLS,
-		CONTROLS_IN_GAME,
+		CONTROLS_IN_GAME, // controls screen opened from the pause menu
 		AUDIO_CONFIG,
-		AUDIO_CONFIG_IN_GAME
+		AUDIO_CONFIG_IN_GAME // audio screen opened from the pause menu
 	};
 	States state;
 	std::vector<std::string> audio_devices;

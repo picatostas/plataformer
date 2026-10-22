@@ -23,6 +23,8 @@ void Interact::Bounce(Player &plyr, Box &box)
 	}
 }
 
+// Reflect the sphere's velocity off the wall (v' = v - 2(v.n)n) and push
+// it back out by the amount it overlaps the wall.
 bool Interact::Bounce(Sphere &sph, Wall wall)
 {
 	Vector2D dir;
@@ -40,7 +42,9 @@ bool Interact::Bounce(Sphere &sph, Platform &plat)
 {
 	return Bounce(sph, plat.roof) || Bounce(sph, plat.floor);
 }
-// collision between spheres
+// Elastic collision between two spheres, using their surface area as the
+// mass. Only the velocity along the line between the centres changes; the
+// tangential part is kept.
 void Interact::Bounce(Sphere &sph1, Sphere &sph2)
 {
 
@@ -74,6 +78,8 @@ void Interact::Bounce(Sphere &sph1, Sphere &sph2)
 		sph2.vel = v2_final;
 	}
 }
+// Bounce off the room's walls, then clamp the sphere so it cannot escape
+// past the end of a wall it just hit.
 void Interact::Bounce(Sphere &sph, Box &box)
 {
 	bool floor_hit, roof_hit, left_wall_hit, right_wall_hit;
@@ -122,10 +128,11 @@ void Interact::Bounce(Sphere &sph, Box &box)
 			sph.pos.y = ymin;
 	}
 }
+// A sphere hits the player when it touches the top of the player's head
 bool Interact::Collision(Sphere &sph, Player &plyr)
 {
 	Vector2D pos = plyr.GetPos();
-	pos.y += plyr.GetHeight(); // position of the center
+	pos.y += plyr.GetHeight(); // top of the player's head
 
 	float distance = (sph.pos - pos).magnitude();
 	if (distance < sph.rad)
@@ -175,6 +182,7 @@ void Interact::Collision(Player &plyr, Platform &plat)
 	float xmax = (plat.x + plat.width) + plyr.width / 2;
 	float y = plat.y + plat.height;
 
+	// Over the platform, with the feet less than 0.5 below its top: snap onto it
 	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)
 	{
 		plyr.pos.y = y;

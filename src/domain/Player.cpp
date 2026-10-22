@@ -18,6 +18,7 @@ Player::~Player(void)
 void Player::Draw()
 {
 	glDisable(GL_LIGHTING);
+	// Colour shows the remaining lives
 	if (lives >= 3)
 		color = ColorPalette::Lime();
 	else if (lives == 2)
@@ -36,6 +37,7 @@ void Player::Draw()
 
 	glColor3ub(color.r, color.g, color.b);
 	glPushMatrix();
+	// Scale the .obj model to the hitbox and turn it to face the camera
 	glScalef(0.06f, 0.06f, 0.06f);
 	glRotatef(-180, 0, 1, 0);
 	if (lives == 0)

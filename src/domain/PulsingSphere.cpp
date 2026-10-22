@@ -17,6 +17,7 @@ PulsingSphere::~PulsingSphere(void)
 void PulsingSphere::Move(float t)
 {
 	Sphere::Move(t);
+	// Reverse the pulse at either end of the range
 	if (rad > rad_max)
 		pulse = -pulse;
 	if (rad < rad_min)

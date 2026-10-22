@@ -41,7 +41,7 @@ void Wall::Draw()
 		std::cout << " got nullptr instead of Bitmap * trying to get " << texture << std::endl;
 	}
 	glBegin(GL_QUADS);
-	// To draw a front panel
+	// Panel facing the camera
 	if (is_front)
 	{
 		glTexCoord2f(0.0, 0.0);
@@ -53,7 +53,7 @@ void Wall::Draw()
 		glTexCoord2f(1.0, 0.0);
 		glVertex3f(limit2.x, limit1.y, z);
 	}
-	// To draw a normal plane to the front panel
+	// Floor, roof or side: perpendicular to the front panels
 	else
 	{
 		glTexCoord2f(0.0, 0.0);
@@ -86,12 +86,13 @@ float Wall::Distance(Vector2D point, Vector2D *direction)
 	float projection = u * v;
 	float distance = 0.0f;
 
+	// Project the point onto the segment's line, then clamp to the segment
 	if (projection < 0.0f)
-		dir = u;
+		dir = u; // closest point is limit1
 	else if (projection > length)
-		dir = (point - limit2);
+		dir = (point - limit2); // closest point is limit2
 	else
-		dir = u - v * projection;
+		dir = u - v * projection; // perpendicular from the segment
 	distance = dir.magnitude();
 	if (direction != 0) // if a vector was provided
 		*direction = dir.Unit();

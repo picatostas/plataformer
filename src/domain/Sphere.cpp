@@ -19,6 +19,7 @@ Sphere::Sphere(float r, float x, float y, float vx, float vy)
 	vel.x = vx;
 	vel.y = vy;
 	accel.y = -9.8f;
+	// Default colour by size: small orange, medium pink, large lime
 	if (rad > 0.0f && rad <= 0.75f)
 		color = ColorPalette::Orange();
 	if (rad > 0.75f && rad <= 1.5f)
@@ -45,7 +46,6 @@ void Sphere::SetColor(unsigned char r, unsigned char g, unsigned char b)
 	color.b = b;
 }
 
-// distance from a sphere to a point, in this case the position of another sphere
 float Sphere::Distance(Vector2D point, Vector2D *direction)
 {
 	Vector2D u = (point - pos);

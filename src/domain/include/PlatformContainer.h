@@ -3,6 +3,7 @@
 #include "Interact.h"
 #include <vector>
 
+// The platforms of the current level. The container owns them.
 class PlatformContainer
 {
 public:

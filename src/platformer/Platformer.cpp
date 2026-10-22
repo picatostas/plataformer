@@ -2,13 +2,14 @@
 #include "freeglut.h"
 #include "GameCoordinator.h"
 
-// Callbacks: functions that GLUT calls automatically when events happen.
-// THERE IS NO NEED TO CALL THEM EXPLICITLY
-void OnDraw(void);	 // called to draw the scene
-void OnTimer(int value); // called when a timer expires
+// GLUT callbacks; GLUT calls these when the window needs drawing, the
+// timer fires or a key is pressed/released.
+void OnDraw(void);
+void OnTimer(int value);
 void OnKeyboardDown(unsigned char key, int x, int y);
 void OnKeyboardUp(unsigned char key, int x, int y);
 
+// Global so the GLUT callbacks can reach it
 GameCoordinator game;
 int main(int argc, char *argv[])
 {
@@ -29,7 +30,7 @@ int main(int argc, char *argv[])
 
 	// Register the callbacks
 	glutDisplayFunc(OnDraw);
-	glutTimerFunc(25, OnTimer, 0); // call OnTimer() once, 25ms from now
+	glutTimerFunc(25, OnTimer, 0); // OnTimer() re-arms itself every 25 ms
 	glutKeyboardFunc(OnKeyboardDown);
 	glutKeyboardUpFunc(OnKeyboardUp);
 
@@ -49,12 +50,11 @@ void OnDraw(void)
 	glLoadIdentity();
 	game.Draw();
 
-	// do not remove this line or put anything after it
+	// Show the frame that was just drawn (double buffering)
 	glutSwapBuffers();
 }
 void OnKeyboardDown(unsigned char key, int x, int y)
 {
-	// keyboard handling code goes here
 	(void)x;
 	(void)y;
 	game.KeyDown(key);
@@ -64,7 +64,6 @@ void OnKeyboardDown(unsigned char key, int x, int y)
 
 void OnKeyboardUp(unsigned char key, int x, int y)
 {
-	// Cancel velocities when the key is released
 	(void)x;
 	(void)y;
 	game.KeyUp(key);
@@ -74,10 +73,9 @@ void OnKeyboardUp(unsigned char key, int x, int y)
 
 void OnTimer(int value)
 {
-	// animation code goes here
 	(void)value;
 	game.Move();
-	// do not remove these lines
+	// Schedule the next step and redraw
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();
 }

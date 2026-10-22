@@ -32,6 +32,7 @@ void World::Draw()
 	door.Draw();
 }
 
+// One simulation step. 0.025 s matches the 25 ms timer in Platformer.cpp.
 void World::Move()
 {
 	player.Move(0.025f);
@@ -50,6 +51,7 @@ void World::Move()
 		Mix_PlayChannel(-1, get_bonus, 0);
 	}
 
+	// Landing on the floor or a platform sets the vertical speed to exactly 0
 	if (player.GetVel().y == 0)
 		player.SetCanJump(true);
 	else
@@ -142,6 +144,8 @@ void World::Key(unsigned char key)
 {
 	switch (key)
 	{
+	// Debug keys: 1-4 add a sphere, O clears the spheres,
+	// T gives 50 lives, M skips to the next level
 	case '1':
 		spheres.Add(new Sphere(0.5f, -5.0f, 10, 4));
 		break;
@@ -157,6 +161,7 @@ void World::Key(unsigned char key)
 
 	case ' ':
 	{
+		// Shoot in the direction the player is moving (right when standing still)
 		Projectile *proj = new Projectile();
 		Vector2D pos = player.GetPos();
 		if (player.GetVel().x >= 0)
@@ -199,6 +204,7 @@ bool World::SetLevel()
 	projectiles.DestroyContents();
 	platforms.DestroyContents();
 
+	// Each level: the door, the platforms (x, y, width), the bonus and the spheres
 	if (level == 1)
 	{
 		door.SetPos(8.25, 11, 9.75, 13.25, 0, true);

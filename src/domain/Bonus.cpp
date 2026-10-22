@@ -18,7 +18,7 @@ void Bonus::Draw()
 	glRotatef(rot, 1, 1, 1);
 	glColor3f(rand() / (float)RAND_MAX, rand() / (float)RAND_MAX,
 		  rand() / (float)RAND_MAX); // random color
-	glutSolidIcosahedron();
+	glutSolidIcosahedron(); // radius 1
 	glPopMatrix();
 }
 

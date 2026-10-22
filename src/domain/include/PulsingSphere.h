@@ -1,5 +1,8 @@
 #pragma once
 #include "Sphere.h"
+// A sphere whose radius grows and shrinks between rad_min and rad_max, at
+// `pulse` units per second. It is not affected by gravity, and every split
+// makes both halves pulse faster.
 class PulsingSphere : public Sphere
 {
 private:
