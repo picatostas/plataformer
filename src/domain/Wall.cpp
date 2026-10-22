@@ -57,7 +57,7 @@ void Wall::Draw()
 		std::cout << " got nullptr instead of Bitmap * trying to get " << texture << std::endl;
 	}
 	glBegin(GL_QUADS);
-	// To draw a front planel
+	// To draw a front panel
 	if (is_front)
 	{
 		glTexCoord2f(0.0, 0.0);
@@ -86,27 +86,26 @@ void Wall::Draw()
 	glEnable(GL_LIGHTING);
 }
 
-//Calculo de distancia de una pared a un punto, adicionalmente
-//se modifica el valor de un vector direccion opcional que contendra
-//el vector unitario saliente que indica la direccion de la
-//recta mas corta entre el punto y la pared.
-float Wall::Distancia(Vector2D punto, Vector2D *direccion)
+// Distance from a wall to a point. Additionally, the optional direction
+// vector is set to the outgoing unit vector that points along the
+// shortest line between the point and the wall.
+float Wall::Distance(Vector2D point, Vector2D *direction)
 {
-	Vector2D u = (punto - limit1);
-	Vector2D v = (limit2 - limit1).Unitario();
-	float longitud = (limit1 - limit2).modulo();
+	Vector2D u = (point - limit1);
+	Vector2D v = (limit2 - limit1).Unit();
+	float length = (limit1 - limit2).magnitude();
 	Vector2D dir;
-	float valor = u * v;
-	float distancia = 0.0f;
+	float projection = u * v;
+	float distance = 0.0f;
 
-	if (valor < 0.0f)
+	if (projection < 0.0f)
 		dir = u;
-	else if (valor > longitud)
-		dir = (punto - limit2);
+	else if (projection > length)
+		dir = (point - limit2);
 	else
-		dir = u - v * valor;
-	distancia = dir.modulo();
-	if (direccion != 0) //si nos dan un vector
-		*direccion = dir.Unitario();
-	return distancia;
+		dir = u - v * projection;
+	distance = dir.magnitude();
+	if (direction != 0) // if a vector was provided
+		*direction = dir.Unit();
+	return distance;
 }

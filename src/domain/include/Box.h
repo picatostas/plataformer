@@ -12,5 +12,5 @@ public:
 	void Draw(void);
 
 	friend class Interact;
-	friend class ListaDisparos;
+	friend class ProjectileList;
 };

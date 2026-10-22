@@ -8,10 +8,10 @@ public:
 	virtual ~Bonus(void);
 
 private:
-	float lado, rot;
+	float side, rot;
 	Vector2D pos;
 	Vector2D vel;
-	Vector2D acelr;
+	Vector2D accel;
 
 public:
 	void SetPos(int mx, int my);

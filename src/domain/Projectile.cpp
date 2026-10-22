@@ -1,17 +1,17 @@
-#include "Disparo.h"
+#include "Projectile.h"
 #include "glut.h"
 #include "stdio.h"
 
-Disparo::Disparo(void)
+Projectile::Projectile(void)
 {
 	rad = 0.2f;
 }
 
-Disparo::~Disparo(void)
+Projectile::~Projectile(void)
 {
 }
 
-void Disparo::Draw()
+void Projectile::Draw()
 {
 	color = ColorPalette::Orange();
 	glColor3ub(color.r, color.g, color.b);
@@ -21,13 +21,13 @@ void Disparo::Draw()
 	glPopMatrix();
 }
 
-void Disparo::SetPos(int mx, int my)
+void Projectile::SetPos(int mx, int my)
 {
-	pos.x = posinicial.x = mx;
-	pos.y = posinicial.y = my;
+	pos.x = initial_pos.x = mx;
+	pos.y = initial_pos.y = my;
 }
 
-float Disparo::GetRad()
+float Projectile::GetRad()
 {
 	return rad;
 }

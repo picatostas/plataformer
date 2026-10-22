@@ -1,9 +1,9 @@
 #pragma once
 #include "Vector2D.h"
-class ObjetoMovil
+class MovingObject
 {
 protected:
-	Vector2D pos, vel, acelr;
+	Vector2D pos, vel, accel;
 
 public:
 	Vector2D GetPos();
@@ -12,6 +12,6 @@ public:
 	void SetPos(float px, float py);
 	void SetVel(float vx, float vy);
 	virtual void Move(float t);
-	ObjetoMovil(void);
-	~ObjetoMovil(void);
+	MovingObject(void);
+	~MovingObject(void);
 };

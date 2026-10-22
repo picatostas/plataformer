@@ -1,16 +1,16 @@
 #pragma once
 #include "Vector2D.h"
-#include "ObjetoMovil.h"
+#include "MovingObject.h"
 #include "ColorPalette.h"
-class Disparo : public ObjetoMovil
+class Projectile : public MovingObject
 {
 public:
-	Disparo(void);
-	virtual ~Disparo(void);
+	Projectile(void);
+	virtual ~Projectile(void);
 
 protected:
 	float rad;
-	Vector2D posinicial;
+	Vector2D initial_pos;
 
 public:
 	ColorPalette color;

@@ -9,13 +9,13 @@ class PlatformContainer
 public:
 	PlatformContainer(void);
 	virtual ~PlatformContainer(void);
-	bool Add(Platform *P);
-	void DestruirContenido();
-	void Eliminar(unsigned int index);
-	void Eliminar(Platform *p);
+	bool Add(Platform *plat);
+	void DestroyContents();
+	void Remove(unsigned int index);
+	void Remove(Platform *plat);
 	void Draw();
-	void Colision(Hombre &h);
-	void Colision(Esfera *e);
+	void Collision(Player &plyr);
+	void Collision(Sphere *sph);
 	int GetNum();
 	Platform *operator[](unsigned int i);
 

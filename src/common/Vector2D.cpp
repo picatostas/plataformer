@@ -11,37 +11,37 @@ Vector2D::~Vector2D(void)
 {
 }
 
-Vector2D Vector2D::operator+(float real)
+Vector2D Vector2D::operator+(float scalar)
 {
-	Vector2D resultado;
+	Vector2D result;
 
-	resultado.x = x + real;
-	resultado.y = y;
-	return resultado;
+	result.x = x + scalar;
+	result.y = y;
+	return result;
 }
 
-float Vector2D::modulo()
+float Vector2D::magnitude()
 {
 	return (float)sqrt(x * x + y * y);
 }
 
-float Vector2D::argumento()
+float Vector2D::angle()
 {
 	return (float)atan2(y, x);
 }
 
-Vector2D Vector2D::Unitario()
+Vector2D Vector2D::Unit()
 {
-	Vector2D retorno(x, y);
-	float mod = modulo();
+	Vector2D result(x, y);
+	float mag = magnitude();
 
-	if (mod > 0.0f)
+	if (mag > 0.0f)
 	{
-		retorno.x /= mod;
-		retorno.y /= mod;
+		result.x /= mag;
+		result.y /= mag;
 	}
 
-	return retorno;
+	return result;
 }
 
 Vector2D Vector2D::operator-(const Vector2D &v)
@@ -70,11 +70,11 @@ float Vector2D::operator*(const Vector2D &v)
 	return res;
 }
 
-Vector2D Vector2D::operator*(float e)
+Vector2D Vector2D::operator*(float scalar)
 {
 	Vector2D res;
 
-	res.x = (x * e);
-	res.y = (y * e);
+	res.x = (x * scalar);
+	res.y = (y * scalar);
 	return res;
 }

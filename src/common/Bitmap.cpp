@@ -6,21 +6,21 @@
 Bitmap::Bitmap()
 {
 }
-Bitmap::Bitmap(char *nombre_archivo)
+Bitmap::Bitmap(char *filename)
 {
-	texture_path = nombre_archivo;
+	texture_path = filename;
 	int bytes_pixel;
-	long int ancho, alto, offset;
+	long int width, height, offset;
 	char buffer[3] = "\0";
 	FILE *file;
-	//Carga el file de imagen que se utilizara como textura
-	//Solo soporta BMP de 24 y 32 bits (RGB y RGBA)
+	// Load the image file that will be used as a texture
+	// Only 24 and 32 bit BMPs are supported (RGB and RGBA)
 	file = fopen(texture_path, "rb");
 	if (file == NULL)
 	{
 		std::cout << " file " << texture_path << " doesnt exist" << std::endl;
 		fclose(file);
-		estado = false;
+		status = false;
 		return;
 	}
 	fread(buffer, sizeof(char), 2, file);
@@ -33,21 +33,21 @@ Bitmap::Bitmap(char *nombre_archivo)
 		{
 			std::cout << " file " << texture_path << " wrong bytes per pixel " << std::endl;
 			fclose(file);
-			estado = false;
+			status = false;
 			return;
 		}
 		fseek(file, 0x12, SEEK_SET);
-		fread(&ancho, sizeof(long int), 1, file);
-		fread(&alto, sizeof(long int), 1, file);
+		fread(&width, sizeof(long int), 1, file);
+		fread(&height, sizeof(long int), 1, file);
 		fseek(file, 0x0A, SEEK_SET);
 		fread(&offset, sizeof(long int), 1, file);
-		imagen = new unsigned char[ancho * alto * bytes_pixel];
+		image = new unsigned char[width * height * bytes_pixel];
 		fseek(file, offset, SEEK_SET);
-		fread(imagen, sizeof(unsigned char), ancho * alto * bytes_pixel, file);
-		this->ancho = ancho;
-		this->alto = alto;
+		fread(image, sizeof(unsigned char), width * height * bytes_pixel, file);
+		this->width = width;
+		this->height = height;
 		this->bytes_pixel = bytes_pixel;
-		//Crea la textura, propiamente dicha, en openGL
+		// Create the actual texture in OpenGL
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -56,27 +56,27 @@ Bitmap::Bitmap(char *nombre_archivo)
 		if (bytes_pixel == 3)
 		{
 			std::cout << " file " << texture_path << " uses RGB" << std::endl;
-			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGB, GL_UNSIGNED_BYTE, imagen);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
 		}
 		else
 		{
 			std::cout << " file " << texture_path << " uses RGBA" << std::endl;
-			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, ancho, alto, GL_RGBA, GL_UNSIGNED_BYTE, imagen);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, bytes_pixel, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		}
 
-		estado = true;
+		status = true;
 	}
 	else
 	{
 		std::cout << " file " << texture_path << " gives error" << std::endl;
-		estado = false;
+		status = false;
 	}
 	fclose(file);
 }
 
-bool Bitmap::verEstado()
+bool Bitmap::GetStatus()
 {
-	return estado;
+	return status;
 }
 
 void Bitmap::ApplyTexture()
@@ -92,6 +92,6 @@ void Bitmap::ApplyTexture()
 
 Bitmap::~Bitmap()
 {
-	if (estado)
-		delete[] imagen;
+	if (status)
+		delete[] image;
 }

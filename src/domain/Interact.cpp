@@ -2,10 +2,10 @@
 #include "stdio.h"
 #include <stdlib.h>
 #include "glut.h"
-#include "Hombre.h"
+#include "Player.h"
 #include "Box.h"
 #include <math.h>
-#include "CoordinadorJuego.h"
+#include "GameCoordinator.h"
 #include <iostream>
 using namespace std;
 
@@ -19,252 +19,252 @@ Interact::~Interact(void)
 {
 }
 
-void Interact::Rebote(Hombre &h, Box b)
+void Interact::Bounce(Player &plyr, Box box)
 {
-	float xmax = b.floor.limit2.x - h.anchura / 2;
-	float xmin = b.floor.limit1.x + h.anchura / 2;
-	float ymin = b.floor.limit1.y;
-	float ymax = b.roof.limit2.y - 1 - h.anchura;
-	if (h.pos.x > xmax)
-		h.pos.x = xmax;
-	if (h.pos.x < xmin)
-		h.pos.x = xmin;
-	if (h.pos.y > ymax)
-		h.pos.y = ymax;
-	if (h.pos.y <= ymin)
+	float xmax = box.floor.limit2.x - plyr.width / 2;
+	float xmin = box.floor.limit1.x + plyr.width / 2;
+	float ymin = box.floor.limit1.y;
+	float ymax = box.roof.limit2.y - 1 - plyr.width;
+	if (plyr.pos.x > xmax)
+		plyr.pos.x = xmax;
+	if (plyr.pos.x < xmin)
+		plyr.pos.x = xmin;
+	if (plyr.pos.y > ymax)
+		plyr.pos.y = ymax;
+	if (plyr.pos.y <= ymin)
 	{
-		h.pos.y = ymin;
-		h.vel.y = 0;
+		plyr.pos.y = ymin;
+		plyr.vel.y = 0;
 	}
 }
 
-bool Interact::Rebote(Esfera &e, Wall p)
+bool Interact::Bounce(Sphere &sph, Wall wall)
 {
 	Vector2D dir;
-	float dif = p.Distancia(e.pos, &dir) - e.rad;
-	if (dif <= 0.0f)
+	float diff = wall.Distance(sph.pos, &dir) - sph.rad;
+	if (diff <= 0.0f)
 	{
-		Vector2D v_inicial = e.vel;
-		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
-		e.pos = e.pos - dir * dif;
+		Vector2D initial_vel = sph.vel;
+		sph.vel = initial_vel - (dir * (initial_vel * dir)) * 2.0f;
+		sph.pos = sph.pos - dir * diff;
 		return true;
 	}
 	return false;
 }
-bool Interact::Rebote(Esfera &e, Platform p)
+bool Interact::Bounce(Sphere &sph, Platform plat)
 {
 	Vector2D dir;
-	float diff1 = p.roof.Distancia(e.pos, &dir) - e.rad;
-	float diff2 = p.floor.Distancia(e.pos, &dir) - e.rad;
+	float diff1 = plat.roof.Distance(sph.pos, &dir) - sph.rad;
+	float diff2 = plat.floor.Distance(sph.pos, &dir) - sph.rad;
 	if (diff1 <= 0.0f)
 	{
-		Vector2D v_inicial = e.vel;
-		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
-		e.pos = e.pos - dir * diff1;
+		Vector2D initial_vel = sph.vel;
+		sph.vel = initial_vel - (dir * (initial_vel * dir)) * 2.0f;
+		sph.pos = sph.pos - dir * diff1;
 		return true;
 	}
 	if (diff2 <= 0.0f)
 	{
-		Vector2D v_inicial = e.vel;
-		e.vel = v_inicial - (dir * (v_inicial * dir)) * 2.0f;
-		e.pos = e.pos - dir * diff2;
+		Vector2D initial_vel = sph.vel;
+		sph.vel = initial_vel - (dir * (initial_vel * dir)) * 2.0f;
+		sph.pos = sph.pos - dir * diff2;
 		return true;
 	}
 	return false;
 }
-//colision entres esferas
-void Interact::Rebote(Esfera &e1, Esfera &e2)
+// collision between spheres
+void Interact::Bounce(Sphere &sph1, Sphere &sph2)
 {
 
-	float dist, sup1, sup2, v1_n, v2_n, v1_t, v2_t, v1_modfin, v2_modfin;
-	Vector2D dir, dirt, v1, v2, v1_final, v2_final;
+	float dist, area1, area2, v1_n, v2_n, v1_t, v2_t, v1_n_final, v2_n_final;
+	Vector2D dir, tdir, v1, v2, v1_final, v2_final;
 
-	dist = e2.Distancia(e1.pos, &dir);
+	dist = sph2.Distance(sph1.pos, &dir);
 
-	if (dist <= e1.rad + e2.rad)
+	if (dist <= sph1.rad + sph2.rad)
 	{
-		v1 = e1.vel;
-		v2 = e2.vel;
-		sup1 = 4 * PI * e1.rad * e1.rad;
-		sup2 = 4 * PI * e2.rad * e2.rad;
+		v1 = sph1.vel;
+		v2 = sph2.vel;
+		area1 = 4 * PI * sph1.rad * sph1.rad;
+		area2 = 4 * PI * sph2.rad * sph2.rad;
 
-		dirt.x = -dir.y;
-		dirt.y = dir.x;
-		//descompos vectorial de las veles
-		//segun normal al movimiento y tangente
+		tdir.x = -dir.y;
+		tdir.y = dir.x;
+		// decompose the velocities into components
+		// normal and tangent to the collision
 		v1_n = dir * v1;
-		v1_t = dirt * v1;
+		v1_t = tdir * v1;
 		v2_n = dir * v2;
-		v2_t = dirt * v2;
+		v2_t = tdir * v2;
 
-		v1_modfin = (v1_n * (sup1 - sup2) + 2 * sup2 * v2_n) / (sup1 + sup2);
-		v2_modfin = (v2_n * (sup2 - sup1) + 2 * sup1 * v1_n) / (sup1 + sup2);
+		v1_n_final = (v1_n * (area1 - area2) + 2 * area2 * v2_n) / (area1 + area2);
+		v2_n_final = (v2_n * (area2 - area1) + 2 * area1 * v1_n) / (area1 + area2);
 
-		v1_final = dir * v1_modfin + dirt * v1_t;
-		v2_final = dir * v2_modfin + dirt * v2_t;
-		e1.vel = v1_final;
-		e2.vel = v2_final;
+		v1_final = dir * v1_n_final + tdir * v1_t;
+		v2_final = dir * v2_n_final + tdir * v2_t;
+		sph1.vel = v1_final;
+		sph2.vel = v2_final;
 	}
 }
-void Interact::Rebote(Esfera &e, Box b)
+void Interact::Bounce(Sphere &sph, Box box)
 {
-	bool flag_suelo, flag_techo, flag_pared_izq, flag_pared_der;
-	flag_suelo = Rebote(e, b.floor);
-	flag_techo = Rebote(e, b.roof);
-	flag_pared_izq = Rebote(e, b.left_side);
-	flag_pared_der = Rebote(e, b.right_side);
+	bool floor_hit, roof_hit, left_wall_hit, right_wall_hit;
+	floor_hit = Bounce(sph, box.floor);
+	roof_hit = Bounce(sph, box.roof);
+	left_wall_hit = Bounce(sph, box.left_side);
+	right_wall_hit = Bounce(sph, box.right_side);
 
-	if (flag_suelo == true)
+	if (floor_hit == true)
 	{
-		float xmax = b.floor.limit2.x;
-		float xmin = b.floor.limit1.x;
-		if (e.pos.x > xmax)
-			e.pos.x = xmax;
-		if (e.pos.x < xmin)
-			e.pos.x = xmin;
+		float xmax = box.floor.limit2.x;
+		float xmin = box.floor.limit1.x;
+		if (sph.pos.x > xmax)
+			sph.pos.x = xmax;
+		if (sph.pos.x < xmin)
+			sph.pos.x = xmin;
 	}
 
-	if (flag_techo == true)
+	if (roof_hit == true)
 	{
-		float xmax = b.roof.limit2.x;
-		float xmin = b.roof.limit1.x;
-		if (e.pos.x > xmax)
-			e.pos.x = xmax;
-		if (e.pos.x < xmin)
-			e.pos.x = xmin;
+		float xmax = box.roof.limit2.x;
+		float xmin = box.roof.limit1.x;
+		if (sph.pos.x > xmax)
+			sph.pos.x = xmax;
+		if (sph.pos.x < xmin)
+			sph.pos.x = xmin;
 	}
 
-	if (flag_pared_izq == true)
+	if (left_wall_hit == true)
 	{
-		float ymax = b.left_side.limit2.y;
-		float ymin = b.left_side.limit1.y;
-		if (e.pos.y > ymax)
-			e.pos.y = ymax;
-		if (e.pos.y < ymin)
-			e.pos.y = ymin;
+		float ymax = box.left_side.limit2.y;
+		float ymin = box.left_side.limit1.y;
+		if (sph.pos.y > ymax)
+			sph.pos.y = ymax;
+		if (sph.pos.y < ymin)
+			sph.pos.y = ymin;
 	}
 
-	if (flag_pared_der == true)
+	if (right_wall_hit == true)
 	{
-		float ymax = b.right_side.limit2.y;
-		float ymin = b.right_side.limit1.y;
-		if (e.pos.y > ymax)
-			e.pos.y = ymax;
-		if (e.pos.y < ymin)
-			e.pos.y = ymin;
+		float ymax = box.right_side.limit2.y;
+		float ymin = box.right_side.limit1.y;
+		if (sph.pos.y > ymax)
+			sph.pos.y = ymax;
+		if (sph.pos.y < ymin)
+			sph.pos.y = ymin;
 	}
 }
-void Interact::Rebote(Esfera &e, Hombre &h)
+void Interact::Bounce(Sphere &sph, Player &plyr)
 {
-	float dist, sup1, sup2, v1_n, v2_n, v1_t, v2_t, v1_modfin, v2_modfin;
-	Vector2D dir, dirt, v1, v2, v1_final, v2_final;
+	float dist, area1, area2, v1_n, v2_n, v1_t, v2_t, v1_n_final, v2_n_final;
+	Vector2D dir, tdir, v1, v2, v1_final, v2_final;
 
-	dist = e.Distancia(h.pos, &dir);
+	dist = sph.Distance(plyr.pos, &dir);
 
-	if (dist <= h.altura + e.rad)
+	if (dist <= plyr.height + sph.rad)
 	{
-		v1 = e.vel;
-		v2 = h.vel;
-		sup1 = 4 * PI * e.rad * e.rad;
-		sup2 = 4 * PI * h.altura * h.altura;
+		v1 = sph.vel;
+		v2 = plyr.vel;
+		area1 = 4 * PI * sph.rad * sph.rad;
+		area2 = 4 * PI * plyr.height * plyr.height;
 
-		dirt.x = -dir.y;
-		dirt.y = dir.x;
-		//descompos vectorial de las veles
-		//segun normal al movimiento y tangente
+		tdir.x = -dir.y;
+		tdir.y = dir.x;
+		// decompose the velocities into components
+		// normal and tangent to the collision
 		v1_n = dir * v1;
-		v1_t = dirt * v1;
+		v1_t = tdir * v1;
 		v2_n = dir * v2;
-		v2_t = dirt * v2;
+		v2_t = tdir * v2;
 
-		v1_modfin = (v1_n * (sup1 - sup2) + 2 * sup2 * v2_n) / (sup1 + sup2);
-		v2_modfin = (v2_n * (sup2 - sup1) + 2 * sup1 * v1_n) / (sup1 + sup2);
+		v1_n_final = (v1_n * (area1 - area2) + 2 * area2 * v2_n) / (area1 + area2);
+		v2_n_final = (v2_n * (area2 - area1) + 2 * area1 * v1_n) / (area1 + area2);
 
-		v1_final = dir * v1_modfin + dirt * v1_t;
-		v2_final = dir * v2_modfin + dirt * v2_t;
-		e.vel = v1_final;
-		h.vel = v2_final;
+		v1_final = dir * v1_n_final + tdir * v1_t;
+		v2_final = dir * v2_n_final + tdir * v2_t;
+		sph.vel = v1_final;
+		plyr.vel = v2_final;
 	}
 }
-bool Interact::Colision(Esfera e, Hombre h)
+bool Interact::Collision(Sphere sph, Player plyr)
 {
-	Vector2D pos = h.GetPos();
-	pos.y += h.GetAltura(); // posicion del centro
+	Vector2D pos = plyr.GetPos();
+	pos.y += plyr.GetHeight(); // position of the center
 
-	float distancia = (e.pos - pos).modulo();
-	if (distancia < e.rad)
+	float distance = (sph.pos - pos).magnitude();
+	if (distance < sph.rad)
 	{
 		return true;
 	}
 	return false;
 }
 
-void Interact::Colision(Hombre &h, Wall p)
+void Interact::Collision(Player &plyr, Wall wall)
 {
-	float xmin = p.limit1.x - h.anchura / 2;
-	float xmax = p.limit2.x + h.altura / 2;
-	float y = p.limit1.y;
+	float xmin = wall.limit1.x - plyr.width / 2;
+	float xmax = wall.limit2.x + plyr.height / 2;
+	float y = wall.limit1.y;
 
-	if (h.pos.x > xmin && h.pos.x < xmax && h.pos.y < y && h.pos.y > y - 0.5f)
+	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)
 	{
-		h.pos.y = y;
-		h.SetVel(h.GetVel().x, 0);
-		//h.salto=true;
+		plyr.pos.y = y;
+		plyr.SetVel(plyr.GetVel().x, 0);
+		//plyr.can_jump=true;
 	}
-	//h.salto=false;
-	//cout<<"estado del salto"<<"\t"<<h.salto<<endl;
+	//plyr.can_jump=false;
+	//cout<<"jump state"<<"\t"<<plyr.can_jump<<endl;
 }
-bool Interact::Colision(Disparo d, Wall p)
+bool Interact::Collision(Projectile proj, Wall wall)
 {
 
 	Vector2D dir;
-	float dif = p.Distancia(d.pos, &dir) - d.rad;
-	if (dif <= 0.0f)
+	float diff = wall.Distance(proj.pos, &dir) - proj.rad;
+	if (diff <= 0.0f)
 	{
-		Vector2D v_inicial = d.vel;
-		d.vel = v_inicial - dir * 2.0 * (v_inicial * dir);
-		d.pos = d.pos - dir * dif;
+		Vector2D initial_vel = proj.vel;
+		proj.vel = initial_vel - dir * 2.0 * (initial_vel * dir);
+		proj.pos = proj.pos - dir * diff;
 		return true;
 	}
 	return false;
 }
-bool Interact::Colision(Esfera e, Disparo d)
+bool Interact::Collision(Sphere sph, Projectile proj)
 {
-	Vector2D aux = e.pos - d.pos;
-	float dist = aux.modulo();
-	if (dist < e.rad)
+	Vector2D diff = sph.pos - proj.pos;
+	float dist = diff.magnitude();
+	if (dist < sph.rad)
 		return true;
 	return false;
 }
-bool Interact::Colision(Hombre &h, LevelDoor p)
+bool Interact::Collision(Player &plyr, LevelDoor door)
 {
-	if (h.pos.x > p.limit1.x && h.pos.x < p.limit2.x && h.pos.y >= p.limit1.y)
+	if (plyr.pos.x > door.limit1.x && plyr.pos.x < door.limit2.x && plyr.pos.y >= door.limit1.y)
 	{
-		cout << "Man Hit door" << endl;
+		cout << "Player hit door" << endl;
 		return true;
 	}
 	return false;
 }
-bool Interact::Colision(Hombre &h, Bonus &b)
+bool Interact::Collision(Player &plyr, Bonus &bon)
 {
-	if (((h.pos.x > b.pos.x - 1) && (h.pos.x < b.pos.x + 1)) && ((h.pos.y < b.pos.y + 1) && (h.pos.y > b.pos.y - 1)))
+	if (((plyr.pos.x > bon.pos.x - 1) && (plyr.pos.x < bon.pos.x + 1)) && ((plyr.pos.y < bon.pos.y + 1) && (plyr.pos.y > bon.pos.y - 1)))
 	{
-		h.SetVidas(3);
-		b.SetPos(20, 20);
+		plyr.SetLives(3);
+		bon.SetPos(20, 20);
 		return true;
 	}
 	return false;
 }
 
-void Interact::Colision(Hombre &h, Platform &p)
+void Interact::Collision(Player &plyr, Platform &plat)
 {
-	float xmin = p.x - h.anchura / 2;
-	float xmax = (p.x + p.width) + h.altura / 2;
-	float y = p.y + p.height;
+	float xmin = plat.x - plyr.width / 2;
+	float xmax = (plat.x + plat.width) + plyr.height / 2;
+	float y = plat.y + plat.height;
 
-	if (h.pos.x > xmin && h.pos.x < xmax && h.pos.y < y && h.pos.y > y - 0.5f)
+	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)
 	{
-		h.pos.y = y;
-		h.SetVel(h.GetVel().x, 0);
+		plyr.pos.y = y;
+		plyr.SetVel(plyr.GetVel().x, 0);
 	}
 }

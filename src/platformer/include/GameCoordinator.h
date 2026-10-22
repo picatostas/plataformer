@@ -4,7 +4,7 @@
 #include <string>
 #include "SDL2/SDL_mixer.h"
 
-class CoordinadorJuego
+class GameCoordinator
 {
 protected:
 	World world;
@@ -25,9 +25,9 @@ protected:
 	Mix_Music *main_menu_music, *game_music, *defeat_music, *victory_music;
 
 public:
-	CoordinadorJuego(void);
-	virtual ~CoordinadorJuego(void);
-	void KeyEspecial(unsigned char key);
+	GameCoordinator(void);
+	virtual ~GameCoordinator(void);
+	void SpecialKey(unsigned char key);
 	void Key(unsigned char key);
 	void KeyDown(unsigned char key);
 	void KeyUp(unsigned char key);

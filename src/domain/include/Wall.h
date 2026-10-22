@@ -24,8 +24,8 @@ public:
 	void SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front);
 	void LoadTexture(std::string texture);
 	void Draw(void);
-	float Distancia(Vector2D punto, Vector2D *direccion = 0);
+	float Distance(Vector2D point, Vector2D *direction = 0);
 
 	friend class Interact;
-	friend class ListaDisparos;
+	friend class ProjectileList;
 };

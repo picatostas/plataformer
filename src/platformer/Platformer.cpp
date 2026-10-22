@@ -1,28 +1,27 @@
 
 #include "freeglut.h"
-#include "CoordinadorJuego.h"
+#include "GameCoordinator.h"
 
-//los callback, funciones que seran llamadas automaticamente por glut
-//cuando sucedan eventos
-//NO HACE FALTA LLAMARLAS EXPLICITAMENTE
-void OnDraw(void);	 //esta funcion sera llamada para Draw
-void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
+// Callbacks: functions that GLUT calls automatically when events happen.
+// THERE IS NO NEED TO CALL THEM EXPLICITLY
+void OnDraw(void);	 // called to draw the scene
+void OnTimer(int value); // called when a timer expires
 void OnKeyboardDown(unsigned char key, int x, int y);
 void OnSpecialKeyboardDown(int key, int x, int y);
 void OnKeyboardUp(unsigned char key, int x, int y);
 void OnKeyboardDown(unsigned char key, int x, int y);
 
-CoordinadorJuego juego;
+GameCoordinator game;
 int main(int argc, char *argv[])
 {
-	//Inicializar el gestor de ventanas GLUT
-	//y crear la ventana
+	// Initialize the GLUT window manager
+	// and create the window
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutCreateWindow("Plataformer");
+	glutCreateWindow("Platformer");
 
-	//habilitar luces y definir perspectiva
+	// enable lighting and set up the perspective
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
@@ -30,14 +29,14 @@ int main(int argc, char *argv[])
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 
-	//Registrar los callbacks
+	// Register the callbacks
 	glutDisplayFunc(OnDraw);
-	glutTimerFunc(25, OnTimer, 0); //le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
+	glutTimerFunc(25, OnTimer, 0); // call OnTimer() once, 25ms from now
 	glutKeyboardFunc(OnKeyboardDown);
 	glutKeyboardUpFunc(OnKeyboardUp);
-	glutSpecialFunc(OnSpecialKeyboardDown); //gestion de los cursores
+	glutSpecialFunc(OnSpecialKeyboardDown); // arrow keys handling
 
-	//pasarle el control a GLUT, que llamara a los callbacks
+	// hand control to GLUT, which will call the callbacks
 	glutMainLoop();
 
 	return 0;
@@ -45,43 +44,43 @@ int main(int argc, char *argv[])
 
 void OnDraw(void)
 {
-	//Borrado de la pantalla
+	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Para definir el punto de vista
+	// Set up the point of view
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	juego.Draw();
+	game.Draw();
 
-	//no borrar esta linea ni poner nada despues
+	// do not remove this line or put anything after it
 	glutSwapBuffers();
 }
 void OnKeyboardDown(unsigned char key, int x, int y)
 {
-	//poner aqui el codigo de keydo
+	// keyboard handling code goes here
 	(void)x;
 	(void)y;
-	juego.KeyDown(key);
-	juego.Key(key);
+	game.KeyDown(key);
+	game.Key(key);
 	glutPostRedisplay();
 }
 
 void OnKeyboardUp(unsigned char key, int x, int y)
 {
-	//Para la anulacion de velociadades cuando deje de pulsarse el keydo
+	// Cancel velocities when the key is released
 	(void)x;
 	(void)y;
-	juego.KeyUp(key);
+	game.KeyUp(key);
 
 	glutPostRedisplay();
 }
 
 void OnTimer(int value)
 {
-	//poner aqui el codigo de animacion
+	// animation code goes here
 	(void)value;
-	juego.Move();
-	//no borrar estas lineas
+	game.Move();
+	// do not remove these lines
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();
 }
@@ -90,5 +89,5 @@ void OnSpecialKeyboardDown(int key, int x, int y)
 {
 	(void)x;
 	(void)y;
-	juego.KeyEspecial(key);
+	game.SpecialKey(key);
 }

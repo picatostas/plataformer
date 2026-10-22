@@ -5,7 +5,7 @@
 
 Bonus::Bonus(void)
 {
-	lado = 1;
+	side = 1;
 	//vel.x=5;
 }
 
@@ -19,8 +19,8 @@ void Bonus::Draw()
 	glTranslatef(pos.x, pos.y, 0);
 	glRotatef(rot, 1, 1, 1);
 	glColor3f(rand() / (float)RAND_MAX, rand() / (float)RAND_MAX,
-		  rand() / (float)RAND_MAX); //color aleatorio
-	// glutSolidCube(lado);
+		  rand() / (float)RAND_MAX); // random color
+	// glutSolidCube(side);
 	glutSolidIcosahedron();
 	glPopMatrix();
 }
@@ -28,8 +28,8 @@ void Bonus::Draw()
 void Bonus::Move(float t)
 {
 	rot += 3;
-	pos = pos + vel * t + acelr * (0.5f * t * t);
-	vel = vel + acelr * t;
+	pos = pos + vel * t + accel * (0.5f * t * t);
+	vel = vel + accel * t;
 }
 
 void Bonus::SetPos(int mx, int my)

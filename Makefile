@@ -5,16 +5,16 @@ LDFLAGS  := -lfreeglut -lopengl32 -lwinmm -lglu32 -lSDL2main -lSDL2 -llibSDL2_mi
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
-TARGET   := plataformer
+TARGET   := platformer
 INCLUDE := \
   -Ilib \
   -Isrc/common/include \
   -Isrc/domain/include \
-  -Isrc/plataformer/include
+  -Isrc/platformer/include
 SRC := \
   $(wildcard src/common/*.cpp) \
   $(wildcard src/domain/*.cpp) \
-  $(wildcard src/plataformer/*.cpp) \
+  $(wildcard src/platformer/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDENCIES := $(OBJECTS:.o=.d)

@@ -8,13 +8,13 @@ public:
 	float x;
 	float y;
 
-	Vector2D operator+(float real);
+	Vector2D operator+(float scalar);
 
-	float modulo();
+	float magnitude();
 
-	float argumento();
+	float angle();
 
-	Vector2D Unitario();
+	Vector2D Unit();
 
 	Vector2D operator-(const Vector2D &);
 
