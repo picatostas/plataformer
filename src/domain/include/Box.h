@@ -1,6 +1,8 @@
 #pragma once
 #include "Vector2D.h"
 #include "Wall.h"
+// The room the game takes place in: x from -10 to 10, y from 0 to 15 and
+// z from -10 to 10. Platforms reuse this class for their own walls.
 class Box
 {
 protected:
@@ -12,5 +14,5 @@ public:
 	void Draw(void);
 
 	friend class Interact;
-	friend class ListaDisparos;
+	friend class ProjectileList;
 };

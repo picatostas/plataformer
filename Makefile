@@ -1,20 +1,22 @@
 CXX      := -g++
 CXXFLAGS := -Wall -Wextra -pedantic-errors -Werror -Wno-unused-but-set-variable
-# All these libraries are places under "C:\VSARM\mingw\lib" in case of being elsewhere, add path with -L
+# Build from the MSYS2 UCRT64 shell. Dependencies (installed with pacman, mingw-w64-ucrt-x86_64-*):
+# gcc, make, freeglut, SDL2, SDL2_mixer, eigen3, pkgconf
 LDFLAGS  := -lfreeglut -lopengl32 -lwinmm -lglu32 -lSDL2main -lSDL2 -llibSDL2_mixer -Wl,--subsystem,windows
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
-TARGET   := plataformer
+TARGET   := platformer
 INCLUDE := \
   -Ilib \
   -Isrc/common/include \
   -Isrc/domain/include \
-  -Isrc/plataformer/include
+  -Isrc/platformer/include \
+  $(shell pkg-config --cflags eigen3)
 SRC := \
   $(wildcard src/common/*.cpp) \
   $(wildcard src/domain/*.cpp) \
-  $(wildcard src/plataformer/*.cpp) \
+  $(wildcard src/platformer/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDENCIES := $(OBJECTS:.o=.d)
@@ -28,6 +30,8 @@ $(OBJ_DIR)/%.o: %.cpp
 $(APP_DIR)/$(TARGET): $(OBJECTS)
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
+# Copy the MSYS2 runtime DLLs next to the exe so it runs outside the UCRT64 shell
+	@ldd $(APP_DIR)/$(TARGET).exe | grep -o '/ucrt64/bin/[^ ]*\.dll' | sort -u | xargs -r cp -t $(APP_DIR)
 
 -include $(DEPENDENCIES)
 

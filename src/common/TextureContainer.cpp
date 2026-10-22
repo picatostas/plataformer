@@ -14,7 +14,11 @@ void TextureContainer::LoadCommonTextures()
 
 Bitmap *TextureContainer::GetTexture(std::string texture)
 {
-	return container[texture];
+	// find() instead of operator[], which would insert an empty entry for unknown names
+	auto it = container.find(texture);
+	if (it == container.end())
+		return nullptr;
+	return it->second;
 }
 bool TextureContainer::GetStatus()
 {

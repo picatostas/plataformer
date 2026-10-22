@@ -1,20 +1,16 @@
 #pragma once
 #include "glut.h"
 
+// An OpenGL texture loaded from a 24-bit (RGB) or 32-bit (RGBA) BMP file.
+// Needs an OpenGL context, so it can only be created after the window exists.
 class Bitmap
 {
-	bool estado; //exito=1 fallo=0
-	unsigned int ancho;
-	unsigned int alto;
 	unsigned int bytes_pixel;
-	unsigned char *imagen;
 	GLuint texture;
-	char *texture_path;
 
 public:
-	Bitmap(char *nombre_archivo);
-	Bitmap();
-	bool verEstado();
+	Bitmap(char *texture_path);
+	// Bind the texture for the next draw calls; call ReleaseTexture() after drawing
 	void ApplyTexture();
-	~Bitmap();
+	void ReleaseTexture();
 };

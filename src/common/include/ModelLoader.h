@@ -19,6 +19,8 @@ using namespace Eigen;
 
 typedef Vector3d Point;
 
+// Minimal Wavefront .obj loader: reads vertices ("v") and faces ("f")
+// and draws the model as a wireframe of its edges.
 class ModelLoader
 {
 public:

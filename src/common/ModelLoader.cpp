@@ -34,7 +34,10 @@ void ModelLoader::Load(const char *filename)
 		switch (line[0])
 		{
 		case 'v':
-			sscanf(line, "%s %f %f %f", mark, &x, &y, &z);
+			// Only "v x y z" lines are vertices; skip normals ("vn") and texture coordinates ("vt")
+			if (line[1] != ' ')
+				break;
+			sscanf(line, "%4s %f %f %f", mark, &x, &y, &z);
 			V.push_back(Point(x, y, z));
 			break;
 		case 'f':
@@ -53,6 +56,7 @@ void ModelLoader::Load(const char *filename)
 			break;
 		}
 	}
+	fclose(fp);
 }
 
 void ModelLoader::Draw()

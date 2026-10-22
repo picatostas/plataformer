@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 
+// Flashing pickup: touching it restores the player to full lives.
 class Bonus
 {
 public:
@@ -8,19 +9,13 @@ public:
 	virtual ~Bonus(void);
 
 private:
-	float lado, rot;
+	float rot;
 	Vector2D pos;
-	Vector2D vel;
-	Vector2D acelr;
 
 public:
 	void SetPos(int mx, int my);
 
-	void SetVel(void);
-
 	void Draw(void);
-
-	void Move(float);
 
 	friend class Interact;
 };

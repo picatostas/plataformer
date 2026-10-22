@@ -1,4 +1,4 @@
-#include "CoordinadorJuego.h"
+#include "GameCoordinator.h"
 #include "OpenGL.h"
 #include "glut.h"
 #include "TextureContainer.h"
@@ -6,7 +6,8 @@
 #include "SDL2/SDL_mixer.h"
 #include <iostream>
 
-CoordinadorJuego::CoordinadorJuego(void)
+// Open the first audio device and load all sounds and music
+GameCoordinator::GameCoordinator(void)
 {
 	SDL_Init(SDL_INIT_AUDIO);
 	std::cout << "Current audio driver " << SDL_GetCurrentAudioDriver() << std::endl;
@@ -54,15 +55,15 @@ CoordinadorJuego::CoordinadorJuego(void)
 	Mix_PlayMusic(main_menu_music, -1);
 }
 
-CoordinadorJuego::~CoordinadorJuego(void)
+GameCoordinator::~GameCoordinator(void)
 {
 }
 
-void CoordinadorJuego::Draw()
+void GameCoordinator::Draw()
 {
 	if (state == INIT)
 	{
-		OpenGL::Print("PLATAFORMER", 300, 100, 255, 255, 255);
+		OpenGL::Print("PLATFORMER", 300, 100, 255, 255, 255);
 		OpenGL::Print("Press -E- to start game", 320, 300, 5, 255, 255);
 		OpenGL::Print("Press -O- to see the options", 320, 325, 130, 100, 255);
 		OpenGL::Print("Press -S- to exit", 320, 350, 0, 100, 255);
@@ -96,7 +97,6 @@ void CoordinadorJuego::Draw()
 		OpenGL::Print("Press -C- to continue", 300, 300, 255, 255, 0);
 		OpenGL::Print("Press -O- to see the options", 300, 325, 130, 100, 255);
 		OpenGL::Print("Press -M- to go back to the main menu", 300, 350, 0, 100, 255);
-		// glEnable(GL_LIGHTING);
 	}
 	else if (state == CONTROLS || state == CONTROLS_IN_GAME)
 	{
@@ -123,15 +123,7 @@ void CoordinadorJuego::Draw()
 	}
 }
 
-void CoordinadorJuego::KeyEspecial(unsigned char key)
-{
-	if (state == GAME)
-	{
-		world.KeyEspecial(key);
-	}
-}
-
-void CoordinadorJuego::KeyUp(unsigned char key)
+void GameCoordinator::KeyUp(unsigned char key)
 {
 	if (state == GAME)
 	{
@@ -139,7 +131,7 @@ void CoordinadorJuego::KeyUp(unsigned char key)
 	}
 }
 
-void CoordinadorJuego::KeyDown(unsigned char key)
+void GameCoordinator::KeyDown(unsigned char key)
 {
 	if (state == GAME)
 	{
@@ -147,19 +139,20 @@ void CoordinadorJuego::KeyDown(unsigned char key)
 	}
 }
 
-void CoordinadorJuego::Key(unsigned char key)
+void GameCoordinator::Key(unsigned char key)
 {
 	if (state == INIT)
 	{
 		if (key == 'e' || key == 'E')
 		{
+			// Textures need the OpenGL context, so load them on the first start
 			TextureContainer &container = TextureContainer::GetInstance();
 			if (!container.GetStatus())
 			{
 				container.LoadCommonTextures();
 			}
 			Mix_PlayMusic(game_music, -1);
-			world.Inicializa();
+			world.Initialize();
 			state = GAME;
 		}
 
@@ -188,7 +181,7 @@ void CoordinadorJuego::Key(unsigned char key)
 		if (key == 'c' || key == 'C')
 		{
 			Mix_PlayMusic(game_music, -1);
-			world.Inicializa();
+			world.Initialize();
 			state = GAME;
 		}
 		if (key == 'm' || key == 'M')
@@ -207,7 +200,7 @@ void CoordinadorJuego::Key(unsigned char key)
 		if (key == 'c' || key == 'C')
 		{
 			Mix_PlayMusic(game_music, -1);
-			world.Inicializa();
+			world.Initialize();
 			state = GAME;
 		}
 		if (key == 'm' || key == 'M')
@@ -277,12 +270,12 @@ void CoordinadorJuego::Key(unsigned char key)
 	}
 }
 
-void CoordinadorJuego::Move()
+void GameCoordinator::Move()
 {
 	if (state == GAME)
 	{
 		world.Move();
-		if (world.estadoNivel())
+		if (world.IsLevelFinished())
 		{
 			if (!world.SetLevel())
 			{
@@ -291,14 +284,10 @@ void CoordinadorJuego::Move()
 			}
 		}
 
-		if (world.GetVidasHombre() == 0)
+		if (world.GetPlayerLives() == 0)
 		{
 			Mix_PlayMusic(defeat_music, -1);
 			state = GAMEOVER;
 		}
-	}
-
-	if (state == PAUSE)
-	{
 	}
 }
