@@ -10,5 +10,4 @@ public:
 	void Move(float t);
 	Sphere *Split();
 	~PulsingSphere(void);
-	void SetPulse(float t);
 };

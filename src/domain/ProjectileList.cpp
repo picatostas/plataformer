@@ -15,8 +15,6 @@ ProjectileList::~ProjectileList(void)
 
 bool ProjectileList::Add(Projectile *proj)
 {
-	/*items.push_back(proj);
-	return true;*/
 	if (count < MAX_PROJECTILES)
 		items[count++] = proj;
 	else
@@ -69,24 +67,13 @@ void ProjectileList::Remove(int index)
 	if ((index < 0) || (index >= count))
 		return;
 	delete items[index];
-	//items.erase(items.begin()+index);
+#ifdef DEBUG
 	cout << "projectile removed" << endl;
-	//items.erase(items.begin()+index);
+#endif
 	count--;
 	for (int i = index; i < count; i++)
 		items[i] = items[i + 1];
 }
-void ProjectileList::Remove(Projectile *proj)
-{
-	for (int i = 0; i < count; i++)
-		if (items[i] == proj)
-		{
-			cout << "projectile to remove" << endl;
-			Remove(i);
-			return;
-		}
-}
-
 Projectile *ProjectileList::operator[](int i)
 {
 	if (i >= count) // index out of range: return the last projectile

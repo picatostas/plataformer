@@ -1,6 +1,5 @@
 #pragma once
 
-#define MAX_SPHERES 100
 #include "Sphere.h"
 #include "Interact.h"
 #include <vector>
@@ -14,7 +13,6 @@ public:
 	void Move(float t);
 	void Bounce();
 	void Bounce(Box &box);
-	void Bounce(Wall wall);
 	bool Add(Sphere *sph);
 	void DestroyContents();
 	void Remove(unsigned int index);
@@ -22,7 +20,6 @@ public:
 	int GetNum();
 	Sphere *Collision(Player &plyr);
 	Sphere *operator[](unsigned int i);
-	friend class ListInteract;
 
 private:
 	vector<Sphere *> items;

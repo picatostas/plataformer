@@ -27,11 +27,9 @@ protected:
 public:
 	GameCoordinator(void);
 	virtual ~GameCoordinator(void);
-	void SpecialKey(unsigned char key);
 	void Key(unsigned char key);
 	void KeyDown(unsigned char key);
 	void KeyUp(unsigned char key);
 	void Move();
 	void Draw();
-	friend class Interact;
 };

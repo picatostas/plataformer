@@ -1,15 +1,5 @@
 #include "ListInteract.h"
-#include "SphereList.h"
-#include "ProjectileList.h"
-#include "PlatformContainer.h"
 
-ListInteract::ListInteract(void)
-{
-}
-
-ListInteract::~ListInteract(void)
-{
-}
 bool ListInteract::Interact(SphereList &spheres, ProjectileList &projectiles)
 {
 	bool any_hit = false;

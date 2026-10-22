@@ -10,15 +10,11 @@ public:
 
 protected:
 	float rad;
-	Vector2D initial_pos;
 
 public:
 	ColorPalette color;
-	void SetPos(int mx, int my);
 
 	virtual void Draw(void);
-
-	float GetRad();
 
 	friend class Interact;
 };

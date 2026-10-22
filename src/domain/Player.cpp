@@ -1,8 +1,6 @@
 #include "Player.h"
 #include "glut.h"
 
-#define HITBOX 1
-
 Player::Player(void)
 {
 	height = 2.0f;
@@ -32,10 +30,9 @@ void Player::Draw()
 	glPushMatrix();
 	glTranslatef(pos.x, pos.y, 0);
 
-	if (HITBOX)
-	{
-		DrawHitbox();
-	}
+#ifdef DEBUG
+	DrawHitbox();
+#endif
 
 	glColor3ub(color.r, color.g, color.b);
 	glPushMatrix();
@@ -53,26 +50,6 @@ void Player::Draw()
 	}
 	model.Draw();
 	glPopMatrix();
-	// float cumulative_hieght = 0.0f;
-	// static GLUquadric *gluQuadric = NULL;
-	// if (gluQuadric == NULL)
-	// 	gluQuadric = gluNewQuadric();
-	// glRotatef(-90, 0, 0, 0);
-	// cumulative_hieght += height / 5;
-	// glTranslatef(-width / 5, 0, 0);
-	// // Legs
-	// gluCylinder(gluQuadric, width / 6, width / 7, cumulative_hieght, 20, 20);
-	// glTranslatef(2 * width / 5, 0, 0);
-	// gluCylinder(gluQuadric, width / 6, width / 7, cumulative_hieght, 20, 20);
-	// glTranslatef(-width / 5, 0, 0);
-	// glTranslatef(0, 0, cumulative_hieght);
-	// cumulative_hieght += height / 2;
-	// // Body
-	// gluCylinder(gluQuadric, width / 2, width / 2, cumulative_hieght, 20, 20);
-	// cumulative_hieght += height / 4;
-	// glTranslatef(0, 0, cumulative_hieght);
-	// // Head
-	// glutSolidSphere(height / 4, 100, 100);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 }
@@ -124,10 +101,6 @@ float Player::GetHeight()
 	return height;
 }
 
-void Player::SetG(float g)
-{
-	accel.y = g;
-}
 void Player::SetLives(int lives)
 {
 	this->lives = lives;

@@ -9,9 +9,7 @@ private:
 	float x, y;
 
 public:
-	Platform();
 	Platform(float x, float y, float width);
-	void SetPos(float x, float y, float width);
 	virtual ~Platform(void);
 	void Draw(void);
 

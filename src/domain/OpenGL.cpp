@@ -1,21 +1,6 @@
-// OpenGL.cpp: implementation of the OpenGL class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "OpenGL.h"
-#include <string.h>
 #include "glut.h"
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 
-OpenGL::OpenGL()
-{
-}
-
-OpenGL::~OpenGL()
-{
-}
 void OpenGL::Print(std::string msg, int x, int y, unsigned char r, unsigned char g, unsigned char b)
 {
 	glDisable(GL_LIGHTING);

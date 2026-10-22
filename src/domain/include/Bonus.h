@@ -8,19 +8,13 @@ public:
 	virtual ~Bonus(void);
 
 private:
-	float side, rot;
+	float rot;
 	Vector2D pos;
-	Vector2D vel;
-	Vector2D accel;
 
 public:
 	void SetPos(int mx, int my);
 
-	void SetVel(void);
-
 	void Draw(void);
-
-	void Move(float);
 
 	friend class Interact;
 };

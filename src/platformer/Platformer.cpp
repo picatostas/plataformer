@@ -7,9 +7,7 @@
 void OnDraw(void);	 // called to draw the scene
 void OnTimer(int value); // called when a timer expires
 void OnKeyboardDown(unsigned char key, int x, int y);
-void OnSpecialKeyboardDown(int key, int x, int y);
 void OnKeyboardUp(unsigned char key, int x, int y);
-void OnKeyboardDown(unsigned char key, int x, int y);
 
 GameCoordinator game;
 int main(int argc, char *argv[])
@@ -34,7 +32,6 @@ int main(int argc, char *argv[])
 	glutTimerFunc(25, OnTimer, 0); // call OnTimer() once, 25ms from now
 	glutKeyboardFunc(OnKeyboardDown);
 	glutKeyboardUpFunc(OnKeyboardUp);
-	glutSpecialFunc(OnSpecialKeyboardDown); // arrow keys handling
 
 	// hand control to GLUT, which will call the callbacks
 	glutMainLoop();
@@ -83,11 +80,4 @@ void OnTimer(int value)
 	// do not remove these lines
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();
-}
-
-void OnSpecialKeyboardDown(int key, int x, int y)
-{
-	(void)x;
-	(void)y;
-	game.SpecialKey(key);
 }

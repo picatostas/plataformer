@@ -15,7 +15,6 @@ private:
 public:
 	ColorPalette color;
 	void Draw();
-	void SetG(float g);
 	Player(void);
 	virtual ~Player(void);
 	friend class Interact;

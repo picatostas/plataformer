@@ -45,11 +45,6 @@ void Sphere::SetColor(unsigned char r, unsigned char g, unsigned char b)
 	color.b = b;
 }
 
-void Sphere::SetRad(float r)
-{
-	rad = r;
-}
-
 // distance from a sphere to a point, in this case the position of another sphere
 float Sphere::Distance(Vector2D point, Vector2D *direction)
 {
@@ -58,10 +53,6 @@ float Sphere::Distance(Vector2D point, Vector2D *direction)
 	if (direction != 0)
 		*direction = u.Unit();
 	return distance;
-}
-float Sphere::GetRad()
-{
-	return rad;
 }
 Sphere *Sphere::Split()
 {

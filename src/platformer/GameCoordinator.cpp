@@ -96,7 +96,6 @@ void GameCoordinator::Draw()
 		OpenGL::Print("Press -C- to continue", 300, 300, 255, 255, 0);
 		OpenGL::Print("Press -O- to see the options", 300, 325, 130, 100, 255);
 		OpenGL::Print("Press -M- to go back to the main menu", 300, 350, 0, 100, 255);
-		// glEnable(GL_LIGHTING);
 	}
 	else if (state == CONTROLS || state == CONTROLS_IN_GAME)
 	{
@@ -120,14 +119,6 @@ void GameCoordinator::Draw()
 		}
 
 		OpenGL::Print("Press -E- to go back to the controls menu", 300, list_displacement + 30, 255, 0, 255);
-	}
-}
-
-void GameCoordinator::SpecialKey(unsigned char key)
-{
-	if (state == GAME)
-	{
-		world.SpecialKey(key);
 	}
 }
 
@@ -296,9 +287,5 @@ void GameCoordinator::Move()
 			Mix_PlayMusic(defeat_music, -1);
 			state = GAMEOVER;
 		}
-	}
-
-	if (state == PAUSE)
-	{
 	}
 }

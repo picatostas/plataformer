@@ -20,7 +20,6 @@ public:
 	static ColorPalette Deep_Green();
 	static ColorPalette Lime();
 	static ColorPalette Purple();
-	static ColorPalette Deep_purple();
 	static ColorPalette Brown();
 	static ColorPalette Steel();
 	static ColorPalette Gold();

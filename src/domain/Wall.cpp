@@ -6,24 +6,8 @@
 Wall::Wall(void)
 {
 }
-Wall::Wall(char *texture)
-{
-	this->texture = texture;
-}
-
 Wall::~Wall(void)
 {
-}
-
-Wall::Wall(float x1, float y1, float x2, float y2, float z1, bool is_front, ColorPalette color)
-{
-	limit1.x = x1;
-	limit1.y = y1;
-	limit2.x = x2;
-	limit2.y = y2;
-	z = z1;
-	this->is_front = is_front;
-	this->color = color;
 }
 
 void Wall::SetPos(float x1, float y1, float x2, float y2, float z1, bool is_front)

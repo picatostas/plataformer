@@ -1,23 +1,8 @@
 #include "Interact.h"
-#include "stdio.h"
-#include <stdlib.h>
-#include "glut.h"
-#include "Player.h"
-#include "Box.h"
-#include <math.h>
-#include "GameCoordinator.h"
 #include <iostream>
 using namespace std;
 
 #define PI 3.14159
-
-Interact::Interact(void)
-{
-}
-
-Interact::~Interact(void)
-{
-}
 
 void Interact::Bounce(Player &plyr, Box &box)
 {
@@ -137,38 +122,6 @@ void Interact::Bounce(Sphere &sph, Box &box)
 			sph.pos.y = ymin;
 	}
 }
-void Interact::Bounce(Sphere &sph, Player &plyr)
-{
-	float dist, area1, area2, v1_n, v2_n, v1_t, v2_t, v1_n_final, v2_n_final;
-	Vector2D dir, tdir, v1, v2, v1_final, v2_final;
-
-	dist = sph.Distance(plyr.pos, &dir);
-
-	if (dist <= plyr.height + sph.rad)
-	{
-		v1 = sph.vel;
-		v2 = plyr.vel;
-		area1 = 4 * PI * sph.rad * sph.rad;
-		area2 = 4 * PI * plyr.height * plyr.height;
-
-		tdir.x = -dir.y;
-		tdir.y = dir.x;
-		// decompose the velocities into components
-		// normal and tangent to the collision
-		v1_n = dir * v1;
-		v1_t = tdir * v1;
-		v2_n = dir * v2;
-		v2_t = tdir * v2;
-
-		v1_n_final = (v1_n * (area1 - area2) + 2 * area2 * v2_n) / (area1 + area2);
-		v2_n_final = (v2_n * (area2 - area1) + 2 * area1 * v1_n) / (area1 + area2);
-
-		v1_final = dir * v1_n_final + tdir * v1_t;
-		v2_final = dir * v2_n_final + tdir * v2_t;
-		sph.vel = v1_final;
-		plyr.vel = v2_final;
-	}
-}
 bool Interact::Collision(Sphere &sph, Player &plyr)
 {
 	Vector2D pos = plyr.GetPos();
@@ -182,34 +135,9 @@ bool Interact::Collision(Sphere &sph, Player &plyr)
 	return false;
 }
 
-void Interact::Collision(Player &plyr, Wall wall)
+bool Interact::Collision(Projectile &proj, Wall &wall)
 {
-	float xmin = wall.limit1.x - plyr.width / 2;
-	float xmax = wall.limit2.x + plyr.width / 2;
-	float y = wall.limit1.y;
-
-	if (plyr.pos.x > xmin && plyr.pos.x < xmax && plyr.pos.y < y && plyr.pos.y > y - 0.5f)
-	{
-		plyr.pos.y = y;
-		plyr.SetVel(plyr.GetVel().x, 0);
-		//plyr.can_jump=true;
-	}
-	//plyr.can_jump=false;
-	//cout<<"jump state"<<"\t"<<plyr.can_jump<<endl;
-}
-bool Interact::Collision(Projectile proj, Wall wall)
-{
-
-	Vector2D dir;
-	float diff = wall.Distance(proj.pos, &dir) - proj.rad;
-	if (diff <= 0.0f)
-	{
-		Vector2D initial_vel = proj.vel;
-		proj.vel = initial_vel - dir * 2.0 * (initial_vel * dir);
-		proj.pos = proj.pos - dir * diff;
-		return true;
-	}
-	return false;
+	return wall.Distance(proj.pos) <= proj.rad;
 }
 bool Interact::Collision(Sphere sph, Projectile proj)
 {
@@ -223,7 +151,9 @@ bool Interact::Collision(Player &plyr, LevelDoor door)
 {
 	if (plyr.pos.x > door.limit1.x && plyr.pos.x < door.limit2.x && plyr.pos.y >= door.limit1.y)
 	{
+#ifdef DEBUG
 		cout << "Player hit door" << endl;
+#endif
 		return true;
 	}
 	return false;

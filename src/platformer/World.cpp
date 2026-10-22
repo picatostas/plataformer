@@ -1,10 +1,7 @@
 #include "glut.h"
-#include <math.h>
 #include "World.h"
 #include "ListInteract.h"
 #include <iostream>
-#include "PulsingSphere.h"
-#include "stdbool.h"
 
 using namespace std;
 
@@ -18,14 +15,6 @@ World::~World()
 	spheres.DestroyContents();
 	projectiles.DestroyContents();
 	platforms.DestroyContents();
-}
-void World::RotateCamera()
-{
-	float dist = sqrt(eye_x * eye_x + eye_z * eye_z);
-	float ang = atan2(eye_z, eye_x);
-	ang += 0.05f;
-	eye_x = dist * cos(ang);
-	eye_z = dist * sin(ang);
 }
 
 void World::Draw()
@@ -48,7 +37,6 @@ void World::Move()
 	player.Move(0.025f);
 	spheres.Move(0.025f);
 	projectiles.Move(0.025f);
-	// bonus.Move(0.025f);
 	Interact::Bounce(player, box);
 	spheres.Bounce(box);
 	ListInteract::Interact(spheres, platforms);
@@ -66,12 +54,10 @@ void World::Move()
 		player.SetCanJump(true);
 	else
 		player.SetCanJump(false);
-	cout << "jump state"
-	     << "\t" << player.GetCanJump() << endl;
+
 	Sphere *hit = spheres.Collision(player);
 	if (hit != 0)
 	{
-
 		player.SetLives(player.GetLives() - 1);
 		Mix_PlayChannel(-1, hit_player, 0);
 		spheres.Remove(hit);
@@ -80,26 +66,22 @@ void World::Move()
 	{
 		Mix_PlayChannel(-1, player_died, 0);
 	}
-	// bonus.SetVel();
 
+	// Stays true until SetLevel() loads the next level (the M key also sets it)
 	if (Interact::Collision(player, door))
-	{
-		cout << " Collision with level door" << endl;
 		level_finished = true;
-	}
-	else
-		level_finished = false;
-	cout << "Player lives"
-	     << "\t" << player.GetLives() << endl;
-	cout << "Level state"
-	     << "\t" << level_finished << endl;
-} // end World::Move
+
+#ifdef DEBUG
+	cout << "jump state\t" << player.GetCanJump()
+	     << "\tplayer lives\t" << player.GetLives()
+	     << "\tlevel finished\t" << level_finished << endl;
+#endif
+}
 
 void World::Initialize()
 {
 	player.SetLives(3);
 	player.SetVel(0, 0);
-	impact = false;
 	eye_x = 0;
 	eye_y = 7.5;
 	eye_z = 30;
@@ -156,14 +138,6 @@ void World::KeyUp(unsigned char key)
 	}
 }
 
-void World::SpecialKey(unsigned char key)
-{
-	switch (key)
-	{
-		// TODO: Implement
-	}
-}
-
 void World::Key(unsigned char key)
 {
 	switch (key)
@@ -183,7 +157,6 @@ void World::Key(unsigned char key)
 
 	case ' ':
 	{
-
 		Projectile *proj = new Projectile();
 		Vector2D pos = player.GetPos();
 		if (player.GetVel().x >= 0)
@@ -200,66 +173,31 @@ void World::Key(unsigned char key)
 			Mix_PlayChannel(-1, shot, 0);
 		else
 			delete proj;
-
 		break;
 	}
 	case 'o':
-        case 'O':
-	{
+	case 'O':
 		spheres.DestroyContents();
-
 		break;
-	}
 	case 't':
 	case 'T':
-	{
 		player.SetLives(50);
-
 		break;
-	}
 	case 'm':
 	case 'M':
-	{
 		level_finished = true;
-		cout << " Collision with level door" << endl;
-
 		break;
 	}
-	}
-}
-int World::GetNumSpheres()
-{
-
-	return spheres.GetNum();
 }
 
-bool World::HasImpact()
-{
-	return impact;
-}
 bool World::SetLevel()
-
 {
 	level++;
-	// level = 0;
+	level_finished = false;
 	player.SetPos(-8, 0);
 	spheres.DestroyContents();
 	projectiles.DestroyContents();
 	platforms.DestroyContents();
-	// Test_level
-	if (level == 0)
-	{
-		door.SetPos(-2.0f, 1.25f, 2.0f, 8.0f, 0.0f, true);
-
-		Platform *level_platforms[] = {
-		    new Platform(-3.0f, 1.0f, 6.0f)};
-
-		for (unsigned int i = 0; i < sizeof(level_platforms) / sizeof(level_platforms[0]); i++)
-		{
-			platforms.Add(level_platforms[i]);
-		}
-		bonus.SetPos(-20, 13);
-	}
 
 	if (level == 1)
 	{
@@ -313,13 +251,11 @@ bool World::SetLevel()
 			platforms.Add(level_platforms[i]);
 		}
 
-		PulsingSphere *sph3 = new PulsingSphere(5, 5);
-		sph3->SetPos(3, 2);
+		PulsingSphere *sph3 = new PulsingSphere(3, 2);
 		sph3->SetVel(5, 3);
 		spheres.Add(sph3);
 
-		PulsingSphere *sph2 = new PulsingSphere(5, 5);
-		sph2->SetPos(-6, 6);
+		PulsingSphere *sph2 = new PulsingSphere(-6, 6);
 		sph2->SetVel(5, 3);
 		spheres.Add(sph2);
 
@@ -361,17 +297,11 @@ bool World::SetLevel()
 			sph->SetColor(i * 40, 0, 255 - i * 40);
 			spheres.Add(sph);
 		}
-		Sphere *sph1 = new PulsingSphere(5, 5);
-		sph1->SetPos(-3, 4);
+		Sphere *sph1 = new PulsingSphere(-3, 4);
 		sph1->SetVel(1, 1);
 		spheres.Add(sph1);
 	}
-	if (level <= 3)
-		return true;
-	else
-	{
-		return false;
-	}
+	return level <= 3;
 }
 bool World::IsLevelFinished()
 {

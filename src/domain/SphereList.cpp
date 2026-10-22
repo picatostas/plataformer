@@ -4,9 +4,6 @@ using namespace std;
 
 SphereList::SphereList(void)
 {
-	/*items.size()=0;
-	for (int i=0;i<MAX_SPHERES;i++)
-		items[i]=0;*/
 }
 
 SphereList::~SphereList(void)
@@ -33,14 +30,8 @@ void SphereList::Bounce(Box &box)
 	for (unsigned int i = 0; i < items.size(); i++)
 		Interact::Bounce(*(items[i]), box);
 }
-void SphereList::Bounce(Wall wall)
-{
-	for (unsigned int i = 0; i < items.size(); i++)
-		Interact::Bounce(*(items[i]), wall);
-}
 void SphereList::Bounce()
 {
-
 	for (unsigned int i = 0; i < items.size(); i++)
 		for (unsigned int j = i + 1; j < items.size(); j++)
 			Interact::Bounce(*(items[i]), *(items[j]));
@@ -62,17 +53,15 @@ void SphereList::Remove(unsigned int index)
 		return;
 	delete items[index];
 	items.erase(items.begin() + index);
+#ifdef DEBUG
 	cout << "sphere removed" << endl;
-	/*items.size()--;
-	for(int i=index;i<items.size();i++)
-	items[i]=items[i+1];*/
+#endif
 }
 void SphereList::Remove(Sphere *sph)
 {
 	for (unsigned int i = 0; i < items.size(); i++)
 		if (items[i] == sph)
 		{
-			cout << "sphere to remove" << endl;
 			Remove(i);
 			return;
 		}

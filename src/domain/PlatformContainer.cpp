@@ -1,6 +1,4 @@
 #include "PlatformContainer.h"
-#include <iostream>
-#include "World.h"
 
 PlatformContainer::PlatformContainer(void)
 {
@@ -25,24 +23,6 @@ void PlatformContainer::DestroyContents()
 		delete container[i];
 	container.clear();
 }
-void PlatformContainer::Remove(unsigned int index)
-{
-	if (index >= container.size())
-		return;
-	delete container[index];
-	container.erase(container.begin() + index);
-	cout << "platform removed" << endl;
-}
-void PlatformContainer::Remove(Platform *plat)
-{
-	for (unsigned int i = 0; i < container.size(); i++)
-		if (container[i] == plat)
-		{
-			cout << "platform to remove" << endl;
-			Remove(i);
-			return;
-		}
-}
 void PlatformContainer::Collision(Player &plyr)
 {
 	for (unsigned int i = 0; i < container.size(); i++)
@@ -53,7 +33,6 @@ void PlatformContainer::Collision(Player &plyr)
 
 int PlatformContainer::GetNum()
 {
-
 	return container.size();
 }
 Platform *PlatformContainer::operator[](unsigned int i)

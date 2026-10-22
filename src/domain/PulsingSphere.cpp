@@ -43,7 +43,3 @@ Sphere *PulsingSphere::Split()
 	SetVel(-5, 8); // to the original half
 	return half;
 }
-void PulsingSphere::SetPulse(float t)
-{
-	pulse = t;
-}

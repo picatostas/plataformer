@@ -8,7 +8,4 @@ public:
 	static bool Interact(SphereList &spheres, ProjectileList &projectiles);
 
 	static void Interact(SphereList &spheres, PlatformContainer &platforms);
-
-	ListInteract(void);
-	~ListInteract(void);
 };

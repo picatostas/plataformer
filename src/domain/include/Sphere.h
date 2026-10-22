@@ -16,12 +16,8 @@ public:
 	virtual ~Sphere(void);
 	virtual Sphere *Split();
 	void SetColor(unsigned char r, unsigned char g, unsigned char b);
-	void SetRad(float r);
 
 	void Draw(void);
-	//void Move(float t);
-
-	float GetRad();
 
 	// collision between spheres
 	float Distance(Vector2D point, Vector2D *direction = 0);

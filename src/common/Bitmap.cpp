@@ -14,10 +14,7 @@
 #define GL_BGRA_EXT 0x80E1
 #endif
 
-Bitmap::Bitmap() : status(false), bytes_pixel(0), texture(0), texture_path(nullptr)
-{
-}
-Bitmap::Bitmap(char *filename) : status(false), bytes_pixel(0), texture(0), texture_path(filename)
+Bitmap::Bitmap(char *texture_path) : bytes_pixel(0), texture(0)
 {
 	char buffer[3] = "\0";
 	FILE *file;
@@ -84,12 +81,6 @@ Bitmap::Bitmap(char *filename) : status(false), bytes_pixel(0), texture(0), text
 	}
 	// OpenGL keeps its own copy of the pixels
 	delete[] image;
-	status = true;
-}
-
-bool Bitmap::GetStatus()
-{
-	return status;
 }
 
 void Bitmap::ApplyTexture()
@@ -110,8 +101,4 @@ void Bitmap::ReleaseTexture()
 	{
 		glPopAttrib();
 	}
-}
-
-Bitmap::~Bitmap()
-{
 }
